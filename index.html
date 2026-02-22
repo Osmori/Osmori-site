@@ -151,6 +151,7 @@
             border: 1px solid #333;
             color: #fff;
             font-size: 1rem;
+            border-radius: 4px;
         }
 
         .signup-form input::placeholder {
@@ -164,6 +165,45 @@
             border: none;
             font-weight: 600;
             cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .review-section {
+            margin: 4rem 0;
+            padding: 2rem;
+            background-color: #111;
+            border-radius: 4px;
+            border-top: 1px solid #333;
+        }
+
+        .review-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+
+        .review-section input, 
+        .review-section select, 
+        .review-section textarea {
+            width: 100%;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background-color: #222;
+            border: 1px solid #333;
+            color: #fff;
+            border-radius: 4px;
+            font-family: inherit;
+        }
+
+        .review-section button {
+            padding: 1rem 2rem;
+            background-color: #fff;
+            color: #0a0a0a;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 4px;
+            width: 100%;
         }
 
         .social {
@@ -230,7 +270,7 @@
             <p style="margin-top: 1rem;">We do not make perfume. We capture genesis events. Each bottle contains not a blend, but a controlled collision of primordial truths and synthetic origins.</p>
         </div>
 
-        <div class="product">
+        <div class="product" id="product">
             <h2>GENESIS 001</h2>
             <p style="color: #aaa; margin-bottom: 1rem;">The first event. Warm spices meet creamy woods and enveloping musk. Sweet without cloying. Dark without cold.</p>
             
@@ -242,17 +282,68 @@
             
             <p style="margin: 1rem 0; color: #ccc;">10ml · Eau de Parfum · Free Shipping</p>
             
-            <a href="#" class="button">RESERVE YOUR BOTTLE</a>
-            <a href="#" class="button button-outline">LEARN MORE</a>
+            <a href="mailto:hello@osmori.com?subject=Reserve%20Genesis%20001&body=I%20want%20to%20reserve%20a%20Founding%20Unit" class="button">RESERVE YOUR BOTTLE</a>
+            <a href="#product" class="button button-outline">LEARN MORE</a>
             
             <p class="note">Founding units include lifetime access to future releases and your name in the Genesis acknowledgments.</p>
+        </div>
+
+        <!-- TESTER REVIEW FORM (Private - For Authorized Testers Only) -->
+        <div class="review-section">
+            <h3>OSMORI Tester Review</h3>
+            <p style="margin-bottom: 1.5rem; color: #aaa;">For authorized testers only. Your feedback shapes Genesis.</p>
+            
+            <form action="https://formsubmit.co/hello@osmori.com" method="POST">
+                <input type="hidden" name="_subject" value="New OSMORI Tester Review">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_template" value="table">
+                
+                <input type="text" name="name" placeholder="Your Name" required>
+                
+                <select name="price_opinion" required>
+                    <option value="" disabled selected>What should a 10ML bottle cost?</option>
+                    <option value="15-20">$15 - $20</option>
+                    <option value="20-25">$20 - $25</option>
+                    <option value="25-30">$25 - $30</option>
+                    <option value="30-35">$30 - $35</option>
+                    <option value="35+">$35+</option>
+                </select>
+                
+                <select name="luxury_rating" required>
+                    <option value="" disabled selected>How luxurious does this feel? (1-10)</option>
+                    <option value="1">1 - Not luxurious</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5 - Average</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9 - Very luxurious</option>
+                    <option value="10">10 - Ultra premium</option>
+                </select>
+                
+                <input type="text" name="sweetness_description" placeholder="How would you describe the sweetness? (e.g., 'Sweet like candy', 'Subtle vanilla', 'Not sweet at all')">
+                
+                <input type="text" name="vibe" placeholder="What vibe does this give? (e.g., 'Cozy fall evening', 'Dark energy', 'Clean and fresh')">
+                
+                <input type="text" name="longevity" placeholder="How many hours did it last on your skin?">
+                
+                <textarea name="feedback" placeholder="Any suggestions? What would you change?" rows="4"></textarea>
+                
+                <button type="submit">SUBMIT REVIEW</button>
+            </form>
+            
+            <p style="font-size: 0.8rem; color: #666; margin-top: 1rem;">Your response will be sent privately to hello@osmori.com</p>
         </div>
 
         <div class="signup">
             <h3>Witness the next genesis</h3>
             <p style="margin-bottom: 1.5rem; color: #aaa;">Be the first to know when new events emerge.</p>
             
-            <form class="signup-form" action="https://formspree.io/f/mvzbodpz" method="POST">
+            <form class="signup-form" action="https://formsubmit.co/hello@osmori.com" method="POST">
+                <input type="hidden" name="_subject" value="New OSMORI Subscriber">
+                <input type="hidden" name="_captcha" value="false">
                 <input type="email" name="email" placeholder="your@email.com" required>
                 <button type="submit">Subscribe</button>
             </form>
@@ -260,11 +351,12 @@
 
         <div class="social">
             <a href="https://instagram.com/osmori.official" target="_blank">Instagram</a>
-            <a href="#" target="_blank">Email</a>
+            <a href="mailto:hello@osmori.com">Email</a>
         </div>
 
         <footer>
             <p>© 2026 OSMORI · Haskell, NJ</p>
+            <p>hello@osmori.com</p>
             <p style="margin-top: 0.5rem;">Genesis 001 — Est. 2026</p>
         </footer>
     </div>
