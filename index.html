@@ -1,60 +1,68 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OSMORI | Lab Notes</title>
-    <style>
-        body { background-color: #000; color: #fff; font-family: 'Helvetica', sans-serif; display: flex; justify-content: center; padding: 40px 0; margin: 0; }
-        .container { max-width: 500px; width: 90%; letter-spacing: 1px; }
-        h1 { font-size: 2.5rem; margin-bottom: 5px; font-weight: 300; text-align: center; }
-        .subtitle { font-size: 0.7rem; color: #666; text-transform: uppercase; margin-bottom: 30px; border-bottom: 1px solid #222; padding-bottom: 15px; text-align: center; }
-        .form-card { background: #0a0a0a; border: 1px solid #1a1a1a; padding: 30px; text-align: left; }
-        label { display: block; font-size: 0.7rem; text-transform: uppercase; color: #888; margin-bottom: 8px; margin-top: 20px; }
-        input, textarea, select { width: 100%; padding: 12px; background: #111; border: 1px solid #333; color: #fff; box-sizing: border-box; font-family: inherit; }
-        .btn { display: block; width: 100%; border: 1px solid #fff; background: none; color: #fff; padding: 15px; text-transform: uppercase; font-size: 0.7rem; cursor: pointer; margin-top: 30px; transition: 0.3s; }
-        .btn:hover { background: #fff; color: #000; }
-        .notes { font-size: 0.75rem; color: #555; margin-bottom: 10px; }
-    </style>
-</head>
 <body>
-    <div class="container">
-        <h1>OSMORI</h1>
-        <div class="subtitle">Haskell, New Jersey — Est. 2026</div>
+    <div class="nav">OSMORI</div>
 
-        <div class="form-card">
-            <p class="notes"><strong>Genesis 001 — Final Sample Evaluation</strong><br>Testing:  Cardamom & Ginger with Vanilla Base.</p>
-            
+    <div class="hero">
+        <div class="batch-tag">Batch 001: Genesis</div>
+        <h1>10ML Travel Extrait</h1>
+        
+        <div id="pricing-header">
+            <div class="price">$32.00 <span style="font-size: 0.8rem; color: #555;">(Free Shipping)</span></div>
+            <div class="founders-alert">Status: First 5 Founding Units — $28.00 Applied at Checkout</div>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+            <button onclick="showForm('order')" id="btn-order" style="background:#fff; color:#000; padding:10px; border:1px solid #fff; cursor:pointer; font-size:0.7rem;">ORDER BOTTLE</button>
+            <button onclick="showForm('review')" id="btn-review" style="background:none; color:#fff; padding:10px; border:1px solid #fff; cursor:pointer; font-size:0.7rem;">LEAVE REVIEW</button>
+        </div>
+
+        <div id="order-form" class="order-form">
             <form action="https://formspree.io/f/mvzbodpz" method="POST">
-                <label>Reviewer Name</label>
-                <input type="text" name="name" required>
-
-                <label>How much would you pay for a 10ml bottle of this?</label>
-                <select name="pricing">
-                    <option value="15-20">$15 - $20</option>
-                    <option value="25-35">$25 - $35 (Premium)</option>
-                    <option value="40+">$40+ (Luxury Niche)</option>
+                <input type="hidden" name="_subject" value="New OSMORI Genesis 001 Order">
+                <label>Full Name</label><input type="text" name="name" required>
+                <label>Shipping Address</label><input type="text" name="address" required>
+                <label>Email</label><input type="email" name="email" required>
+                <label>Tier</label>
+                <select name="tier">
+                    <option value="Standard">Standard Batch ($32)</option>
+                    <option value="Founding">Founding Member ($28)</option>
                 </select>
-
-                <label>On a scale of 1-10, how "Expensive" does this smell?</label>
-                <input type="number" name="luxury" min="1" max="10">
-
-                <label>Does the sweetness smell like "Candy" or "Sophisticated Vanilla"?</label>
-                <textarea name="sweetness_check" rows="2" placeholder="Be honest"></textarea>
-
-                <label>What emotion or "Vibe" does this scent give you?</label>
-                <input type="text" name="vibe" placeholder="e.g. Dark, Cozy, Energetic">
-
-                <label>Longevity (How many hours did it stay on skin?)</label>
-                <input type="text" name="longevity">
-
-                <label>Detailed Feedback for the Master Batch</label>
-                <textarea name="feedback" rows="4"></textarea>
-
-                <button type="submit" class="btn">Submit Review to Lab</button>
+                <button type="submit" class="btn">Reserve Your Bottle</button>
             </form>
         </div>
-        <p style="font-size: 0.6rem; color: #333; text-align: center; margin-top: 20px;">MASTER BATCH PRODUCTION: MARCH 27, 2026</p>
+
+        <div id="review-form" class="order-form" style="display:none;">
+            <form action="https://formspree.io/f/mvzbodpz" method="POST">
+                <input type="hidden" name="_subject" value="New OSMORI Lab Review">
+                <label>Reviewer Name</label><input type="text" name="name" required>
+                <label>Scale 1-10: How "Expensive" does it smell?</label>
+                <input type="number" name="luxury_rating" min="1" max="10">
+                <label>Sweetness: "Candy" or "Sophisticated"?</label>
+                <input type="text" name="sweetness_style">
+                <label>Longevity (Hours on skin)</label>
+                <input type="text" name="longevity">
+                <label>Detailed Feedback</label>
+                <textarea name="feedback" rows="4" style="width:100%; background:#000; border:1px solid #222; color:#fff;"></textarea>
+                <button type="submit" class="btn">Submit Lab Notes</button>
+            </form>
+        </div>
     </div>
+
+    <script>
+        function showForm(type) {
+            const order = document.getElementById('order-form');
+            const review = document.getElementById('review-form');
+            const btnO = document.getElementById('btn-order');
+            const btnR = document.getElementById('btn-review');
+            
+            if(type === 'order') {
+                order.style.display = 'block'; review.style.display = 'none';
+                btnO.style.background = '#fff'; btnO.style.color = '#000';
+                btnR.style.background = 'none'; btnR.style.color = '#fff';
+            } else {
+                order.style.display = 'none'; review.style.display = 'block';
+                btnR.style.background = '#fff'; btnR.style.color = '#000';
+                btnO.style.background = 'none'; btnO.style.color = '#fff';
+            }
+        }
+    </script>
 </body>
-</html>
