@@ -298,10 +298,12 @@
             gap: 1rem;
             max-width: 500px;
             margin: 0 auto;
+            flex-wrap: wrap;
         }
 
         .signup-form input {
             flex: 1;
+            min-width: 200px;
             padding: 1rem;
             background-color: #222;
             border: 1px solid #333;
@@ -615,9 +617,15 @@
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 
     <script>
+        // ===== REPLACE THESE THREE VALUES =====
+        const EMAILJS_PUBLIC_KEY = 'roVMLYqZxGq2DHjka';
+        const EMAILJS_SERVICE_ID = 'service_qoyc0xq';
+        const SHEETBEST_URL = 'https://api.sheetbest.com/sheets/6b85498e-9615-4249-80e0-82e26f255cdc';
+        // ======================================
+
         // Initialize EmailJS
         (function() {
-            emailjs.init('roVMLYqZxGq2DHjka');
+            emailjs.init(EMAILJS_PUBLIC_KEY);
         })();
 
         // Tab Navigation
@@ -646,10 +654,13 @@
             const name = document.getElementById('signup-name').value;
             
             try {
-                // Send to Google Sheets
-                await fetch('https://api.sheetbest.com/sheets/6b85498e-9615-4249-80e0-82e26f255cdc', {
+                // Send to Google Sheets via Sheet.best
+                const sheetResponse = await fetch(SHEETBEST_URL, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
                     body: JSON.stringify({
                         timestamp: new Date().toISOString(),
                         name: name,
@@ -657,9 +668,13 @@
                         type: 'signup'
                     })
                 });
+
+                if (!sheetResponse.ok) {
+                    throw new Error('Sheet.best error: ' + sheetResponse.status);
+                }
                 
-                // Send welcome email
-                await emailjs.send('service_qoyc0xq', 'welcome_template', {
+                // Send welcome email via EmailJS
+                await emailjs.send(EMAILJS_SERVICE_ID, 'welcome_template', {
                     name: name,
                     email: email
                 });
@@ -667,7 +682,8 @@
                 document.getElementById('signup-form').style.display = 'none';
                 document.getElementById('signup-success').style.display = 'block';
             } catch (error) {
-                alert('Something went wrong. Please email hello@osmori.com directly.');
+                console.error('Error:', error);
+                alert('Something went wrong. Please email hello@osmori.com directly. Error: ' + error.message);
             }
         });
 
@@ -687,15 +703,23 @@
             };
             
             try {
-                await fetch('https://formsubmit.co/ajax/hello@osmori.com', {
+                const response = await fetch('https://formsubmit.co/ajax/hello@osmori.com', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                    headers: { 
+                        'Content-Type': 'application/json', 
+                        'Accept': 'application/json' 
+                    },
                     body: JSON.stringify(formData)
                 });
                 
-                document.getElementById('review-form-container').style.display = 'none';
-                document.getElementById('review-success').style.display = 'block';
+                if (response.ok) {
+                    document.getElementById('review-form-container').style.display = 'none';
+                    document.getElementById('review-success').style.display = 'block';
+                } else {
+                    throw new Error('Formsubmit error');
+                }
             } catch (error) {
+                console.error('Error:', error);
                 alert('Error submitting form. Please email hello@osmori.com directly.');
             }
         });
