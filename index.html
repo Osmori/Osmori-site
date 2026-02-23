@@ -55,7 +55,6 @@
             line-height: 1.8;
         }
 
-        /* Navigation Tabs */
         .nav-tabs {
             display: flex;
             gap: 2rem;
@@ -85,7 +84,6 @@
             border-bottom: 2px solid #fff;
         }
 
-        /* Tab Content */
         .tab-content {
             display: none;
             animation: fadeIn 0.5s ease;
@@ -224,11 +222,6 @@
             cursor: pointer;
             background-color: #333;
             color: #fff;
-        }
-
-        .button-disabled:hover {
-            background-color: #444;
-            transform: none;
         }
 
         .founding-note {
@@ -444,7 +437,6 @@
             <p style="margin-top: 1rem;">We do not make perfume. We capture genesis events. Each bottle contains not a blend, but a controlled collision of primordial truths and synthetic origins.</p>
         </div>
 
-        <!-- Navigation Tabs -->
         <div class="nav-tabs">
             <a class="nav-tab active" onclick="showTab('mens')">MEN</a>
             <a class="nav-tab" onclick="showTab('womens')">WOMEN</a>
@@ -476,23 +468,27 @@
             </div>
         </div>
 
-        <!-- WOMEN'S TAB -->
+        <!-- WOMEN'S TAB — SAMPLES ONLY -->
         <div id="womens" class="tab-content">
-            <div class="product-grid">
-                <div class="product-card">
-                    <div class="badge badge-silver">GENESIS 002</div>
-                    <h3>MIDNIGHT BLOOM</h3>
-                    <div class="product-tag">For Her</div>
-                    <p class="product-description">Sweet vanilla candy meets soft florals and clean musk. Smooth, modern, and made for nights out. Inspired by Black Opium, made our way.</p>
-                    <div class="product-price">$32 <span>$35</span></div>
-                    <p style="color: #888; font-size: 0.9rem; margin-bottom: 1.5rem;">10ml · Eau de Parfum · Free Shipping</p>
-                    
-                    <button class="button button-disabled" onclick="alert('Genesis 002 is currently available as a sample while we gather feedback. Full bottles will launch after community testing.')">
-                        SAMPLES ONLY
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <h3 style="font-size: 2rem; color: #fff; font-weight: 300;">GENESIS 002 — MIDNIGHT VANILLE</h3>
+                <p style="color: #aaa; max-width: 600px; margin: 1rem auto;">A mature vanilla with soft florals and warm woods. Currently in testing — samples available now.</p>
+            </div>
+            
+            <div class="sample-grid" style="justify-content: center;">
+                <div class="sample-card" style="max-width: 300px;">
+                    <h4>MIDNIGHT VANILLE</h4>
+                    <p style="color: #888; font-size: 0.9rem;">For Her · 2ml spray sample</p>
+                    <p style="font-size: 2rem; color: #fff; margin: 1rem 0;">$4 <span style="font-size: 0.9rem; color: #888;">+ $5.50 shipping</span></p>
+                    <button class="button button-outline" onclick="alert('Sample ordering will be available once Stripe approval is complete. Join the email list to be notified.')">
+                        COMING SOON
                     </button>
-                    
-                    <p class="note" style="margin-top: 1rem;">Try a sample first — full bottles coming soon.</p>
+                    <p class="note" style="margin-top: 1rem;">Full bottles launching after community feedback.</p>
                 </div>
+            </div>
+            
+            <div class="shipping-note" style="max-width: 500px; margin: 2rem auto;">
+                <p><strong>Note:</strong> Your feedback shapes the final formula. Every sample includes a discount code toward the full bottle when it launches.</p>
             </div>
         </div>
 
@@ -538,19 +534,20 @@
             </div>
         </div>
 
-        <!-- EMAIL SIGNUP SECTION -->
+        <!-- SIGNUP SECTION -->
         <div class="signup-section">
             <h3>BECOME AN INSIDER</h3>
             <p>Sign up for exclusive updates, early access to new releases, and special offers. The first 5 subscribers will receive a secret perk via email.</p>
             
             <form class="signup-form" id="signup-form">
                 <input type="email" id="signup-email" placeholder="Your email address" required>
+                <input type="text" id="signup-name" placeholder="Your name" required>
                 <button type="submit" id="signup-submit">SIGN UP</button>
             </form>
             <div id="signup-success" style="display: none; color: #4CAF50; margin-top: 1rem;">✓ Thanks for subscribing. First 5 will hear from us soon.</div>
         </div>
 
-        <!-- TESTER REVIEW FORM -->
+        <!-- REVIEW FORM -->
         <div class="review-section" id="review-section">
             <h3>TESTER FEEDBACK</h3>
             <p style="margin-bottom: 1.5rem; color: #aaa; text-align: center;">For authorized testers only. Your feedback shapes Genesis.</p>
@@ -602,7 +599,6 @@
             <p style="font-size: 0.8rem; color: #666; margin-top: 1rem;">Your response is sent privately to hello@osmori.com</p>
         </div>
 
-        <!-- SOCIAL & FOOTER -->
         <div class="social">
             <a href="https://instagram.com/osmori.official" target="_blank">INSTAGRAM</a>
             <a href="mailto:hello@osmori.com">EMAIL</a>
@@ -615,34 +611,67 @@
         </footer>
     </div>
 
-    <!-- SCRIPTS -->
+    <!-- EmailJS Library -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
     <script>
-        // TAB NAVIGATION
+        // Initialize EmailJS
+        (function() {
+            emailjs.init('roVMLYqZxGq2DHjka');
+        })();
+
+        // Tab Navigation
         function showTab(tabName) {
-            // Hide all tabs
             document.getElementById('mens').classList.remove('active');
             document.getElementById('womens').classList.remove('active');
             document.getElementById('samples').classList.remove('active');
             
-            // Show selected tab
             document.getElementById(tabName).classList.add('active');
             
-            // Update active state on nav tabs
             let navTabs = document.getElementsByClassName('nav-tab');
             for (let i = 0; i < navTabs.length; i++) {
                 navTabs[i].classList.remove('active');
             }
             
-            if (tabName === 'mens') {
-                navTabs[0].classList.add('active');
-            } else if (tabName === 'womens') {
-                navTabs[1].classList.add('active');
-            } else if (tabName === 'samples') {
-                navTabs[2].classList.add('active');
-            }
+            if (tabName === 'mens') navTabs[0].classList.add('active');
+            if (tabName === 'womens') navTabs[1].classList.add('active');
+            if (tabName === 'samples') navTabs[2].classList.add('active');
         }
 
-        // TESTER REVIEW FORM
+        // Signup Form
+        document.getElementById('signup-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('signup-email').value;
+            const name = document.getElementById('signup-name').value;
+            
+            try {
+                // Send to Google Sheets
+                await fetch('https://api.sheetbest.com/sheets/6b85498e-9615-4249-80e0-82e26f255cdc', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        timestamp: new Date().toISOString(),
+                        name: name,
+                        email: email,
+                        type: 'signup'
+                    })
+                });
+                
+                // Send welcome email
+                await emailjs.send('service_qoyc0xq', 'welcome_template', {
+                    name: name,
+                    email: email
+                });
+                
+                document.getElementById('signup-form').style.display = 'none';
+                document.getElementById('signup-success').style.display = 'block';
+            } catch (error) {
+                alert('Something went wrong. Please email hello@osmori.com directly.');
+            }
+        });
+
+        // Tester Review Form
         document.getElementById('tester-review-form').addEventListener('submit', async function(e) {
             e.preventDefault();
             
@@ -658,53 +687,14 @@
             };
             
             try {
-                const response = await fetch('https://formsubmit.co/ajax/hello@osmori.com', {
+                await fetch('https://formsubmit.co/ajax/hello@osmori.com', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    },
+                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
                     body: JSON.stringify(formData)
                 });
                 
-                if (response.ok) {
-                    document.getElementById('review-form-container').style.display = 'none';
-                    document.getElementById('review-success').style.display = 'block';
-                } else {
-                    alert('Something went wrong. Please email hello@osmori.com directly.');
-                }
-            } catch (error) {
-                alert('Error submitting form. Please email hello@osmori.com directly.');
-            }
-        });
-
-        // EMAIL SIGNUP FORM
-        document.getElementById('signup-form').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const email = document.getElementById('signup-email').value;
-            
-            const formData = {
-                email: email,
-                _subject: "New OSMORI Subscriber"
-            };
-            
-            try {
-                const response = await fetch('https://formsubmit.co/ajax/hello@osmori.com', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    },
-                    body: JSON.stringify(formData)
-                });
-                
-                if (response.ok) {
-                    document.getElementById('signup-form').style.display = 'none';
-                    document.getElementById('signup-success').style.display = 'block';
-                } else {
-                    alert('Something went wrong. Please email hello@osmori.com directly.');
-                }
+                document.getElementById('review-form-container').style.display = 'none';
+                document.getElementById('review-success').style.display = 'block';
             } catch (error) {
                 alert('Error submitting form. Please email hello@osmori.com directly.');
             }
