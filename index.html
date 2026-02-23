@@ -62,6 +62,7 @@
             margin: 2rem 0 3rem;
             border-bottom: 1px solid #333;
             padding-bottom: 1rem;
+            justify-content: center;
         }
 
         .nav-tab {
@@ -72,6 +73,7 @@
             text-transform: uppercase;
             transition: color 0.3s;
             cursor: pointer;
+            padding: 0.5rem 0;
         }
 
         .nav-tab:hover {
@@ -81,12 +83,17 @@
         .nav-tab.active {
             color: #fff;
             border-bottom: 2px solid #fff;
-            padding-bottom: 0.5rem;
         }
 
         /* Tab Content */
         .tab-content {
             display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .tab-content.active {
@@ -98,17 +105,19 @@
             font-weight: 300;
             margin: 2rem 0;
             color: #fff;
+            text-align: center;
         }
 
         .product-grid {
             display: flex;
-            flex-wrap: wrap;
+            justify-content: center;
             gap: 2rem;
             margin: 2rem 0;
+            flex-wrap: wrap;
         }
 
         .product-card {
-            flex: 1 1 300px;
+            flex: 0 1 400px;
             background-color: #111;
             padding: 2rem;
             border-radius: 4px;
@@ -122,9 +131,11 @@
         }
 
         .product-card h3 {
-            font-size: 1.8rem;
+            font-size: 2rem;
             color: #fff;
             margin-bottom: 0.5rem;
+            font-weight: 300;
+            letter-spacing: 0.05em;
         }
 
         .product-tag {
@@ -138,9 +149,10 @@
         }
 
         .product-price {
-            font-size: 2rem;
+            font-size: 2.5rem;
             color: #fff;
             margin: 1rem 0;
+            font-weight: 300;
         }
 
         .product-price span {
@@ -152,8 +164,9 @@
 
         .product-description {
             color: #aaa;
-            margin: 1rem 0;
-            font-size: 0.95rem;
+            margin: 1.5rem 0;
+            font-size: 1rem;
+            line-height: 1.8;
         }
 
         .badge {
@@ -183,10 +196,11 @@
             border: none;
             cursor: pointer;
             transition: all 0.3s;
-            margin: 0.5rem 0;
+            margin: 1rem 0;
             border-radius: 2px;
             width: 100%;
             text-align: center;
+            font-size: 1rem;
         }
 
         .button:hover {
@@ -206,10 +220,15 @@
         }
 
         .button-disabled {
-            opacity: 0.5;
-            pointer-events: none;
-            cursor: not-allowed;
-            background-color: #666;
+            opacity: 0.8;
+            cursor: pointer;
+            background-color: #333;
+            color: #fff;
+        }
+
+        .button-disabled:hover {
+            background-color: #444;
+            transform: none;
         }
 
         .founding-note {
@@ -218,14 +237,9 @@
             border-radius: 4px;
             margin: 2rem 0;
             border-left: 3px solid #ffd700;
-        }
-
-        .sample-section {
-            background-color: #111;
-            padding: 2rem;
-            border-radius: 4px;
-            margin: 3rem 0;
-            border: 1px solid #444;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .sample-grid {
@@ -233,49 +247,57 @@
             flex-wrap: wrap;
             gap: 2rem;
             margin-top: 2rem;
+            justify-content: center;
         }
 
         .sample-card {
-            flex: 1 1 250px;
-            background-color: #222;
-            padding: 1.5rem;
+            flex: 0 1 300px;
+            background-color: #111;
+            padding: 2rem;
             border-radius: 4px;
+            border: 1px solid #222;
         }
 
         .sample-card h4 {
-            font-size: 1.3rem;
+            font-size: 1.5rem;
             color: #fff;
             margin-bottom: 0.5rem;
+            font-weight: 300;
         }
 
         .shipping-note {
             background-color: #1a1a1a;
             padding: 1rem;
             border-radius: 4px;
-            margin: 1rem 0;
+            margin: 2rem auto;
             font-size: 0.9rem;
             color: #aaa;
             border-left: 3px solid #666;
+            max-width: 600px;
         }
 
-        .signup-popup {
+        .signup-section {
             background-color: #111;
-            padding: 2rem;
+            padding: 3rem 2rem;
             border-radius: 4px;
-            margin: 3rem 0;
+            margin: 4rem 0;
             border: 1px solid #444;
             text-align: center;
         }
 
-        .signup-popup h3 {
-            font-size: 1.8rem;
+        .signup-section h3 {
+            font-size: 2rem;
             color: #fff;
             margin-bottom: 1rem;
+            font-weight: 300;
         }
 
-        .signup-popup p {
+        .signup-section p {
             color: #aaa;
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .signup-form {
@@ -292,6 +314,7 @@
             border: 1px solid #333;
             color: #fff;
             border-radius: 4px;
+            font-size: 1rem;
         }
 
         .signup-form button {
@@ -302,6 +325,7 @@
             font-weight: 600;
             cursor: pointer;
             border-radius: 4px;
+            font-size: 1rem;
         }
 
         .review-section {
@@ -313,9 +337,11 @@
         }
 
         .review-section h3 {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             margin-bottom: 1rem;
             color: #fff;
+            font-weight: 300;
+            text-align: center;
         }
 
         .review-section input, 
@@ -340,6 +366,7 @@
             cursor: pointer;
             border-radius: 4px;
             width: 100%;
+            font-size: 1rem;
         }
 
         .social {
@@ -351,9 +378,10 @@
             color: #fff;
             text-decoration: none;
             margin: 0 1rem;
-            font-size: 1.1rem;
+            font-size: 1rem;
             opacity: 0.7;
             transition: opacity 0.3s;
+            letter-spacing: 0.1em;
         }
 
         .social a:hover {
@@ -381,17 +409,6 @@
             text-align: center;
         }
 
-        .stripe-badge {
-            display: inline-block;
-            background-color: #635bff;
-            color: white;
-            padding: 0.3rem 0.8rem;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            margin-left: 1rem;
-            vertical-align: middle;
-        }
-
         @media (max-width: 600px) {
             h1 {
                 font-size: 2.5rem;
@@ -403,6 +420,10 @@
             
             .nav-tabs {
                 gap: 1rem;
+            }
+            
+            .nav-tab {
+                font-size: 1rem;
             }
             
             .signup-form {
@@ -434,78 +455,91 @@
         <div id="mens" class="tab-content active">
             <div class="founding-note">
                 <p style="color: #ffd700; font-weight: 600;">FIRST 5 BOTTLES</p>
-                <p style="color: #aaa;">The first 5 customers who purchase a full bottle of Genesis 001 will receive 10% off all future scents (Genesis 003 and beyond) and early access to every new release before the public.</p>
+                <p style="color: #aaa;">The first 5 customers who purchase a full bottle of Genesis 001 will receive 10% off all future scents and early access to every new release before the public.</p>
             </div>
 
-            <div class="product-card" style="max-width: 400px; margin: 0 auto;">
-                <div class="badge">GENESIS 001</div>
-                <h3>THE FIRST EVENT</h3>
-                <div class="product-tag">For Him</div>
-                <p class="product-description">Warm spices meet creamy woods and enveloping musk. Sweet without cloying. Dark without cold. Inspired by Azzaro Most Wanted, refined through feedback.</p>
-                <div class="product-price">$32 <span>$35</span></div>
-                <p style="color: #888; font-size: 0.9rem;">10ml · Eau de Parfum · Free Shipping</p>
-                
-                <a href="#" class="button button-disabled" onclick="alert('Stripe approval in progress. Check back soon!')">RESERVE YOUR BOTTLE</a>
-                <span class="stripe-badge">Approval Pending</span>
-                
-                <p class="note" style="margin-top: 1rem;">First 5 bottles receive lifetime benefits.</p>
+            <div class="product-grid">
+                <div class="product-card">
+                    <div class="badge">GENESIS 001</div>
+                    <h3>THE FIRST EVENT</h3>
+                    <div class="product-tag">For Him</div>
+                    <p class="product-description">Warm spices meet creamy woods and enveloping musk. Sweet without cloying. Dark without cold. Inspired by Azzaro Most Wanted, refined through feedback.</p>
+                    <div class="product-price">$32 <span>$35</span></div>
+                    <p style="color: #888; font-size: 0.9rem; margin-bottom: 1.5rem;">10ml · Eau de Parfum · Free Shipping</p>
+                    
+                    <button class="button button-disabled" onclick="alert('Thank you for your interest in Genesis 001. Full bottle sales will begin once Stripe approval is complete. Join the email list below to be notified.')">
+                        NOTIFY ME WHEN AVAILABLE
+                    </button>
+                    
+                    <p class="note" style="margin-top: 1rem;">First 5 bottles receive lifetime benefits.</p>
+                </div>
             </div>
         </div>
 
         <!-- WOMEN'S TAB -->
         <div id="womens" class="tab-content">
-            <div class="product-card" style="max-width: 400px; margin: 0 auto;">
-                <div class="badge badge-silver">GENESIS 002</div>
-                <h3>MIDNIGHT BLOOM</h3>
-                <div class="product-tag">For Her</div>
-                <p class="product-description">Sweet vanilla candy meets soft florals and clean musk. Smooth, modern, and made for nights out. Inspired by Black Opium, made our way.</p>
-                <div class="product-price">$32 <span>$35</span></div>
-                <p style="color: #888; font-size: 0.9rem;">10ml · Eau de Parfum · Free Shipping</p>
-                
-                <a href="#" class="button button-disabled" onclick="alert('Available as samples only while we gather feedback. Full bottles coming soon.')">SAMPLES ONLY</a>
-                
-                <p class="note" style="margin-top: 1rem;">Full bottles launching after community feedback.</p>
+            <div class="product-grid">
+                <div class="product-card">
+                    <div class="badge badge-silver">GENESIS 002</div>
+                    <h3>MIDNIGHT BLOOM</h3>
+                    <div class="product-tag">For Her</div>
+                    <p class="product-description">Sweet vanilla candy meets soft florals and clean musk. Smooth, modern, and made for nights out. Inspired by Black Opium, made our way.</p>
+                    <div class="product-price">$32 <span>$35</span></div>
+                    <p style="color: #888; font-size: 0.9rem; margin-bottom: 1.5rem;">10ml · Eau de Parfum · Free Shipping</p>
+                    
+                    <button class="button button-disabled" onclick="alert('Genesis 002 is currently available as a sample while we gather feedback. Full bottles will launch after community testing.')">
+                        SAMPLES ONLY
+                    </button>
+                    
+                    <p class="note" style="margin-top: 1rem;">Try a sample first — full bottles coming soon.</p>
+                </div>
             </div>
         </div>
 
         <!-- SAMPLES TAB -->
         <div id="samples" class="tab-content">
-            <div class="sample-section" style="margin-top: 0;">
-                <h3 style="font-size: 1.8rem; margin-bottom: 1rem;">Try Before You Commit</h3>
-                <p style="color: #aaa; margin-bottom: 1.5rem;">Experience Genesis first. Every sample includes a one-time discount code toward your first full bottle, sent to your email after purchase.</p>
-                
-                <div class="sample-grid">
-                    <div class="sample-card">
-                        <h4>GENESIS 001</h4>
-                        <p style="color: #888; font-size: 0.9rem;">For Him · 2ml spray</p>
-                        <p style="font-size: 1.5rem; color: #fff; margin: 1rem 0;">$4 <span style="font-size: 0.9rem; color: #888;">+ $5.50 shipping</span></p>
-                        <a href="mailto:hello@osmori.com?subject=Genesis%20001%20Sample%20Order" class="button button-outline">ORDER VIA EMAIL</a>
-                    </div>
-                    
-                    <div class="sample-card">
-                        <h4>GENESIS 002</h4>
-                        <p style="color: #888; font-size: 0.9rem;">For Her · 2ml spray</p>
-                        <p style="font-size: 1.5rem; color: #fff; margin: 1rem 0;">$4 <span style="font-size: 0.9rem; color: #888;">+ $5.50 shipping</span></p>
-                        <a href="mailto:hello@osmori.com?subject=Genesis%20002%20Sample%20Order" class="button button-outline">ORDER VIA EMAIL</a>
-                    </div>
-                    
-                    <div class="sample-card" style="border: 1px solid #ffd700;">
-                        <h4>DISCOVERY SET</h4>
-                        <p style="color: #888; font-size: 0.9rem;">Both Scents · 2ml each</p>
-                        <p style="font-size: 1.5rem; color: #fff; margin: 1rem 0;">$7 <span style="font-size: 0.9rem; color: #888;">+ $5.50 shipping</span></p>
-                        <a href="mailto:hello@osmori.com?subject=Discovery%20Set%20Order" class="button">ORDER BOTH</a>
-                    </div>
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <h3 style="font-size: 2rem; color: #fff; font-weight: 300;">TRY BEFORE YOU COMMIT</h3>
+                <p style="color: #aaa; max-width: 600px; margin: 1rem auto;">Experience Genesis first. Every sample includes a one-time discount code toward your first full bottle, sent to your email after purchase.</p>
+            </div>
+            
+            <div class="sample-grid">
+                <div class="sample-card">
+                    <h4>GENESIS 001</h4>
+                    <p style="color: #888; font-size: 0.9rem;">For Him · 2ml spray</p>
+                    <p style="font-size: 2rem; color: #fff; margin: 1rem 0;">$4 <span style="font-size: 0.9rem; color: #888;">+ $5.50 shipping</span></p>
+                    <button class="button button-outline" onclick="alert('Sample ordering will be available once Stripe approval is complete. Join the email list to be notified.')">
+                        COMING SOON
+                    </button>
                 </div>
                 
-                <div class="shipping-note">
-                    <p><strong>Shipping:</strong> $5.50 flat rate. Tracking provided via email.</p>
-                    <p style="margin-top: 0.5rem;"><strong>Note:</strong> A one-time discount code for your first full bottle will be emailed to you after purchase.</p>
+                <div class="sample-card">
+                    <h4>GENESIS 002</h4>
+                    <p style="color: #888; font-size: 0.9rem;">For Her · 2ml spray</p>
+                    <p style="font-size: 2rem; color: #fff; margin: 1rem 0;">$4 <span style="font-size: 0.9rem; color: #888;">+ $5.50 shipping</span></p>
+                    <button class="button button-outline" onclick="alert('Sample ordering will be available once Stripe approval is complete. Join the email list to be notified.')">
+                        COMING SOON
+                    </button>
                 </div>
+                
+                <div class="sample-card" style="border: 1px solid #ffd700;">
+                    <h4>DISCOVERY SET</h4>
+                    <p style="color: #888; font-size: 0.9rem;">Both Scents · 2ml each</p>
+                    <p style="font-size: 2rem; color: #fff; margin: 1rem 0;">$7 <span style="font-size: 0.9rem; color: #888;">+ $5.50 shipping</span></p>
+                    <button class="button" onclick="alert('The Discovery Set will be available once Stripe approval is complete. Join the email list to be notified first.')">
+                        COMING SOON
+                    </button>
+                </div>
+            </div>
+            
+            <div class="shipping-note">
+                <p><strong>Shipping:</strong> $5.50 flat rate. Tracking provided via email.</p>
+                <p style="margin-top: 0.5rem;"><strong>Note:</strong> A one-time discount code for your first full bottle will be emailed to you after purchase.</p>
             </div>
         </div>
 
-        <!-- EMAIL SIGNUP SECTION (Popup Style) -->
-        <div class="signup-popup">
+        <!-- EMAIL SIGNUP SECTION -->
+        <div class="signup-section">
             <h3>BECOME AN INSIDER</h3>
             <p>Sign up for exclusive updates, early access to new releases, and special offers. The first 5 subscribers will receive a secret perk via email.</p>
             
@@ -519,7 +553,7 @@
         <!-- TESTER REVIEW FORM -->
         <div class="review-section" id="review-section">
             <h3>TESTER FEEDBACK</h3>
-            <p style="margin-bottom: 1.5rem; color: #aaa;">For authorized testers only. Your feedback shapes Genesis.</p>
+            <p style="margin-bottom: 1.5rem; color: #aaa; text-align: center;">For authorized testers only. Your feedback shapes Genesis.</p>
             
             <div id="review-form-container">
                 <form id="tester-review-form">
@@ -599,7 +633,6 @@
                 navTabs[i].classList.remove('active');
             }
             
-            // Find which nav tab was clicked and make it active
             if (tabName === 'mens') {
                 navTabs[0].classList.add('active');
             } else if (tabName === 'womens') {
@@ -669,9 +702,6 @@
                 if (response.ok) {
                     document.getElementById('signup-form').style.display = 'none';
                     document.getElementById('signup-success').style.display = 'block';
-                    
-                    // Track first 5 manually in your email
-                    // When you get the notification, reply personally
                 } else {
                     alert('Something went wrong. Please email hello@osmori.com directly.');
                 }
