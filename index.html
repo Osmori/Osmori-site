@@ -124,6 +124,13 @@
             color: #0a0a0a;
         }
 
+        .button-disabled {
+            opacity: 0.5;
+            pointer-events: none;
+            cursor: not-allowed;
+            background-color: #666;
+        }
+
         .signup {
             margin: 4rem 0 2rem;
             padding: 2rem;
@@ -238,6 +245,24 @@
             margin: 1rem 0;
         }
 
+        .success-message {
+            color: #4CAF50;
+            font-size: 1.2rem;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .stripe-badge {
+            display: inline-block;
+            background-color: #635bff;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-left: 1rem;
+            vertical-align: middle;
+        }
+
         @media (max-width: 600px) {
             h1 {
                 font-size: 2.5rem;
@@ -282,71 +307,77 @@
             
             <p style="margin: 1rem 0; color: #ccc;">10ml · Eau de Parfum · Free Shipping</p>
             
-            <a href="mailto:hello@osmori.com?subject=Reserve%20Genesis%20001&body=I%20want%20to%20reserve%20a%20Founding%20Unit" class="button">RESERVE YOUR BOTTLE</a>
+            <!-- STRIPE BUTTON - PLACEHOLDER UNTIL APPROVED -->
+            <a href="#" class="button button-disabled" onclick="alert('Stripe approval in progress. Check back soon!')">RESERVE YOUR BOTTLE — $32</a>
+            <span class="stripe-badge">Approval Pending</span>
+            
             <a href="#product" class="button button-outline">LEARN MORE</a>
             
             <p class="note">Founding units include lifetime access to future releases and your name in the Genesis acknowledgments.</p>
+            <p class="note" style="color: #666; font-style: italic;">Payments temporarily disabled during Stripe review. You can still email hello@osmori.com to reserve.</p>
         </div>
 
-        <!-- TESTER REVIEW FORM (Private - For Authorized Testers Only) -->
-        <div class="review-section">
+        <!-- TESTER REVIEW FORM - STAYS ON SITE, NO REDIRECT -->
+        <div class="review-section" id="review-section">
             <h3>OSMORI Tester Review</h3>
             <p style="margin-bottom: 1.5rem; color: #aaa;">For authorized testers only. Your feedback shapes Genesis.</p>
             
-            <form action="https://formsubmit.co/hello@osmori.com" method="POST">
-                <input type="hidden" name="_subject" value="New OSMORI Tester Review">
-                <input type="hidden" name="_captcha" value="false">
-                <input type="hidden" name="_template" value="table">
-                
-                <input type="text" name="name" placeholder="Your Name" required>
-                
-                <select name="price_opinion" required>
-                    <option value="" disabled selected>What should a 10ML bottle cost?</option>
-                    <option value="15-20">$15 - $20</option>
-                    <option value="20-25">$20 - $25</option>
-                    <option value="25-30">$25 - $30</option>
-                    <option value="30-35">$30 - $35</option>
-                    <option value="35+">$35+</option>
-                </select>
-                
-                <select name="luxury_rating" required>
-                    <option value="" disabled selected>How luxurious does this feel? (1-10)</option>
-                    <option value="1">1 - Not luxurious</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5 - Average</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9 - Very luxurious</option>
-                    <option value="10">10 - Ultra premium</option>
-                </select>
-                
-                <input type="text" name="sweetness_description" placeholder="How would you describe the sweetness? (e.g., 'Sweet like candy', 'Subtle vanilla', 'Not sweet at all')">
-                
-                <input type="text" name="vibe" placeholder="What vibe does this give? (e.g., 'Cozy fall evening', 'Dark energy', 'Clean and fresh')">
-                
-                <input type="text" name="longevity" placeholder="How many hours did it last on your skin?">
-                
-                <textarea name="feedback" placeholder="Any suggestions? What would you change?" rows="4"></textarea>
-                
-                <button type="submit">SUBMIT REVIEW</button>
-            </form>
+            <div id="review-form-container">
+                <form id="tester-review-form">
+                    <input type="text" id="name" name="name" placeholder="Your Name" required>
+                    
+                    <select id="price_opinion" name="price_opinion" required>
+                        <option value="" disabled selected>What should a 10ML bottle cost?</option>
+                        <option value="15-20">$15 - $20</option>
+                        <option value="20-25">$20 - $25</option>
+                        <option value="25-30">$25 - $30</option>
+                        <option value="30-35">$30 - $35</option>
+                        <option value="35+">$35+</option>
+                    </select>
+                    
+                    <select id="luxury_rating" name="luxury_rating" required>
+                        <option value="" disabled selected>How luxurious does this feel? (1-10)</option>
+                        <option value="1">1 - Not luxurious</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5 - Average</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9 - Very luxurious</option>
+                        <option value="10">10 - Ultra premium</option>
+                    </select>
+                    
+                    <input type="text" id="sweetness_description" name="sweetness_description" placeholder="How would you describe the sweetness? (e.g., 'Sweet like candy', 'Subtle vanilla', 'Not sweet at all')">
+                    
+                    <input type="text" id="vibe" name="vibe" placeholder="What vibe does this give? (e.g., 'Cozy fall evening', 'Dark energy', 'Clean and fresh')">
+                    
+                    <input type="text" id="longevity" name="longevity" placeholder="How many hours did it last on your skin?">
+                    
+                    <textarea id="feedback" name="feedback" placeholder="Any suggestions? What would you change?" rows="4"></textarea>
+                    
+                    <button type="submit" id="submit-review">SUBMIT REVIEW</button>
+                </form>
+            </div>
             
-            <p style="font-size: 0.8rem; color: #666; margin-top: 1rem;">Your response will be sent privately to hello@osmori.com</p>
+            <div id="review-success" style="display: none;">
+                <p class="success-message">✓ Review submitted</p>
+                <p style="color: #aaa; text-align: center;">Thank you for shaping Osmori.</p>
+            </div>
+            
+            <p style="font-size: 0.8rem; color: #666; margin-top: 1rem;">Your response is sent privately to hello@osmori.com · No redirect, stays on this page.</p>
         </div>
 
         <div class="signup">
             <h3>Witness the next genesis</h3>
             <p style="margin-bottom: 1.5rem; color: #aaa;">Be the first to know when new events emerge.</p>
             
-            <form class="signup-form" action="https://formsubmit.co/hello@osmori.com" method="POST">
-                <input type="hidden" name="_subject" value="New OSMORI Subscriber">
-                <input type="hidden" name="_captcha" value="false">
-                <input type="email" name="email" placeholder="your@email.com" required>
-                <button type="submit">Subscribe</button>
+            <form class="signup-form" id="signup-form">
+                <input type="email" id="signup-email" placeholder="your@email.com" required>
+                <button type="submit" id="signup-submit">Subscribe</button>
             </form>
+            <div id="signup-success" style="display: none; color: #4CAF50; margin-top: 1rem;">✓ Thanks for subscribing</div>
         </div>
 
         <div class="social">
@@ -360,5 +391,76 @@
             <p style="margin-top: 0.5rem;">Genesis 001 — Est. 2026</p>
         </footer>
     </div>
+
+    <!-- FORM SUBMISSION SCRIPTS - NO REDIRECT, STAYS ON PAGE -->
+    <script>
+        // TESTER REVIEW FORM - STAYS ON PAGE
+        document.getElementById('tester-review-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = {
+                name: document.getElementById('name').value,
+                price_opinion: document.getElementById('price_opinion').value,
+                luxury_rating: document.getElementById('luxury_rating').value,
+                sweetness_description: document.getElementById('sweetness_description').value,
+                vibe: document.getElementById('vibe').value,
+                longevity: document.getElementById('longevity').value,
+                feedback: document.getElementById('feedback').value,
+                _subject: "New OSMORI Tester Review"
+            };
+            
+            try {
+                const response = await fetch('https://formsubmit.co/ajax/hello@osmori.com', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                if (response.ok) {
+                    document.getElementById('review-form-container').style.display = 'none';
+                    document.getElementById('review-success').style.display = 'block';
+                } else {
+                    alert('Something went wrong. Please email hello@osmori.com directly.');
+                }
+            } catch (error) {
+                alert('Error submitting form. Please email hello@osmori.com directly.');
+            }
+        });
+
+        // SIGNUP FORM - STAYS ON PAGE
+        document.getElementById('signup-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('signup-email').value;
+            
+            const formData = {
+                email: email,
+                _subject: "New OSMORI Subscriber"
+            };
+            
+            try {
+                const response = await fetch('https://formsubmit.co/ajax/hello@osmori.com', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                if (response.ok) {
+                    document.getElementById('signup-form').style.display = 'none';
+                    document.getElementById('signup-success').style.display = 'block';
+                } else {
+                    alert('Something went wrong. Please email hello@osmori.com directly.');
+                }
+            } catch (error) {
+                alert('Error submitting form. Please email hello@osmori.com directly.');
+            }
+        });
+    </script>
 </body>
 </html>
