@@ -55,13 +55,49 @@
             line-height: 1.8;
         }
 
+        /* Navigation Tabs */
+        .nav-tabs {
+            display: flex;
+            gap: 2rem;
+            margin: 2rem 0 3rem;
+            border-bottom: 1px solid #333;
+            padding-bottom: 1rem;
+        }
+
+        .nav-tab {
+            color: #888;
+            text-decoration: none;
+            font-size: 1.2rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+
+        .nav-tab:hover {
+            color: #fff;
+        }
+
+        .nav-tab.active {
+            color: #fff;
+            border-bottom: 2px solid #fff;
+            padding-bottom: 0.5rem;
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
         .section-title {
             font-size: 2rem;
             font-weight: 300;
-            margin: 3rem 0 2rem;
+            margin: 2rem 0;
             color: #fff;
-            border-bottom: 1px solid #333;
-            padding-bottom: 0.5rem;
         }
 
         .product-grid {
@@ -176,39 +212,12 @@
             background-color: #666;
         }
 
-        .founding-section {
+        .founding-note {
             background-color: #111;
-            padding: 2rem;
+            padding: 1.5rem;
             border-radius: 4px;
-            margin: 3rem 0;
-            border: 1px solid #ffd700;
-        }
-
-        .founding-section h3 {
-            font-size: 1.8rem;
-            color: #ffd700;
-            margin-bottom: 1rem;
-        }
-
-        .perks-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
             margin: 2rem 0;
-        }
-
-        .perk {
-            flex: 1 1 200px;
-            background-color: #222;
-            padding: 1rem;
-            border-radius: 4px;
-            text-align: center;
-        }
-
-        .perk span {
-            font-size: 2rem;
-            display: block;
-            margin-bottom: 0.5rem;
+            border-left: 3px solid #ffd700;
         }
 
         .sample-section {
@@ -247,6 +256,52 @@
             font-size: 0.9rem;
             color: #aaa;
             border-left: 3px solid #666;
+        }
+
+        .signup-popup {
+            background-color: #111;
+            padding: 2rem;
+            border-radius: 4px;
+            margin: 3rem 0;
+            border: 1px solid #444;
+            text-align: center;
+        }
+
+        .signup-popup h3 {
+            font-size: 1.8rem;
+            color: #fff;
+            margin-bottom: 1rem;
+        }
+
+        .signup-popup p {
+            color: #aaa;
+            margin-bottom: 1.5rem;
+        }
+
+        .signup-form {
+            display: flex;
+            gap: 1rem;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .signup-form input {
+            flex: 1;
+            padding: 1rem;
+            background-color: #222;
+            border: 1px solid #333;
+            color: #fff;
+            border-radius: 4px;
+        }
+
+        .signup-form button {
+            padding: 1rem 2rem;
+            background-color: #fff;
+            color: #0a0a0a;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 4px;
         }
 
         .review-section {
@@ -337,16 +392,6 @@
             vertical-align: middle;
         }
 
-        .code-block {
-            background-color: #222;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            font-family: monospace;
-            color: #ffd700;
-            display: inline-block;
-            margin: 0.5rem 0;
-        }
-
         @media (max-width: 600px) {
             h1 {
                 font-size: 2.5rem;
@@ -354,6 +399,14 @@
             
             .container {
                 padding: 2rem 1rem;
+            }
+            
+            .nav-tabs {
+                gap: 1rem;
+            }
+            
+            .signup-form {
+                flex-direction: column;
             }
         }
     </style>
@@ -370,112 +423,102 @@
             <p style="margin-top: 1rem;">We do not make perfume. We capture genesis events. Each bottle contains not a blend, but a controlled collision of primordial truths and synthetic origins.</p>
         </div>
 
-        <!-- FOUNDING MEMBERS SECTION -->
-        <div class="founding-section">
-            <h3>⚡ FOUNDING MEMBERS</h3>
-            <p style="color: #aaa; margin-bottom: 1.5rem;">The first 2 people to purchase a full bottle of Genesis 001 will be immortalized as Osmori Founding Members.</p>
-            
-            <div class="perks-list">
-                <div class="perk">
-                    <span>✍️</span>
-                    <p>Handwritten thank you note</p>
-                </div>
-                <div class="perk">
-                    <span>🎁</span>
-                    <p>Free sample of Genesis 002 (women's)</p>
-                </div>
-                <div class="perk">
-                    <span>📜</span>
-                    <p>Name on website forever</p>
-                </div>
-                <div class="perk">
-                    <span>🔓</span>
-                    <p>First access to all future scents</p>
-                </div>
-                <div class="perk">
-                    <span>💎</span>
-                    <p>10% lifetime discount</p>
-                </div>
-            </div>
-            
-            <p style="color: #ffd700; font-style: italic;">Only 2 spots remain.</p>
+        <!-- Navigation Tabs -->
+        <div class="nav-tabs">
+            <a class="nav-tab active" onclick="showTab('mens')">MEN</a>
+            <a class="nav-tab" onclick="showTab('womens')">WOMEN</a>
+            <a class="nav-tab" onclick="showTab('samples')">SAMPLES</a>
         </div>
 
-        <!-- PRODUCT SECTION -->
-        <h2 class="section-title">The Genesis Collection</h2>
-        
-        <div class="product-grid">
-            <!-- Genesis 001 - Men's -->
-            <div class="product-card">
-                <div class="badge">FIRST 2 — FOUNDING STATUS</div>
-                <h3>GENESIS 001</h3>
+        <!-- MEN'S TAB -->
+        <div id="mens" class="tab-content active">
+            <div class="founding-note">
+                <p style="color: #ffd700; font-weight: 600;">FIRST 5 BOTTLES</p>
+                <p style="color: #aaa;">The first 5 customers who purchase a full bottle of Genesis 001 will receive 10% off all future scents (Genesis 003 and beyond) and early access to every new release before the public.</p>
+            </div>
+
+            <div class="product-card" style="max-width: 400px; margin: 0 auto;">
+                <div class="badge">GENESIS 001</div>
+                <h3>THE FIRST EVENT</h3>
                 <div class="product-tag">For Him</div>
-                <p class="product-description">The first event. Warm spices meet creamy woods and enveloping musk. Sweet without cloying. Dark without cold. Inspired by Azzaro Most Wanted.</p>
+                <p class="product-description">Warm spices meet creamy woods and enveloping musk. Sweet without cloying. Dark without cold. Inspired by Azzaro Most Wanted, refined through feedback.</p>
                 <div class="product-price">$32 <span>$35</span></div>
                 <p style="color: #888; font-size: 0.9rem;">10ml · Eau de Parfum · Free Shipping</p>
                 
-                <!-- STRIPE BUTTON - PLACEHOLDER -->
                 <a href="#" class="button button-disabled" onclick="alert('Stripe approval in progress. Check back soon!')">RESERVE YOUR BOTTLE</a>
                 <span class="stripe-badge">Approval Pending</span>
                 
-                <p class="note" style="margin-top: 1rem;">First 2 bottles receive Founding Member perks.</p>
+                <p class="note" style="margin-top: 1rem;">First 5 bottles receive lifetime benefits.</p>
             </div>
+        </div>
 
-            <!-- Genesis 002 - Women's (Samples Only) -->
-            <div class="product-card">
-                <div class="badge badge-silver">PRE-LAUNCH</div>
-                <h3>GENESIS 002</h3>
+        <!-- WOMEN'S TAB -->
+        <div id="womens" class="tab-content">
+            <div class="product-card" style="max-width: 400px; margin: 0 auto;">
+                <div class="badge badge-silver">GENESIS 002</div>
+                <h3>MIDNIGHT BLOOM</h3>
                 <div class="product-tag">For Her</div>
-                <p class="product-description">Sweet vanilla candy meets soft florals and clean musk. Smooth, modern, and made for nights out. Inspired by Black Opium but made our way.</p>
+                <p class="product-description">Sweet vanilla candy meets soft florals and clean musk. Smooth, modern, and made for nights out. Inspired by Black Opium, made our way.</p>
                 <div class="product-price">$32 <span>$35</span></div>
                 <p style="color: #888; font-size: 0.9rem;">10ml · Eau de Parfum · Free Shipping</p>
                 
                 <a href="#" class="button button-disabled" onclick="alert('Available as samples only while we gather feedback. Full bottles coming soon.')">SAMPLES ONLY</a>
                 
-                <p class="note" style="margin-top: 1rem;">Full bottles coming after community feedback.</p>
+                <p class="note" style="margin-top: 1rem;">Full bottles launching after community feedback.</p>
             </div>
         </div>
 
-        <!-- SAMPLES SECTION -->
-        <div class="sample-section">
-            <h3 style="font-size: 1.8rem; margin-bottom: 1rem;">Try Before You Commit</h3>
-            <p style="color: #aaa; margin-bottom: 1.5rem;">Not ready for a full bottle? Experience Genesis first. Every sample includes a $5 discount code toward your first full bottle.</p>
-            
-            <div class="sample-grid">
-                <!-- Genesis 001 Sample -->
-                <div class="sample-card">
-                    <h4>GENESIS 001</h4>
-                    <p style="color: #888; font-size: 0.9rem;">For Him · 2ml spray</p>
-                    <p style="font-size: 1.5rem; color: #fff; margin: 1rem 0;">$4 <span style="font-size: 0.9rem; color: #888;">+ $5.50 shipping</span></p>
-                    <a href="mailto:hello@osmori.com?subject=Genesis%20001%20Sample%20Order" class="button button-outline">EMAIL TO ORDER</a>
+        <!-- SAMPLES TAB -->
+        <div id="samples" class="tab-content">
+            <div class="sample-section" style="margin-top: 0;">
+                <h3 style="font-size: 1.8rem; margin-bottom: 1rem;">Try Before You Commit</h3>
+                <p style="color: #aaa; margin-bottom: 1.5rem;">Experience Genesis first. Every sample includes a one-time discount code toward your first full bottle, sent to your email after purchase.</p>
+                
+                <div class="sample-grid">
+                    <div class="sample-card">
+                        <h4>GENESIS 001</h4>
+                        <p style="color: #888; font-size: 0.9rem;">For Him · 2ml spray</p>
+                        <p style="font-size: 1.5rem; color: #fff; margin: 1rem 0;">$4 <span style="font-size: 0.9rem; color: #888;">+ $5.50 shipping</span></p>
+                        <a href="mailto:hello@osmori.com?subject=Genesis%20001%20Sample%20Order" class="button button-outline">ORDER VIA EMAIL</a>
+                    </div>
+                    
+                    <div class="sample-card">
+                        <h4>GENESIS 002</h4>
+                        <p style="color: #888; font-size: 0.9rem;">For Her · 2ml spray</p>
+                        <p style="font-size: 1.5rem; color: #fff; margin: 1rem 0;">$4 <span style="font-size: 0.9rem; color: #888;">+ $5.50 shipping</span></p>
+                        <a href="mailto:hello@osmori.com?subject=Genesis%20002%20Sample%20Order" class="button button-outline">ORDER VIA EMAIL</a>
+                    </div>
+                    
+                    <div class="sample-card" style="border: 1px solid #ffd700;">
+                        <h4>DISCOVERY SET</h4>
+                        <p style="color: #888; font-size: 0.9rem;">Both Scents · 2ml each</p>
+                        <p style="font-size: 1.5rem; color: #fff; margin: 1rem 0;">$7 <span style="font-size: 0.9rem; color: #888;">+ $5.50 shipping</span></p>
+                        <a href="mailto:hello@osmori.com?subject=Discovery%20Set%20Order" class="button">ORDER BOTH</a>
+                    </div>
                 </div>
                 
-                <!-- Genesis 002 Sample -->
-                <div class="sample-card">
-                    <h4>GENESIS 002</h4>
-                    <p style="color: #888; font-size: 0.9rem;">For Her · 2ml spray</p>
-                    <p style="font-size: 1.5rem; color: #fff; margin: 1rem 0;">$4 <span style="font-size: 0.9rem; color: #888;">+ $5.50 shipping</span></p>
-                    <a href="mailto:hello@osmori.com?subject=Genesis%20002%20Sample%20Order" class="button button-outline">EMAIL TO ORDER</a>
-                </div>
-                
-                <!-- Discovery Bundle -->
-                <div class="sample-card" style="border: 1px solid #ffd700;">
-                    <h4>THE DISCOVERY BUNDLE</h4>
-                    <p style="color: #888; font-size: 0.9rem;">Both Scents · 2ml each</p>
-                    <p style="font-size: 1.5rem; color: #fff; margin: 1rem 0;">$7 <span style="font-size: 0.9rem; color: #888;">+ $5.50 shipping</span></p>
-                    <a href="mailto:hello@osmori.com?subject=Discovery%20Bundle%20Order" class="button">BEST VALUE — ORDER BOTH</a>
+                <div class="shipping-note">
+                    <p><strong>Shipping:</strong> $5.50 flat rate. Tracking provided via email.</p>
+                    <p style="margin-top: 0.5rem;"><strong>Note:</strong> A one-time discount code for your first full bottle will be emailed to you after purchase.</p>
                 </div>
             </div>
+        </div>
+
+        <!-- EMAIL SIGNUP SECTION (Popup Style) -->
+        <div class="signup-popup">
+            <h3>BECOME AN INSIDER</h3>
+            <p>Sign up for exclusive updates, early access to new releases, and special offers. The first 5 subscribers will receive a secret perk via email.</p>
             
-            <div class="shipping-note">
-                <p><strong>📦 Shipping:</strong> $5.50 flat rate via USPS Ground Advantage. Tracking provided via email.</p>
-                <p style="margin-top: 0.5rem;"><strong>🎁 Every sample includes:</strong> A $5 discount code + free shipping on your first full bottle. Code: <span class="code-block">WELCOME5</span> (emailed after purchase)</p>
-            </div>
+            <form class="signup-form" id="signup-form">
+                <input type="email" id="signup-email" placeholder="Your email address" required>
+                <button type="submit" id="signup-submit">SIGN UP</button>
+            </form>
+            <div id="signup-success" style="display: none; color: #4CAF50; margin-top: 1rem;">✓ Thanks for subscribing. First 5 will hear from us soon.</div>
         </div>
 
         <!-- TESTER REVIEW FORM -->
         <div class="review-section" id="review-section">
-            <h3>OSMORI Tester Review</h3>
+            <h3>TESTER FEEDBACK</h3>
             <p style="margin-bottom: 1.5rem; color: #aaa;">For authorized testers only. Your feedback shapes Genesis.</p>
             
             <div id="review-form-container">
@@ -513,7 +556,7 @@
                     
                     <textarea id="feedback" name="feedback" placeholder="Any suggestions? What would you change?" rows="4"></textarea>
                     
-                    <button type="submit" id="submit-review">SUBMIT REVIEW</button>
+                    <button type="submit" id="submit-review">SUBMIT FEEDBACK</button>
                 </form>
             </div>
             
@@ -525,22 +568,10 @@
             <p style="font-size: 0.8rem; color: #666; margin-top: 1rem;">Your response is sent privately to hello@osmori.com</p>
         </div>
 
-        <!-- EMAIL SIGNUP -->
-        <div class="signup" style="margin: 4rem 0 2rem; padding: 2rem; background-color: #111; border-radius: 4px;">
-            <h3 style="font-size: 1.5rem; margin-bottom: 1rem; color: #fff;">Witness the next genesis</h3>
-            <p style="margin-bottom: 1.5rem; color: #aaa;">Be the first to know when new events emerge.</p>
-            
-            <form class="signup-form" id="signup-form" style="display: flex; gap: 1rem; flex-wrap: wrap;">
-                <input type="email" id="signup-email" placeholder="your@email.com" required style="flex: 1; min-width: 250px; padding: 1rem; background-color: #222; border: 1px solid #333; color: #fff; border-radius: 4px;">
-                <button type="submit" id="signup-submit" style="padding: 1rem 2rem; background-color: #fff; color: #0a0a0a; border: none; font-weight: 600; cursor: pointer; border-radius: 4px;">Subscribe</button>
-            </form>
-            <div id="signup-success" style="display: none; color: #4CAF50; margin-top: 1rem;">✓ Thanks for subscribing</div>
-        </div>
-
         <!-- SOCIAL & FOOTER -->
         <div class="social">
-            <a href="https://instagram.com/osmori.official" target="_blank">Instagram</a>
-            <a href="mailto:hello@osmori.com">Email</a>
+            <a href="https://instagram.com/osmori.official" target="_blank">INSTAGRAM</a>
+            <a href="mailto:hello@osmori.com">EMAIL</a>
         </div>
 
         <footer>
@@ -550,8 +581,34 @@
         </footer>
     </div>
 
-    <!-- FORM SUBMISSION SCRIPTS -->
+    <!-- SCRIPTS -->
     <script>
+        // TAB NAVIGATION
+        function showTab(tabName) {
+            // Hide all tabs
+            document.getElementById('mens').classList.remove('active');
+            document.getElementById('womens').classList.remove('active');
+            document.getElementById('samples').classList.remove('active');
+            
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+            
+            // Update active state on nav tabs
+            let navTabs = document.getElementsByClassName('nav-tab');
+            for (let i = 0; i < navTabs.length; i++) {
+                navTabs[i].classList.remove('active');
+            }
+            
+            // Find which nav tab was clicked and make it active
+            if (tabName === 'mens') {
+                navTabs[0].classList.add('active');
+            } else if (tabName === 'womens') {
+                navTabs[1].classList.add('active');
+            } else if (tabName === 'samples') {
+                navTabs[2].classList.add('active');
+            }
+        }
+
         // TESTER REVIEW FORM
         document.getElementById('tester-review-form').addEventListener('submit', async function(e) {
             e.preventDefault();
@@ -588,7 +645,7 @@
             }
         });
 
-        // SIGNUP FORM
+        // EMAIL SIGNUP FORM
         document.getElementById('signup-form').addEventListener('submit', async function(e) {
             e.preventDefault();
             
@@ -612,6 +669,9 @@
                 if (response.ok) {
                     document.getElementById('signup-form').style.display = 'none';
                     document.getElementById('signup-success').style.display = 'block';
+                    
+                    // Track first 5 manually in your email
+                    // When you get the notification, reply personally
                 } else {
                     alert('Something went wrong. Please email hello@osmori.com directly.');
                 }
