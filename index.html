@@ -438,7 +438,7 @@
             <a class="nav-tab" onclick="showTab('samples')">SAMPLES</a>
         </div>
 
-        <!-- MEN'S TAB (Full Bottle) -->
+        <!-- MEN'S TAB -->
         <div id="mens" class="tab-content active">
             <div class="founding-note">
                 <p style="color: #ffd700; font-weight: 600;">FIRST 5 BOTTLES</p>
@@ -463,16 +463,16 @@
             </div>
         </div>
 
-        <!-- WOMEN'S TAB (Samples Only) -->
+        <!-- WOMEN'S TAB — SAMPLES ONLY -->
         <div id="womens" class="tab-content">
             <div style="text-align: center; margin-bottom: 2rem;">
-                <h3 style="font-size: 2rem; color: #fff; font-weight: 300;">GENESIS 002 — MIDNIGHT VANILLE</h3>
-                <p style="color: #aaa; max-width: 600px; margin: 1rem auto;">A mature vanilla with soft florals and warm woods. Currently in testing — samples available now.</p>
+                <h3 style="font-size: 2rem; color: #fff; font-weight: 300;">GENESIS 002 — YOU</h3>
+                <p style="color: #aaa; max-width: 600px; margin: 1rem auto;">Warm, floral, and airy. A skin scent that feels like you, but better. Inspired by Glossier You and refined by real feedback.</p>
             </div>
             
             <div class="sample-grid" style="justify-content: center;">
                 <div class="sample-card" style="max-width: 300px;">
-                    <h4>MIDNIGHT VANILLE</h4>
+                    <h4>GENESIS 002</h4>
                     <p style="color: #888; font-size: 0.9rem;">For Her · 2ml spray sample</p>
                     <p style="font-size: 2rem; color: #fff; margin: 1rem 0;">$4 <span style="font-size: 0.9rem; color: #888;">+ $5.50 shipping</span></p>
                     <button class="button button-outline" onclick="alert('Sample ordering will be available once Stripe approval is complete. Join the email list to be notified.')">
@@ -487,7 +487,7 @@
             </div>
         </div>
 
-        <!-- SAMPLES TAB (Both Scents) -->
+        <!-- SAMPLES TAB -->
         <div id="samples" class="tab-content">
             <div style="text-align: center; margin-bottom: 2rem;">
                 <h3 style="font-size: 2rem; color: #fff; font-weight: 300;">TRY BEFORE YOU COMMIT</h3>
@@ -529,7 +529,7 @@
             </div>
         </div>
 
-        <!-- SIGNUP SECTION (Insider List) -->
+        <!-- SIGNUP SECTION -->
         <div class="signup-section">
             <h3>BECOME AN INSIDER</h3>
             <p>Sign up for exclusive updates, early access to new releases, and special offers. The first 5 subscribers will receive a secret perk via email.</p>
@@ -542,7 +542,7 @@
             <div id="signup-success" style="display: none; color: #4CAF50; margin-top: 1rem;">✓ Thanks for subscribing. First 5 will hear from us soon.</div>
         </div>
 
-        <!-- TESTER REVIEW FORM -->
+        <!-- REVIEW FORM -->
         <div class="review-section" id="review-section">
             <h3>TESTER FEEDBACK</h3>
             <p style="margin-bottom: 1.5rem; color: #aaa; text-align: center;">For authorized testers only. Your feedback shapes Genesis.</p>
@@ -594,7 +594,6 @@
             <p style="font-size: 0.8rem; color: #666; margin-top: 1rem;">Your response is sent privately to hello@osmori.com</p>
         </div>
 
-        <!-- SOCIAL & FOOTER -->
         <div class="social">
             <a href="https://instagram.com/osmori.official" target="_blank">INSTAGRAM</a>
             <a href="mailto:hello@osmori.com">EMAIL</a>
@@ -611,14 +610,14 @@
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 
     <script>
-        // ===== REPLACE THESE THREE VALUES WITH YOUR OWN =====
-        const EMAILJS_PUBLIC_KEY = 'roVMLYqZxGq2DHjka';   // From EmailJS Account > API Keys
-        const EMAILJS_SERVICE_ID = 'service_qoyc0xq';   // From EmailJS Email Services
-        const SHEETBEST_TARGET_URL = 'https://api.sheetbest.com/sheets/6b85498e-9615-4249-80e0-82e26f255cdc'; // Your Sheet.best API URL
-        // ====================================================
-
-        // Free public CORS proxy (no account needed)
-        const CORS_PROXY = 'https://cors-anywhere.herokuapp.com/';
+        // ===== REPLACE THESE WITH YOUR ACTUAL KEYS =====
+        const EMAILJS_PUBLIC_KEY = 'roVMLYqZxGq2DHjka';
+        const EMAILJS_SERVICE_ID = 'service_qoyc0xq';
+        
+        const AIRTABLE_TOKEN = 'patQSC2g7G9dYvo7i.8656dfe456b756fa86d585eea640a9f20cb4f0950cd5e37ded87547e4499ca0c'; // Starts with 'pat'
+        const AIRTABLE_BASE_ID = 'appcOokqtd6sxnnX8'; // Starts with 'app'
+        const AIRTABLE_TABLE_NAME = 'Signups';
+        // ==============================================
 
         // Initialize EmailJS
         (function() {
@@ -651,25 +650,29 @@
             const name = document.getElementById('signup-name').value;
             
             try {
-                // 1. Send data to Google Sheets via Sheet.best (using CORS proxy)
-                const proxyUrl = CORS_PROXY + encodeURIComponent(SHEETBEST_TARGET_URL);
-                
-                const sheetResponse = await fetch(proxyUrl, {
+                // 1. Send to Airtable
+                const airtableResponse = await fetch(`https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${AIRTABLE_TABLE_NAME}`, {
                     method: 'POST',
-                    headers: { 
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
+                    headers: {
+                        'Authorization': `Bearer ${AIRTABLE_TOKEN}`,
+                        'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        timestamp: new Date().toISOString(),
-                        name: name,
-                        email: email,
-                        type: 'signup'
+                        records: [
+                            {
+                                fields: {
+                                    Name: name,
+                                    Email: email,
+                                    Timestamp: new Date().toISOString(),
+                                    Type: 'signup'
+                                }
+                            }
+                        ]
                     })
                 });
 
-                if (!sheetResponse.ok) {
-                    throw new Error(`Sheet.best error: ${sheetResponse.status}`);
+                if (!airtableResponse.ok) {
+                    throw new Error('Airtable error: ' + airtableResponse.status);
                 }
                 
                 // 2. Send welcome email via EmailJS
@@ -687,7 +690,7 @@
             }
         });
 
-        // Tester Review Form (using FormSubmit)
+        // Tester Review Form
         document.getElementById('tester-review-form').addEventListener('submit', async function(e) {
             e.preventDefault();
             
