@@ -291,6 +291,7 @@
             max-width: 500px;
             margin: 0 auto;
             flex-wrap: wrap;
+            justify-content: center;
         }
 
         .signup-form input {
@@ -454,7 +455,7 @@
                     <div class="product-price">$32 <span>$35</span></div>
                     <p style="color: #888; font-size: 0.9rem; margin-bottom: 1.5rem;">10ml · Eau de Parfum · Free Shipping</p>
                     
-                    <button class="button button-disabled" onclick="alert('Thank you for your interest in Genesis 001. Full bottle sales will begin once Stripe approval is complete. Join the email list below to be notified.')">
+                    <button class="button button-disabled" onclick="alert('Full bottle sales will begin once Stripe approval is complete. Join the email list to be notified.')">
                         NOTIFY ME WHEN AVAILABLE
                     </button>
                     
@@ -463,11 +464,11 @@
             </div>
         </div>
 
-        <!-- WOMEN'S TAB — SAMPLES ONLY -->
+        <!-- WOMEN'S TAB -->
         <div id="womens" class="tab-content">
             <div style="text-align: center; margin-bottom: 2rem;">
-                <h3 style="font-size: 2rem; color: #fff; font-weight: 300;">GENESIS 002 — YOU</h3>
-                <p style="color: #aaa; max-width: 600px; margin: 1rem auto;">Warm, floral, and airy. A skin scent that feels like you, but better. Inspired by Glossier You and refined by real feedback.</p>
+                <h3 style="font-size: 2rem; color: #fff; font-weight: 300;">GENESIS 002</h3>
+                <p style="color: #aaa; max-width: 600px; margin: 1rem auto;">A warm, mature vanilla with soft florals and clean musk. Currently in testing — samples available soon.</p>
             </div>
             
             <div class="sample-grid" style="justify-content: center;">
@@ -529,17 +530,16 @@
             </div>
         </div>
 
-        <!-- SIGNUP SECTION -->
+        <!-- SIGNUP SECTION (Placeholder) -->
         <div class="signup-section">
             <h3>BECOME AN INSIDER</h3>
             <p>Sign up for exclusive updates, early access to new releases, and special offers. The first 5 subscribers will receive a secret perk via email.</p>
             
-            <form class="signup-form" id="signup-form">
-                <input type="email" id="signup-email" placeholder="Your email address" required>
-                <input type="text" id="signup-name" placeholder="Your name" required>
-                <button type="submit" id="signup-submit">SIGN UP</button>
+            <form class="signup-form" id="signup-form" onsubmit="event.preventDefault(); alert('Signup system coming soon. Please check back or email hello@osmori.com directly.');">
+                <input type="email" placeholder="Your email address" required>
+                <input type="text" placeholder="Your name" required>
+                <button type="submit">SIGN UP</button>
             </form>
-            <div id="signup-success" style="display: none; color: #4CAF50; margin-top: 1rem;">✓ Thanks for subscribing. First 5 will hear from us soon.</div>
         </div>
 
         <!-- REVIEW FORM -->
@@ -548,10 +548,9 @@
             <p style="margin-bottom: 1.5rem; color: #aaa; text-align: center;">For authorized testers only. Your feedback shapes Genesis.</p>
             
             <div id="review-form-container">
-                <form id="tester-review-form">
-                    <input type="text" id="name" name="name" placeholder="Your Name" required>
-                    
-                    <select id="price_opinion" name="price_opinion" required>
+                <form id="tester-review-form" onsubmit="event.preventDefault(); alert('Tester review system coming soon. Please email hello@osmori.com directly.');">
+                    <input type="text" placeholder="Your Name" required>
+                    <select required>
                         <option value="" disabled selected>What should a 10ML bottle cost?</option>
                         <option value="15-20">$15 - $20</option>
                         <option value="20-25">$20 - $25</option>
@@ -559,8 +558,7 @@
                         <option value="30-35">$30 - $35</option>
                         <option value="35+">$35+</option>
                     </select>
-                    
-                    <select id="luxury_rating" name="luxury_rating" required>
+                    <select required>
                         <option value="" disabled selected>How luxurious does this feel? (1-10)</option>
                         <option value="1">1 - Not luxurious</option>
                         <option value="2">2</option>
@@ -573,25 +571,15 @@
                         <option value="9">9 - Very luxurious</option>
                         <option value="10">10 - Ultra premium</option>
                     </select>
-                    
-                    <input type="text" id="sweetness_description" name="sweetness_description" placeholder="How would you describe the sweetness?">
-                    
-                    <input type="text" id="vibe" name="vibe" placeholder="What vibe does this give?">
-                    
-                    <input type="text" id="longevity" name="longevity" placeholder="How many hours did it last?">
-                    
-                    <textarea id="feedback" name="feedback" placeholder="Any suggestions? What would you change?" rows="4"></textarea>
-                    
-                    <button type="submit" id="submit-review">SUBMIT FEEDBACK</button>
+                    <input type="text" placeholder="How would you describe the sweetness?">
+                    <input type="text" placeholder="What vibe does this give?">
+                    <input type="text" placeholder="How many hours did it last?">
+                    <textarea placeholder="Any suggestions? What would you change?" rows="4"></textarea>
+                    <button type="submit">SUBMIT FEEDBACK</button>
                 </form>
             </div>
             
-            <div id="review-success" style="display: none;">
-                <p class="success-message">✓ Review submitted</p>
-                <p style="color: #aaa; text-align: center;">Thank you for shaping Osmori.</p>
-            </div>
-            
-            <p style="font-size: 0.8rem; color: #666; margin-top: 1rem;">Your response is sent privately to hello@osmori.com</p>
+            <p style="font-size: 0.8rem; color: #666; margin-top: 1rem;">For now, please send feedback directly to hello@osmori.com</p>
         </div>
 
         <div class="social">
@@ -606,24 +594,7 @@
         </footer>
     </div>
 
-    <!-- EmailJS Library -->
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-
     <script>
-        // ===== REPLACE THESE WITH YOUR ACTUAL KEYS =====
-        const EMAILJS_PUBLIC_KEY = 'roVMLYqZxGq2DHjka';
-        const EMAILJS_SERVICE_ID = 'service_qoyc0xq';
-        
-        const AIRTABLE_TOKEN = 'patQSC2g7G9dYvo7i.8656dfe456b756fa86d585eea640a9f20cb4f0950cd5e37ded87547e4499ca0c'; // Starts with 'pat'
-        const AIRTABLE_BASE_ID = 'appcOokqtd6sxnnX8'; // Starts with 'app'
-        const AIRTABLE_TABLE_NAME = 'Signups';
-        // ==============================================
-
-        // Initialize EmailJS
-        (function() {
-            emailjs.init(EMAILJS_PUBLIC_KEY);
-        })();
-
         // Tab Navigation
         function showTab(tabName) {
             document.getElementById('mens').classList.remove('active');
@@ -641,91 +612,6 @@
             if (tabName === 'womens') navTabs[1].classList.add('active');
             if (tabName === 'samples') navTabs[2].classList.add('active');
         }
-
-        // Signup Form
-        document.getElementById('signup-form').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const email = document.getElementById('signup-email').value;
-            const name = document.getElementById('signup-name').value;
-            
-            try {
-                // 1. Send to Airtable
-                const airtableResponse = await fetch(`https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${AIRTABLE_TABLE_NAME}`, {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': `Bearer ${AIRTABLE_TOKEN}`,
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        records: [
-                            {
-                                fields: {
-                                    Name: name,
-                                    Email: email,
-                                    Timestamp: new Date().toISOString(),
-                                    Type: 'signup'
-                                }
-                            }
-                        ]
-                    })
-                });
-
-                if (!airtableResponse.ok) {
-                    throw new Error('Airtable error: ' + airtableResponse.status);
-                }
-                
-                // 2. Send welcome email via EmailJS
-                await emailjs.send(EMAILJS_SERVICE_ID, 'welcome_template', {
-                    name: name,
-                    email: email
-                });
-                
-                // 3. Show success message
-                document.getElementById('signup-form').style.display = 'none';
-                document.getElementById('signup-success').style.display = 'block';
-            } catch (error) {
-                console.error('Error:', error);
-                alert('Something went wrong. Please email hello@osmori.com directly. Error: ' + error.message);
-            }
-        });
-
-        // Tester Review Form
-        document.getElementById('tester-review-form').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const formData = {
-                name: document.getElementById('name').value,
-                price_opinion: document.getElementById('price_opinion').value,
-                luxury_rating: document.getElementById('luxury_rating').value,
-                sweetness_description: document.getElementById('sweetness_description').value,
-                vibe: document.getElementById('vibe').value,
-                longevity: document.getElementById('longevity').value,
-                feedback: document.getElementById('feedback').value,
-                _subject: "New OSMORI Tester Review"
-            };
-            
-            try {
-                const response = await fetch('https://formsubmit.co/ajax/hello@osmori.com', {
-                    method: 'POST',
-                    headers: { 
-                        'Content-Type': 'application/json', 
-                        'Accept': 'application/json' 
-                    },
-                    body: JSON.stringify(formData)
-                });
-                
-                if (response.ok) {
-                    document.getElementById('review-form-container').style.display = 'none';
-                    document.getElementById('review-success').style.display = 'block';
-                } else {
-                    throw new Error('Formsubmit error');
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                alert('Error submitting form. Please email hello@osmori.com directly.');
-            }
-        });
     </script>
 </body>
 </html>
