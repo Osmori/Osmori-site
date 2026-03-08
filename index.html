@@ -16,103 +16,140 @@
             color: #e0e0e0;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             line-height: 1.6;
-            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 2rem;
             display: flex;
-            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid #222;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 4rem 2rem;
-            flex: 1;
-        }
-
-        h1 {
-            font-size: 3.5rem;
+        .logo {
+            font-size: 1.5rem;
             font-weight: 300;
             letter-spacing: 0.2em;
-            text-transform: uppercase;
-            margin-bottom: 1rem;
-            border-bottom: 1px solid #333;
-            padding-bottom: 1rem;
             color: #fff;
+            text-decoration: none;
         }
 
-        .subhead {
-            font-size: 1.2rem;
-            color: #aaa;
-            margin-bottom: 3rem;
-            font-style: italic;
-        }
-
-        .manifesto {
-            margin: 3rem 0;
-            padding: 2rem;
-            background-color: #111;
-            border-left: 3px solid #444;
-            font-size: 1.1rem;
-            line-height: 1.8;
-        }
-
-        .nav-tabs {
+        .nav-links {
             display: flex;
-            gap: 2rem;
-            margin: 2rem 0 3rem;
-            border-bottom: 1px solid #333;
-            padding-bottom: 1rem;
-            justify-content: center;
+            gap: 3rem;
         }
 
-        .nav-tab {
+        .nav-links a {
             color: #888;
             text-decoration: none;
-            font-size: 1.2rem;
+            font-size: 0.9rem;
             letter-spacing: 0.1em;
-            text-transform: uppercase;
             transition: color 0.3s;
-            cursor: pointer;
-            padding: 0.5rem 0;
         }
 
-        .nav-tab:hover {
+        .nav-links a:hover {
             color: #fff;
         }
 
-        .nav-tab.active {
-            color: #fff;
-            border-bottom: 2px solid #fff;
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
         }
 
-        .tab-content {
-            display: none;
-            animation: fadeIn 0.5s ease;
+        .hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.3;
+            z-index: -1;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 5rem;
+            font-weight: 300;
+            letter-spacing: 0.2em;
+            margin-bottom: 1.5rem;
+            color: #fff;
+            animation: fadeIn 2s ease;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #aaa;
+            margin-bottom: 2rem;
+            animation: fadeIn 2s ease 0.5s both;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .tab-content.active {
-            display: block;
+        /* Sections */
+        .section {
+            padding: 6rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 300;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+            color: #fff;
+            text-align: center;
+        }
+
+        .section-subtitle {
+            color: #888;
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 4rem;
+            font-size: 1.1rem;
+        }
+
+        /* Product Grid */
         .product-grid {
-            display: flex;
-            justify-content: center;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 2rem;
-            margin: 2rem 0;
-            flex-wrap: wrap;
+            margin-top: 2rem;
         }
 
         .product-card {
-            flex: 0 1 400px;
             background-color: #111;
+            border-radius: 12px;
             padding: 2rem;
-            border-radius: 4px;
             border: 1px solid #222;
-            transition: transform 0.3s;
+            transition: transform 0.3s, border-color 0.3s;
         }
 
         .product-card:hover {
@@ -120,21 +157,31 @@
             border-color: #444;
         }
 
+        .product-badge {
+            display: inline-block;
+            background-color: #ffd700;
+            color: #0a0a0a;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .product-badge.silver {
+            background-color: #c0c0c0;
+        }
+
         .product-card h3 {
             font-size: 2rem;
             color: #fff;
             margin-bottom: 0.5rem;
             font-weight: 300;
-            letter-spacing: 0.05em;
         }
 
         .product-tag {
-            display: inline-block;
-            background-color: #222;
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            color: #aaa;
+            color: #888;
+            font-size: 0.9rem;
             margin-bottom: 1rem;
         }
 
@@ -145,37 +192,58 @@
             font-weight: 300;
         }
 
-        .product-price span {
+        .product-price small {
             font-size: 1rem;
             color: #888;
-            text-decoration: line-through;
-            margin-left: 0.5rem;
+            font-weight: 300;
         }
 
         .product-description {
             color: #aaa;
             margin: 1.5rem 0;
-            font-size: 1rem;
             line-height: 1.8;
         }
 
-        .badge {
-            display: inline-block;
-            background-color: #ffd700;
-            color: #0a0a0a;
-            padding: 0.3rem 0.8rem;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
+        /* Sample Grid */
+        .sample-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
         }
 
-        .badge-silver {
-            background-color: #c0c0c0;
-            color: #0a0a0a;
+        .sample-card {
+            background-color: #111;
+            border-radius: 12px;
+            padding: 2rem;
+            border: 1px solid #222;
+            text-align: center;
         }
 
-        .button {
+        .sample-card.featured {
+            border: 1px solid #ffd700;
+        }
+
+        .sample-card h4 {
+            font-size: 1.5rem;
+            color: #fff;
+            margin-bottom: 0.5rem;
+            font-weight: 300;
+        }
+
+        .sample-price {
+            font-size: 2rem;
+            color: #fff;
+            margin: 1rem 0;
+        }
+
+        .sample-price small {
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        /* Buttons */
+        .btn {
             display: inline-block;
             background-color: #fff;
             color: #0a0a0a;
@@ -186,474 +254,297 @@
             border: none;
             cursor: pointer;
             transition: all 0.3s;
-            margin: 1rem 0;
-            border-radius: 2px;
+            border-radius: 4px;
             width: 100%;
             text-align: center;
             font-size: 1rem;
+            margin: 0.5rem 0;
         }
 
-        .button:hover {
+        .btn:hover {
             background-color: #ccc;
             transform: translateY(-2px);
         }
 
-        .button-outline {
+        .btn-outline {
             background-color: transparent;
             border: 1px solid #fff;
             color: #fff;
         }
 
-        .button-outline:hover {
+        .btn-outline:hover {
             background-color: #fff;
             color: #0a0a0a;
         }
 
-        .founding-note {
-            background-color: #111;
-            padding: 1.5rem;
-            border-radius: 4px;
-            margin: 2rem 0;
-            border-left: 3px solid #ffd700;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
+        /* Embedded Checkout Container */
+        .checkout-container {
+            margin-top: 1rem;
+            border-radius: 8px;
+            overflow: hidden;
         }
 
-        .sample-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2rem;
-            margin-top: 2rem;
-            justify-content: center;
-        }
-
-        .sample-card {
-            flex: 0 1 300px;
+        /* Review Form */
+        .review-section {
             background-color: #111;
-            padding: 2rem;
-            border-radius: 4px;
+            border-radius: 12px;
+            padding: 3rem;
+            margin: 4rem 0;
             border: 1px solid #222;
         }
 
-        .sample-card h4 {
-            font-size: 1.5rem;
-            color: #fff;
-            margin-bottom: 0.5rem;
-            font-weight: 300;
-        }
-
-        .shipping-note {
-            background-color: #1a1a1a;
-            padding: 1rem;
-            border-radius: 4px;
-            margin: 2rem auto;
-            font-size: 0.9rem;
-            color: #aaa;
-            border-left: 3px solid #666;
-            max-width: 600px;
-        }
-
-        .signup-section {
-            background-color: #111;
-            padding: 3rem 2rem;
-            border-radius: 4px;
-            margin: 4rem 0;
-            border: 1px solid #444;
-            text-align: center;
-        }
-
-        .signup-section h3 {
-            font-size: 2rem;
-            color: #fff;
-            margin-bottom: 1rem;
-            font-weight: 300;
-        }
-
-        .signup-section p {
-            color: #aaa;
-            margin-bottom: 2rem;
-            max-width: 500px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .signup-form {
-            display: flex;
-            gap: 1rem;
-            max-width: 500px;
-            margin: 0 auto;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .signup-form input {
-            flex: 1;
-            min-width: 200px;
-            padding: 1rem;
-            background-color: #222;
-            border: 1px solid #333;
-            color: #fff;
-            border-radius: 4px;
-            font-size: 1rem;
-        }
-
-        .signup-form button {
-            padding: 1rem 2rem;
-            background-color: #fff;
-            color: #0a0a0a;
-            border: none;
-            font-weight: 600;
-            cursor: pointer;
-            border-radius: 4px;
-            font-size: 1rem;
-        }
-
-        .review-section {
-            margin: 4rem 0;
-            padding: 2rem;
-            background-color: #111;
-            border-radius: 4px;
-            border-top: 1px solid #333;
-        }
-
         .review-section h3 {
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
-            color: #fff;
+            font-size: 2rem;
             font-weight: 300;
+            color: #fff;
+            margin-bottom: 1rem;
             text-align: center;
         }
 
-        .review-section input, 
-        .review-section select, 
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .form-full {
+            grid-column: span 2;
+        }
+
+        .review-section input,
+        .review-section select,
         .review-section textarea {
             width: 100%;
             padding: 1rem;
-            margin-bottom: 1rem;
             background-color: #222;
             border: 1px solid #333;
             color: #fff;
-            border-radius: 4px;
+            border-radius: 8px;
             font-family: inherit;
+            font-size: 1rem;
+        }
+
+        .review-section textarea {
+            resize: vertical;
+            min-height: 120px;
         }
 
         .review-section button {
-            padding: 1rem 2rem;
             background-color: #fff;
             color: #0a0a0a;
+            padding: 1rem 2rem;
             border: none;
             font-weight: 600;
             cursor: pointer;
-            border-radius: 4px;
+            border-radius: 8px;
             width: 100%;
             font-size: 1rem;
+            margin-top: 1rem;
         }
 
-        .social {
-            margin: 3rem 0;
+        /* Footer */
+        .footer {
+            background-color: #111;
+            padding: 4rem 2rem;
+            border-top: 1px solid #222;
             text-align: center;
         }
 
-        .social a {
-            color: #fff;
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .footer-links a {
+            color: #888;
             text-decoration: none;
-            margin: 0 1rem;
-            font-size: 1rem;
-            opacity: 0.7;
-            transition: opacity 0.3s;
-            letter-spacing: 0.1em;
+            transition: color 0.3s;
         }
 
-        .social a:hover {
-            opacity: 1;
+        .footer-links a:hover {
+            color: #fff;
         }
 
-        footer {
-            text-align: center;
-            padding: 2rem;
+        .footer p {
             color: #666;
             font-size: 0.9rem;
-            border-top: 1px solid #222;
         }
 
-        .note {
-            font-size: 0.9rem;
-            color: #888;
-            margin: 1rem 0;
-        }
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
 
-        .success-message {
-            color: #4CAF50;
-            font-size: 1.2rem;
-            padding: 2rem;
-            text-align: center;
-        }
+            .nav-links {
+                display: none;
+            }
 
-        @media (max-width: 600px) {
-            h1 {
-                font-size: 2.5rem;
+            .form-grid {
+                grid-template-columns: 1fr;
             }
-            
-            .container {
-                padding: 2rem 1rem;
+
+            .form-full {
+                grid-column: span 1;
             }
-            
-            .nav-tabs {
-                gap: 1rem;
-            }
-            
-            .nav-tab {
-                font-size: 1rem;
-            }
-            
-            .signup-form {
-                flex-direction: column;
+
+            .section {
+                padding: 4rem 1rem;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>OSMORI</h1>
-        <div class="subhead">/ˌäz-ˈmôr-ē/ — Where scent first becomes possible</div>
+    <nav class="navbar">
+        <a href="#" class="logo">OSMORI</a>
+        <div class="nav-links">
+            <a href="#mens">MEN</a>
+            <a href="#womens">WOMEN</a>
+            <a href="#samples">SAMPLES</a>
+            <a href="#review">FEEDBACK</a>
+        </div>
+    </nav>
+
+    <div class="hero">
+        <div class="hero-content">
+            <h1>OSMORI</h1>
+            <p>/ˈɒz-ˈmɔːr-eɪ/ — Where scent first becomes possible</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+            <p style="color: #aaa; font-size: 1.2rem; line-height: 1.8; font-style: italic;">
+                "Before fragrance, there was void. A silent, odorless expanse of air.<br><br>
+                Then came the first convergence. A molecule met the air.<br>
+                At that moment, a new scent emerged.<br><br>
+                This was the Osmori—the genesis event.<br><br>
+                We do not make perfume. We capture genesis events."
+            </p>
+        </div>
+    </div>
+
+    <div id="mens" class="section">
+        <h2 class="section-title">FOR HIM</h2>
+        <p class="section-subtitle">Genesis 001 — The First Event</p>
         
-        <div class="manifesto">
-            <p>Before fragrance, there was void. A silent, odorless expanse where smell did not yet exist.</p>
-            <p style="margin: 1rem 0;">Then came the first convergence. A molecule met the air. A truth found its vapor.</p>
-            <p style="font-weight: bold; color: #fff;">This was the Osmori—the genesis event.</p>
-            <p style="margin-top: 1rem;">We do not make perfume. We capture genesis events. Each bottle contains not a blend, but a controlled collision of primordial truths and synthetic origins.</p>
-        </div>
-
-        <!-- Navigation Tabs -->
-        <div class="nav-tabs">
-            <a class="nav-tab active" onclick="showTab('mens')">MEN</a>
-            <a class="nav-tab" onclick="showTab('womens')">WOMEN</a>
-            <a class="nav-tab" onclick="showTab('samples')">SAMPLES</a>
-        </div>
-
-        <!-- MEN'S TAB -->
-        <div id="mens" class="tab-content active">
-            <div class="founding-note">
-                <p style="color: #ffd700; font-weight: 600;">FIRST 5 BOTTLES</p>
-                <p style="color: #aaa;">The first 5 customers who purchase a full bottle of Genesis 001 will receive 10% off all future scents and early access to every new release before the public.</p>
-            </div>
-
-            <div class="product-grid">
-                <div class="product-card">
-                    <div class="badge">GENESIS 001</div>
-                    <h3>THE FIRST EVENT</h3>
-                    <div class="product-tag">For Him</div>
-                    <p class="product-description">Warm spices, creamy woods, enveloping musk. Sweet without cloying. Dark without cold. The one they ask about.</p>
-                    <div class="product-price">$32</div>
-                    <p style="color: #888; font-size: 0.9rem; margin-bottom: 1.5rem;">10ml · Eau de Parfum · Free Shipping</p>
-                    
-                    <!-- REPLACE WITH YOUR ACTUAL STRIPE LINK -->
-                    <a href="https://buy.stripe.com/dRm8wO6cebQI6t18nLcfK00" class="button">BUY NOW — $32</a>
-                    
-                    <p class="note" style="margin-top: 1rem;">First 5 bottles receive lifetime benefits.</p>
+        <div class="product-grid">
+            <div class="product-card">
+                <span class="product-badge">NEW</span>
+                <h3>GENESIS 001</h3>
+                <div class="product-tag">Eau de Parfum · 10ml</div>
+                <div class="product-price">$32 <small>free shipping</small></div>
+                <p class="product-description">
+                    Warm spices, creamy woods, enveloping musk. Sweet without cloying. 
+                    Dark without cold. The one they ask about.
+                </p>
+                <div class="checkout-container">
+                    <a href="#" class="https://buy.stripe.com/dRm8wO6cebQI6t18nLcfK00" onclick="alert('Stripe checkout coming soon')">PRE-ORDER NOW</a>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- WOMEN'S TAB -->
-        <div id="womens" class="tab-content">
-            <div style="text-align: center; margin-bottom: 2rem;">
-                <h3 style="font-size: 2rem; color: #fff; font-weight: 300;">GENESIS 002</h3>
-                <p style="color: #aaa; max-width: 600px; margin: 1rem auto;">Warm vanilla, soft florals, clean musk. The one that stops you. Full bottles coming soon — samples available now.</p>
-            </div>
-            
-            <div class="sample-grid" style="justify-content: center;">
-                <div class="sample-card" style="max-width: 300px;">
-                    <h4>GENESIS 002 SAMPLE</h4>
-                    <p style="color: #888; font-size: 0.9rem;">For Her · 2ml spray</p>
-                    <p style="font-size: 2rem; color: #fff; margin: 1rem 0;">$4 <span style="font-size: 0.9rem; color: #888;">+ $5.50 shipping</span></p>
-                    
-                    <!-- REPLACE WITH YOUR ACTUAL STRIPE LINK -->
-                    <a href="https://buy.stripe.com/cNi8wO0RUaMEeZx1ZncfK02" class="button button-outline">BUY SAMPLE</a>
-                    
-                    <p class="note" style="margin-top: 1rem;">Includes $5 off full bottle</p>
+    <div id="womens" class="section">
+        <h2 class="section-title">FOR HER</h2>
+        <p class="section-subtitle">Genesis 002 — Midnight Vanille</p>
+        
+        <div class="sample-grid">
+            <div class="sample-card featured">
+                <span class="product-badge silver">PREVIEW</span>
+                <h4>GENESIS 002</h4>
+                <div class="sample-price">$4 <small>+ $5.50 shipping</small></div>
+                <p style="color: #aaa; margin: 1rem 0;">2ml spray sample · Includes $5 off full bottle</p>
+                <div class="checkout-container">
+                    <a href="#" class="https://buy.stripe.com/cNi8wO0RUaMEeZx1ZncfK02" onclick="alert('Sample ordering coming soon')">ORDER SAMPLE</a>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- SAMPLES TAB -->
-        <div id="samples" class="tab-content">
-            <div style="text-align: center; margin-bottom: 2rem;">
-                <h3 style="font-size: 2rem; color: #fff; font-weight: 300;">TRY BEFORE YOU COMMIT</h3>
-                <p style="color: #aaa; max-width: 600px; margin: 1rem auto;">Every sample includes a $5 discount code toward your first full bottle.</p>
-            </div>
-            
-            <div class="sample-grid">
-                <!-- Genesis 001 Sample -->
-                <div class="sample-card">
-                    <h4>GENESIS 001</h4>
-                    <p style="color: #888; font-size: 0.9rem;">For Him · 2ml spray</p>
-                    <p style="font-size: 2rem; color: #fff; margin: 1rem 0;">$4 <span style="font-size: 0.9rem; color: #888;">+ $5.50 shipping</span></p>
-                    
-                    <!-- REPLACE WITH YOUR ACTUAL STRIPE LINK -->
-                    <a href="https://buy.stripe.com/00w8wObwy3kcdVt8nLcfK01" class="button button-outline">BUY SAMPLE</a>
-                </div>
-                
-                <!-- Genesis 002 Sample -->
-                <div class="sample-card">
-                    <h4>GENESIS 002</h4>
-                    <p style="color: #888; font-size: 0.9rem;">For Her · 2ml spray</p>
-                    <p style="font-size: 2rem; color: #fff; margin: 1rem 0;">$4 <span style="font-size: 0.9rem; color: #888;">+ $5.50 shipping</span></p>
-                    
-                    <!-- REPLACE WITH YOUR ACTUAL STRIPE LINK -->
-                    <a href="https://buy.stripe.com/cNi8wO0RUaMEeZx1ZncfK02" class="button button-outline">BUY SAMPLE</a>
-                </div>
-                
-                <!-- Discovery Set -->
-                <div class="sample-card" style="border: 1px solid #ffd700;">
-                    <h4>DISCOVERY SET</h4>
-                    <p style="color: #888; font-size: 0.9rem;">Both Scents · 2ml each</p>
-                    <p style="font-size: 2rem; color: #fff; margin: 1rem 0;">$7 <span style="font-size: 0.9rem; color: #888;">+ $5.50 shipping</span></p>
-                    
-                    <!-- REPLACE WITH YOUR ACTUAL STRIPE LINK -->
-                    <a href="https://buy.stripe.com/cNieVcbwy6wo9Fd9rPcfK03" class="button">BUY DISCOVERY SET</a>
+    <div id="samples" class="section">
+        <h2 class="section-title">TRY BEFORE YOU COMMIT</h2>
+        <p class="section-subtitle">Every sample includes a $5 discount code toward your first full bottle.</p>
+        
+        <div class="sample-grid">
+            <div class="sample-card">
+                <h4>GENESIS 001</h4>
+                <p style="color: #888;">For Him · 2ml spray</p>
+                <div class="sample-price">$4 <small>+ $5.50 shipping</small></div>
+                <div class="checkout-container">
+                    <a href="#" class="https://buy.stripe.com/00w8wObwy3kcdVt8nLcfK01" onclick="alert('Sample ordering coming soon')">ORDER SAMPLE</a>
                 </div>
             </div>
             
-            <div class="shipping-note">
-                <p><strong>Shipping:</strong> $5.50 flat rate. Tracking provided via email.</p>
-                <p><strong>Note:</strong> $5 discount code emailed after purchase.</p>
+            <div class="sample-card">
+                <h4>GENESIS 002</h4>
+                <p style="color: #888;">For Her · 2ml spray</p>
+                <div class="sample-price">$4 <small>+ $5.50 shipping</small></div>
+                <div class="checkout-container">
+                    <a href="#" class="https://buy.stripe.com/cNi8wO0RUaMEeZx1ZncfK02" onclick="alert('Sample ordering coming soon')">ORDER SAMPLE</a>
+                </div>
+            </div>
+            
+            <div class="sample-card featured">
+                <h4>DISCOVERY SET</h4>
+                <p style="color: #888;">Both Scents · 2ml each</p>
+                <div class="sample-price">$7 <small>+ $5.50 shipping</small></div>
+                <div class="checkout-container">
+                    <a href="#" class="https://buy.stripe.com/cNieVcbwy6wo9Fd9rPcfK03" onclick="alert('Discovery Set coming soon')">ORDER SET</a>
+                </div>
             </div>
         </div>
+    </div>
 
-        <!-- TESTER REVIEW FORM — WORKING -->
-        <div class="review-section" id="review-section">
+    <div id="review" class="section">
+        <div class="review-section">
             <h3>TESTER FEEDBACK</h3>
-            <p style="margin-bottom: 1.5rem; color: #aaa; text-align: center;">For authorized testers only. Your feedback shapes Genesis.</p>
+            <p style="color: #aaa; text-align: center; margin-bottom: 2rem;">For authorized testers only. Your feedback shapes Genesis.</p>
             
-            <div id="review-form-container">
-                <form id="tester-review-form">
-                    <input type="text" id="name" name="name" placeholder="Your Name" required>
-                    
-                    <select id="price_opinion" name="price_opinion" required>
-                        <option value="" disabled selected>What should a 10ml bottle cost?</option>
+            <form id="tester-review-form" onsubmit="event.preventDefault(); alert('Tester form coming soon. Please email hello@osmori.com directly.')">
+                <div class="form-grid">
+                    <input type="text" placeholder="Your Name" required>
+                    <select required>
+                        <option value="" disabled selected>Price for 10ml?</option>
                         <option value="15-20">$15 - $20</option>
                         <option value="20-25">$20 - $25</option>
                         <option value="25-30">$25 - $30</option>
                         <option value="30-35">$30 - $35</option>
                         <option value="35+">$35+</option>
                     </select>
-                    
-                    <select id="luxury_rating" name="luxury_rating" required>
-                        <option value="" disabled selected>How luxurious does this feel? (1-10)</option>
-                        <option value="1">1 - Not luxurious</option>
+                    <select required>
+                        <option value="" disabled selected>Luxury rating (1-10)</option>
+                        <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
                         <option value="4">4</option>
-                        <option value="5">5 - Average</option>
+                        <option value="5">5</option>
                         <option value="6">6</option>
                         <option value="7">7</option>
                         <option value="8">8</option>
-                        <option value="9">9 - Very luxurious</option>
-                        <option value="10">10 - Ultra premium</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
                     </select>
-                    
-                    <input type="text" id="sweetness_description" name="sweetness_description" placeholder="How would you describe the sweetness? (e.g., 'Sweet like candy', 'Subtle vanilla')">
-                    
-                    <input type="text" id="vibe" name="vibe" placeholder="What vibe does this give? (e.g., 'Cozy fall evening', 'Date night')">
-                    
-                    <input type="text" id="longevity" name="longevity" placeholder="How many hours did it last on your skin?">
-                    
-                    <textarea id="feedback" name="feedback" placeholder="Any suggestions? What would you change?" rows="4"></textarea>
-                    
-                    <button type="submit" id="submit-review">SUBMIT FEEDBACK</button>
-                </form>
-            </div>
-            
-            <div id="review-success" style="display: none;">
-                <p class="success-message">✓ Review submitted</p>
-                <p style="color: #aaa; text-align: center;">Thank you for shaping Osmori.</p>
-            </div>
-            
-            <p style="font-size: 0.8rem; color: #666; margin-top: 1rem;">Your response is sent privately to hello@osmori.com · No redirect.</p>
-        </div>
-
-        <!-- EMAIL SIGNUP (Placeholder) -->
-        <div class="signup-section">
-            <h3>BECOME AN INSIDER</h3>
-            <p>Sign up for exclusive updates, early access, and special offers.</p>
-            
-            <form class="signup-form" id="signup-form" onsubmit="event.preventDefault(); alert('Email signup coming soon. Please email hello@osmori.com directly.');">
-                <input type="email" placeholder="Your email" required>
-                <input type="text" placeholder="Your name" required>
-                <button type="submit">SIGN UP</button>
+                    <input type="text" placeholder="Describe the sweetness">
+                    <input type="text" placeholder="What vibe does this give?">
+                    <input type="text" placeholder="Hours lasted on skin">
+                </div>
+                <textarea placeholder="Any suggestions? What would you change?" rows="4"></textarea>
+                <button type="submit">SUBMIT FEEDBACK</button>
             </form>
         </div>
+    </div>
 
-        <!-- SOCIAL & FOOTER -->
-        <div class="social">
+    <footer class="footer">
+        <div class="footer-links">
             <a href="https://instagram.com/osmori.official" target="_blank">INSTAGRAM</a>
             <a href="mailto:hello@osmori.com">EMAIL</a>
         </div>
-
-        <footer>
-            <p>© 2026 OSMORI · Haskell, NJ</p>
-            <p>hello@osmori.com</p>
-            <p style="margin-top: 0.5rem;">Genesis 001 — Est. 2026</p>
-        </footer>
-    </div>
-
-    <!-- Form Submission Script -->
-    <script>
-        // Tab Navigation
-        function showTab(tabName) {
-            document.getElementById('mens').classList.remove('active');
-            document.getElementById('womens').classList.remove('active');
-            document.getElementById('samples').classList.remove('active');
-            
-            document.getElementById(tabName).classList.add('active');
-            
-            let navTabs = document.getElementsByClassName('nav-tab');
-            for (let i = 0; i < navTabs.length; i++) {
-                navTabs[i].classList.remove('active');
-            }
-            
-            if (tabName === 'mens') navTabs[0].classList.add('active');
-            if (tabName === 'womens') navTabs[1].classList.add('active');
-            if (tabName === 'samples') navTabs[2].classList.add('active');
-        }
-
-        // Tester Review Form — Working, No Redirect
-        document.getElementById('tester-review-form').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const formData = {
-                name: document.getElementById('name').value,
-                price_opinion: document.getElementById('price_opinion').value,
-                luxury_rating: document.getElementById('luxury_rating').value,
-                sweetness_description: document.getElementById('sweetness_description').value,
-                vibe: document.getElementById('vibe').value,
-                longevity: document.getElementById('longevity').value,
-                feedback: document.getElementById('feedback').value,
-                _subject: "New OSMORI Tester Review"
-            };
-            
-            try {
-                const response = await fetch('https://formsubmit.co/ajax/hello@osmori.com', {
-                    method: 'POST',
-                    headers: { 
-                        'Content-Type': 'application/json', 
-                        'Accept': 'application/json' 
-                    },
-                    body: JSON.stringify(formData)
-                });
-                
-                if (response.ok) {
-                    document.getElementById('review-form-container').style.display = 'none';
-                    document.getElementById('review-success').style.display = 'block';
-                } else {
-                    alert('Something went wrong. Please email hello@osmori.com directly.');
-                }
-            } catch (error) {
-                alert('Error submitting form. Please email hello@osmori.com directly.');
-            }
-        });
-    </script>
+        <p>© 2026 OSMORI · Haskell, NJ</p>
+        <p style="margin-top: 0.5rem;">hello@osmori.com</p>
+    </footer>
 </body>
 </html>
