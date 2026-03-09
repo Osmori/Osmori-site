@@ -621,7 +621,7 @@
                 const data = await response.json();
                 
                 if (data.sessionId) {
-                    const stripe = Stripe('pk_live_YOUR_STRIPE_PUBLISHABLE_KEY');
+                    const stripe = Stripe('pk_live_51T3mQtC9IV5fVEGA7gBVuD3w7dCbCifNJW9fclm8G3nHjmtJrZVyRSUxoxGJCEboaMBa5wdNDaDslqxvlZ340zJR00UJ3OfVap');
                     const result = await stripe.redirectToCheckout({ sessionId: data.sessionId });
                     
                     if (result.error) {
