@@ -19,12 +19,10 @@
             overflow-x: hidden;
         }
 
-        /* Smooth scroll */
         html {
             scroll-behavior: smooth;
         }
 
-        /* Navigation */
         .navbar {
             position: fixed;
             top: 0;
@@ -64,7 +62,6 @@
             color: #fff;
         }
 
-        /* Hero Section */
         .hero {
             height: 100vh;
             display: flex;
@@ -73,17 +70,6 @@
             text-align: center;
             position: relative;
             overflow: hidden;
-        }
-
-        .hero-video {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0.3;
-            z-index: -1;
         }
 
         .hero-content {
@@ -112,7 +98,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Sections */
         .section {
             padding: 6rem 2rem;
             max-width: 1400px;
@@ -136,7 +121,6 @@
             font-size: 1.1rem;
         }
 
-        /* Product Grid */
         .product-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -204,7 +188,6 @@
             line-height: 1.8;
         }
 
-        /* Sample Grid */
         .sample-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -242,7 +225,6 @@
             color: #888;
         }
 
-        /* Buttons */
         .btn {
             display: inline-block;
             background-color: #fff;
@@ -277,14 +259,6 @@
             color: #0a0a0a;
         }
 
-        /* Embedded Checkout Container */
-        .checkout-container {
-            margin-top: 1rem;
-            border-radius: 8px;
-            overflow: hidden;
-        }
-
-        /* Review Form */
         .review-section {
             background-color: #111;
             border-radius: 12px;
@@ -343,7 +317,48 @@
             margin-top: 1rem;
         }
 
-        /* Footer */
+        .reviews-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .review-card {
+            background-color: #111;
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid #222;
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .review-rating {
+            color: #ffd700;
+            font-size: 1.2rem;
+        }
+
+        .review-verified {
+            color: #4CAF50;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .review-text {
+            color: #aaa;
+            font-style: italic;
+            margin: 1rem 0;
+        }
+
+        .review-date {
+            color: #666;
+            font-size: 0.8rem;
+        }
+
         .footer {
             background-color: #111;
             padding: 4rem 2rem;
@@ -373,7 +388,19 @@
             font-size: 0.9rem;
         }
 
-        /* Responsive */
+        .password-modal {
+            background-color: #111;
+            border-radius: 12px;
+            padding: 2rem;
+            max-width: 400px;
+            margin: 2rem auto;
+            border: 1px solid #ffd700;
+        }
+
+        .hidden {
+            display: none;
+        }
+
         @media (max-width: 768px) {
             .hero h1 {
                 font-size: 3rem;
@@ -396,6 +423,8 @@
             }
         }
     </style>
+    <!-- Stripe.js -->
+    <script src="https://js.stripe.com/v3/"></script>
 </head>
 <body>
     <nav class="navbar">
@@ -404,7 +433,8 @@
             <a href="#mens">MEN</a>
             <a href="#womens">WOMEN</a>
             <a href="#samples">SAMPLES</a>
-            <a href="#review">FEEDBACK</a>
+            <a href="#reviews">REVIEWS</a>
+            <a href="#tester">TESTER</a>
         </div>
     </nav>
 
@@ -441,9 +471,7 @@
                     Warm spices, creamy woods, enveloping musk. Sweet without cloying. 
                     Dark without cold. The one they ask about.
                 </p>
-                <div class="checkout-container">
-                    <a href="#" class="https://buy.stripe.com/dRm8wO6cebQI6t18nLcfK00" onclick="alert('Stripe checkout coming soon')">PRE-ORDER NOW</a>
-                </div>
+                <button class="btn" onclick="buyNow('price_1MensProduct', 'Genesis 001')">BUY NOW</button>
             </div>
         </div>
     </div>
@@ -458,9 +486,7 @@
                 <h4>GENESIS 002</h4>
                 <div class="sample-price">$4 <small>+ $5.50 shipping</small></div>
                 <p style="color: #aaa; margin: 1rem 0;">2ml spray sample · Includes $5 off full bottle</p>
-                <div class="checkout-container">
-                    <a href="#" class="https://buy.stripe.com/cNi8wO0RUaMEeZx1ZncfK02" onclick="alert('Sample ordering coming soon')">ORDER SAMPLE</a>
-                </div>
+                <button class="btn btn-outline" onclick="buyNow('price_1WomensSample', 'Genesis 002 Sample')">ORDER SAMPLE</button>
             </div>
         </div>
     </div>
@@ -474,77 +500,243 @@
                 <h4>GENESIS 001</h4>
                 <p style="color: #888;">For Him · 2ml spray</p>
                 <div class="sample-price">$4 <small>+ $5.50 shipping</small></div>
-                <div class="checkout-container">
-                    <a href="#" class="https://buy.stripe.com/00w8wObwy3kcdVt8nLcfK01" onclick="alert('Sample ordering coming soon')">ORDER SAMPLE</a>
-                </div>
+                <button class="btn btn-outline" onclick="buyNow('price_1MensSample', 'Genesis 001 Sample')">ORDER SAMPLE</button>
             </div>
             
             <div class="sample-card">
                 <h4>GENESIS 002</h4>
                 <p style="color: #888;">For Her · 2ml spray</p>
                 <div class="sample-price">$4 <small>+ $5.50 shipping</small></div>
-                <div class="checkout-container">
-                    <a href="#" class="https://buy.stripe.com/cNi8wO0RUaMEeZx1ZncfK02" onclick="alert('Sample ordering coming soon')">ORDER SAMPLE</a>
-                </div>
+                <button class="btn btn-outline" onclick="buyNow('price_1WomensSample', 'Genesis 002 Sample')">ORDER SAMPLE</button>
             </div>
             
             <div class="sample-card featured">
                 <h4>DISCOVERY SET</h4>
                 <p style="color: #888;">Both Scents · 2ml each</p>
                 <div class="sample-price">$7 <small>+ $5.50 shipping</small></div>
-                <div class="checkout-container">
-                    <a href="#" class="https://buy.stripe.com/cNieVcbwy6wo9Fd9rPcfK03" onclick="alert('Discovery Set coming soon')">ORDER SET</a>
-                </div>
+                <button class="btn" onclick="buyNow('price_1DiscoverySet', 'Discovery Set')">ORDER SET</button>
             </div>
         </div>
     </div>
 
-    <div id="review" class="section">
+    <div id="reviews" class="section">
+        <h2 class="section-title">VERIFIED REVIEWS</h2>
+        <p class="section-subtitle">Real feedback from real customers</p>
+        <div id="reviews-container" class="reviews-container">
+            <p style="color: #888; text-align: center;">Loading reviews...</p>
+        </div>
+    </div>
+
+    <div id="tester" class="section">
         <div class="review-section">
             <h3>TESTER FEEDBACK</h3>
-            <p style="color: #aaa; text-align: center; margin-bottom: 2rem;">For authorized testers only. Your feedback shapes Genesis.</p>
+            <p style="color: #aaa; text-align: center; margin-bottom: 2rem;">For authorized testers only. Enter password to access.</p>
             
-            <form id="tester-review-form" onsubmit="event.preventDefault(); alert('Tester form coming soon. Please email hello@osmori.com directly.')">
-                <div class="form-grid">
-                    <input type="text" placeholder="Your Name" required>
-                    <select required>
-                        <option value="" disabled selected>Price for 10ml?</option>
-                        <option value="15-20">$15 - $20</option>
-                        <option value="20-25">$20 - $25</option>
-                        <option value="25-30">$25 - $30</option>
-                        <option value="30-35">$30 - $35</option>
-                        <option value="35+">$35+</option>
-                    </select>
-                    <select required>
-                        <option value="" disabled selected>Luxury rating (1-10)</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                    </select>
-                    <input type="text" placeholder="Describe the sweetness">
-                    <input type="text" placeholder="What vibe does this give?">
-                    <input type="text" placeholder="Hours lasted on skin">
+            <div id="tester-password-section">
+                <div class="password-modal">
+                    <input type="password" id="tester-password" placeholder="Enter password" style="width: 100%; padding: 1rem; background-color: #222; border: 1px solid #333; color: #fff; border-radius: 8px; margin-bottom: 1rem;">
+                    <button class="btn" onclick="checkTesterPassword()">SUBMIT</button>
                 </div>
-                <textarea placeholder="Any suggestions? What would you change?" rows="4"></textarea>
-                <button type="submit">SUBMIT FEEDBACK</button>
-            </form>
+            </div>
+            
+            <div id="tester-form-section" class="hidden">
+                <form id="tester-review-form">
+                    <div class="form-grid">
+                        <input type="text" id="tester-name" placeholder="Your Name" required>
+                        <select id="tester-price" required>
+                            <option value="" disabled selected>Price for 10ml?</option>
+                            <option value="15-20">$15 - $20</option>
+                            <option value="20-25">$20 - $25</option>
+                            <option value="25-30">$25 - $30</option>
+                            <option value="30-35">$30 - $35</option>
+                            <option value="35+">$35+</option>
+                        </select>
+                        <select id="tester-luxury" required>
+                            <option value="" disabled selected>Luxury rating (1-10)</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                        </select>
+                        <input type="text" id="tester-sweetness" placeholder="Describe the sweetness">
+                        <input type="text" id="tester-vibe" placeholder="What vibe does this give?">
+                        <input type="text" id="tester-longevity" placeholder="Hours lasted on skin">
+                    </div>
+                    <textarea id="tester-feedback" placeholder="Any suggestions? What would you change?" rows="4"></textarea>
+                    <button type="submit">SUBMIT FEEDBACK</button>
+                </form>
+            </div>
         </div>
     </div>
 
     <footer class="footer">
         <div class="footer-links">
             <a href="https://instagram.com/osmori.official" target="_blank">INSTAGRAM</a>
-            <a href="mailto:hello@osmori.com">EMAIL</a>
+            <a href="#" onclick="openContactForm()">CONTACT</a>
         </div>
         <p>© 2026 OSMORI · Haskell, NJ</p>
         <p style="margin-top: 0.5rem;">hello@osmori.com</p>
     </footer>
+
+    <!-- Contact Form Modal (Hidden by default) -->
+    <div id="contact-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.9); z-index: 2000; justify-content: center; align-items: center;">
+        <div style="background-color: #111; padding: 2rem; border-radius: 12px; max-width: 500px; width: 90%; border: 1px solid #ffd700;">
+            <h3 style="color: #fff; margin-bottom: 1rem;">CONTACT OSMORI</h3>
+            <form id="contact-form">
+                <input type="text" id="contact-name" placeholder="Your Name" required style="width: 100%; padding: 1rem; background-color: #222; border: 1px solid #333; color: #fff; border-radius: 8px; margin-bottom: 1rem;">
+                <input type="email" id="contact-email" placeholder="Your Email" required style="width: 100%; padding: 1rem; background-color: #222; border: 1px solid #333; color: #fff; border-radius: 8px; margin-bottom: 1rem;">
+                <textarea id="contact-message" placeholder="Your Message" rows="4" required style="width: 100%; padding: 1rem; background-color: #222; border: 1px solid #333; color: #fff; border-radius: 8px; margin-bottom: 1rem;"></textarea>
+                <button type="submit" class="btn" style="margin-bottom: 1rem;">SEND</button>
+                <button type="button" class="btn btn-outline" onclick="closeContactForm()">CLOSE</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Stripe checkout function
+        async function buyNow(priceId, productName) {
+            const customerName = prompt("Enter your full name:");
+            if (!customerName) return;
+            
+            const customerEmail = prompt("Enter your email:");
+            if (!customerEmail) return;
+            
+            try {
+                const response = await fetch('/.netlify/functions/create-checkout', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        priceId: priceId,
+                        customerEmail: customerEmail,
+                        customerName: customerName
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.sessionId) {
+                    const stripe = Stripe('pk_live_YOUR_STRIPE_PUBLISHABLE_KEY');
+                    const result = await stripe.redirectToCheckout({ sessionId: data.sessionId });
+                    
+                    if (result.error) {
+                        alert(result.error.message);
+                    }
+                } else {
+                    alert('Error creating checkout session');
+                }
+            } catch (error) {
+                alert('Error: ' + error.message);
+            }
+        }
+
+        // Load reviews
+        async function loadReviews() {
+            try {
+                const response = await fetch('/.netlify/functions/get-reviews?product=all');
+                const data = await response.json();
+                
+                const container = document.getElementById('reviews-container');
+                
+                if (data.reviews && data.reviews.length > 0) {
+                    container.innerHTML = data.reviews.map(review => `
+                        <div class="review-card">
+                            <div class="review-header">
+                                <span class="review-rating">${'★'.repeat(review.rating)}${'☆'.repeat(5-review.rating)}</span>
+                                ${review.verified ? '<span class="review-verified">✓ VERIFIED</span>' : ''}
+                            </div>
+                            <div class="review-text">"${review.text}"</div>
+                            <div class="review-date">${new Date(review.date).toLocaleDateString()}</div>
+                        </div>
+                    `).join('');
+                } else {
+                    container.innerHTML = '<p style="color: #888; text-align: center;">No reviews yet. Be the first to leave one!</p>';
+                }
+            } catch (error) {
+                document.getElementById('reviews-container').innerHTML = '<p style="color: #888; text-align: center;">Error loading reviews.</p>';
+            }
+        }
+
+        // Tester password protection
+        function checkTesterPassword() {
+            const password = document.getElementById('tester-password').value;
+            if (password === '0001') {
+                document.getElementById('tester-password-section').style.display = 'none';
+                document.getElementById('tester-form-section').classList.remove('hidden');
+            } else {
+                alert('Incorrect password');
+            }
+        }
+
+        // Tester form submission
+        document.getElementById('tester-review-form')?.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Send to FormSubmit (your existing method)
+            const formData = {
+                name: document.getElementById('tester-name').value,
+                price_opinion: document.getElementById('tester-price').value,
+                luxury_rating: document.getElementById('tester-luxury').value,
+                sweetness_description: document.getElementById('tester-sweetness').value,
+                vibe: document.getElementById('tester-vibe').value,
+                longevity: document.getElementById('tester-longevity').value,
+                feedback: document.getElementById('tester-feedback').value,
+                _subject: "New OSMORI Tester Review"
+            };
+            
+            try {
+                await fetch('https://formsubmit.co/ajax/hello@osmori.com', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+                alert('Thank you for your feedback!');
+                document.getElementById('tester-review-form').reset();
+            } catch (error) {
+                alert('Error submitting. Please email hello@osmori.com');
+            }
+        });
+
+        // Contact form functions
+        function openContactForm() {
+            document.getElementById('contact-modal').style.display = 'flex';
+        }
+
+        function closeContactForm() {
+            document.getElementById('contact-modal').style.display = 'none';
+        }
+
+        document.getElementById('contact-form')?.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = {
+                name: document.getElementById('contact-name').value,
+                email: document.getElementById('contact-email').value,
+                message: document.getElementById('contact-message').value,
+                _subject: "New OSMORI Contact Message"
+            };
+            
+            try {
+                await fetch('https://formsubmit.co/ajax/hello@osmori.com', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+                alert('Message sent! We\'ll reply soon.');
+                closeContactForm();
+                document.getElementById('contact-form').reset();
+            } catch (error) {
+                alert('Error sending. Please email hello@osmori.com');
+            }
+        });
+
+        // Load reviews when page loads
+        window.addEventListener('load', loadReviews);
+    </script>
 </body>
 </html>
