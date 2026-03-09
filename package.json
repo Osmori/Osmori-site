@@ -1,0 +1,9 @@
+{
+  "name": "osmori",
+  "version": "1.0.0",
+  "description": "OSMORI fragrance website",
+  "dependencies": {
+    "stripe": "^14.0.0",
+    "airtable": "^0.12.0"
+  }
+}
