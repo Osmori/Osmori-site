@@ -471,7 +471,7 @@
                     Warm spices, creamy woods, enveloping musk. Sweet without cloying. 
                     Dark without cold. The one they ask about.
                 </p>
-                <button class="btn" onclick="buyNow('price_1T5x0OC9IV5fVEGAv2744z5V', 'Genesis 001')">BUY NOW</button>
+                <button class="btn" onclick="buyNow('price_YOUR_MENS_FULL_ID', 'Genesis 001')">BUY NOW</button>
             </div>
         </div>
     </div>
@@ -486,7 +486,7 @@
                 <h4>GENESIS 002</h4>
                 <div class="sample-price">$4 <small>+ $5.50 shipping</small></div>
                 <p style="color: #aaa; margin: 1rem 0;">2ml spray sample · Includes $5 off full bottle</p>
-                <button class="btn btn-outline" onclick="buyNow('price_1T5wGZC9IV5fVEGAFPDPlSYb', 'Genesis 002 Sample')">ORDER SAMPLE</button>
+                <button class="btn btn-outline" onclick="buyNow('price_YOUR_WOMENS_SAMPLE_ID', 'Genesis 002 Sample')">ORDER SAMPLE</button>
             </div>
         </div>
     </div>
@@ -500,21 +500,21 @@
                 <h4>GENESIS 001</h4>
                 <p style="color: #888;">For Him · 2ml spray</p>
                 <div class="sample-price">$4 <small>+ $5.50 shipping</small></div>
-                <button class="btn btn-outline" onclick="buyNow('price_1T5wEHC9IV5fVEGAiUaty66w', 'Genesis 001 Sample')">ORDER SAMPLE</button>
+                <button class="btn btn-outline" onclick="buyNow('price_YOUR_MENS_SAMPLE_ID', 'Genesis 001 Sample')">ORDER SAMPLE</button>
             </div>
             
             <div class="sample-card">
                 <h4>GENESIS 002</h4>
                 <p style="color: #888;">For Her · 2ml spray</p>
                 <div class="sample-price">$4 <small>+ $5.50 shipping</small></div>
-                <button class="btn btn-outline" onclick="buyNow('price_1T5wGZC9IV5fVEGAFPDPlSYb', 'Genesis 002 Sample')">ORDER SAMPLE</button>
+                <button class="btn btn-outline" onclick="buyNow('price_YOUR_WOMENS_SAMPLE_ID', 'Genesis 002 Sample')">ORDER SAMPLE</button>
             </div>
             
             <div class="sample-card featured">
                 <h4>DISCOVERY SET</h4>
                 <p style="color: #888;">Both Scents · 2ml each</p>
                 <div class="sample-price">$7 <small>+ $5.50 shipping</small></div>
-                <button class="btn" onclick="buyNow('price_1T5wKCC9IV5fVEGA4mYENox1', 'Discovery Set')">ORDER SET</button>
+                <button class="btn" onclick="buyNow('price_YOUR_DISCOVERY_SET_ID', 'Discovery Set')">ORDER SET</button>
             </div>
         </div>
     </div>
@@ -584,7 +584,7 @@
         <p style="margin-top: 0.5rem;">hello@osmori.com</p>
     </footer>
 
-    <!-- Contact Form Modal (Hidden by default) -->
+    <!-- Contact Form Modal -->
     <div id="contact-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.9); z-index: 2000; justify-content: center; align-items: center;">
         <div style="background-color: #111; padding: 2rem; border-radius: 12px; max-width: 500px; width: 90%; border: 1px solid #ffd700;">
             <h3 style="color: #fff; margin-bottom: 1rem;">CONTACT OSMORI</h3>
@@ -599,7 +599,7 @@
     </div>
 
     <script>
-        // Stripe checkout function
+        // Stripe checkout function - UPDATED with correct Vercel path
         async function buyNow(priceId, productName) {
             const customerName = prompt("Enter your full name:");
             if (!customerName) return;
@@ -621,7 +621,7 @@
                 const data = await response.json();
                 
                 if (data.sessionId) {
-                    const stripe = Stripe('pk_live_51T3mQtC9IV5fVEGA7gBVuD3w7dCbCifNJW9fclm8G3nHjmtJrZVyRSUxoxGJCEboaMBa5wdNDaDslqxvlZ340zJR00UJ3OfVap');
+                    const stripe = Stripe('pk_live_YOUR_STRIPE_PUBLISHABLE_KEY');
                     const result = await stripe.redirectToCheckout({ sessionId: data.sessionId });
                     
                     if (result.error) {
@@ -677,7 +677,6 @@
         document.getElementById('tester-review-form')?.addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            // Send to FormSubmit (your existing method)
             const formData = {
                 name: document.getElementById('tester-name').value,
                 price_opinion: document.getElementById('tester-price').value,
