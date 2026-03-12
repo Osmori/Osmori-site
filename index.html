@@ -608,7 +608,7 @@
             if (!customerEmail) return;
             
             try {
-                const response = await fetch('/.netlify/functions/create-checkout', {
+                const response = await fetch('/api/create-checkout', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -638,7 +638,7 @@
         // Load reviews
         async function loadReviews() {
             try {
-                const response = await fetch('/.netlify/functions/get-reviews?product=all');
+                const response = await fetch('/api/get-reviews?product=all');
                 const data = await response.json();
                 
                 const container = document.getElementById('reviews-container');
