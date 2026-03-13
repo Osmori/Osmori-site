@@ -599,7 +599,7 @@
     </div>
 
     <script>
-        // Stripe checkout function - UPDATED with correct Vercel path
+        // Stripe checkout function - with improved error handling
         async function buyNow(priceId, productName) {
             const customerName = prompt("Enter your full name:");
             if (!customerName) return;
@@ -618,6 +618,12 @@
                     })
                 });
                 
+                // Check if response is ok (status 200-299)
+                if (!response.ok) {
+                    const text = await response.text();
+                    throw new Error(`Server error (${response.status}): ${text}`);
+                }
+                
                 const data = await response.json();
                 
                 if (data.sessionId) {
@@ -632,6 +638,7 @@
                 }
             } catch (error) {
                 alert('Error: ' + error.message);
+                console.error('Full error:', error);
             }
         }
 
@@ -659,6 +666,7 @@
                 }
             } catch (error) {
                 document.getElementById('reviews-container').innerHTML = '<p style="color: #888; text-align: center;">Error loading reviews.</p>';
+                console.error('Reviews error:', error);
             }
         }
 
