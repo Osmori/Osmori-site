@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OSMORI — Where Scent Begins</title>
     <style>
-        /* ---------- ALL YOUR EXISTING STYLES REMAIN THE SAME ---------- */
+        /* All your existing styles remain exactly the same */
         * {
             margin: 0;
             padding: 0;
@@ -424,12 +424,69 @@
             }
         }
 
-        /* Style for the embedded checkout container */
-        #checkout-container {
+        /* Modal styles for name/email collection */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #111;
+            padding: 2rem;
+            border-radius: 12px;
+            max-width: 400px;
+            width: 90%;
+            border: 1px solid #ffd700;
+        }
+
+        .modal-content h3 {
+            color: #fff;
+            margin-bottom: 1rem;
+        }
+
+        .modal-content input {
+            width: 100%;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background-color: #222;
+            border: 1px solid #333;
+            color: #fff;
+            border-radius: 8px;
+        }
+
+        .modal-content button {
+            width: 100%;
+            padding: 1rem;
+            background-color: #ffd700;
+            color: #0a0a0a;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-content .btn-outline {
+            background-color: transparent;
+            border: 1px solid #fff;
+            color: #fff;
+        }
+
+        /* Checkout container styling */
+        .checkout-container {
             background: #1a1a1a;
             border-radius: 8px;
             padding: 20px;
             margin-top: 20px;
+            display: none;
         }
     </style>
     <!-- Stripe.js -->
@@ -466,11 +523,10 @@
         </div>
     </div>
 
-    <!-- FOR HIM Section -->
+    <!-- FOR HIM -->
     <div id="mens" class="section">
         <h2 class="section-title">FOR HIM</h2>
         <p class="section-subtitle">Genesis 001 — The First Event</p>
-        
         <div class="product-grid">
             <div class="product-card">
                 <span class="product-badge">NEW</span>
@@ -481,64 +537,60 @@
                     Warm spices, creamy woods, enveloping musk. Sweet without cloying. 
                     Dark without cold. The one they ask about.
                 </p>
-                <!-- Updated button calls prepareEmbeddedCheckout with the price ID -->
-                <button class="btn" onclick="prepareEmbeddedCheckout('price_1T5x0OC9IV5fVEGAv2744z5V', 'Genesis 001')">BUY NOW</button>
-                <!-- Container for the embedded checkout form -->
-                <div id="checkout-container-genesis001" class="checkout-container" style="display: none; margin-top: 20px;"></div>
+                <button class="btn" onclick="showNameModal('price_1T5x0OC9IV5fVEGAv2744z5V', 'Genesis 001', 'checkout-container-genesis001')">BUY NOW</button>
+                <div id="checkout-container-genesis001" class="checkout-container"></div>
             </div>
         </div>
     </div>
 
-    <!-- FOR HER Section -->
+    <!-- FOR HER -->
     <div id="womens" class="section">
         <h2 class="section-title">FOR HER</h2>
         <p class="section-subtitle">Genesis 002 — Midnight Vanille</p>
-        
         <div class="sample-grid">
             <div class="sample-card featured">
                 <span class="product-badge silver">PREVIEW</span>
                 <h4>GENESIS 002</h4>
                 <div class="sample-price">$4 <small>+ $5.50 shipping</small></div>
                 <p style="color: #aaa; margin: 1rem 0;">2ml spray sample · Includes $5 off full bottle</p>
-                <button class="btn btn-outline" onclick="prepareEmbeddedCheckout('price_1T5wGZC9IV5fVEGAFPDPlSYb', 'Genesis 002 Sample')">ORDER SAMPLE</button>
-                <div id="checkout-container-genesis002-sample" class="checkout-container" style="display: none; margin-top: 20px;"></div>
+                <button class="btn btn-outline" onclick="showNameModal('price_1T5wGZC9IV5fVEGAFPDPlSYb', 'Genesis 002 Sample', 'checkout-container-genesis002-sample')">ORDER SAMPLE</button>
+                <div id="checkout-container-genesis002-sample" class="checkout-container"></div>
             </div>
         </div>
     </div>
 
-    <!-- SAMPLES Section -->
+    <!-- SAMPLES -->
     <div id="samples" class="section">
         <h2 class="section-title">TRY BEFORE YOU COMMIT</h2>
         <p class="section-subtitle">Every sample includes a $5 discount code toward your first full bottle.</p>
-        
         <div class="sample-grid">
             <div class="sample-card">
                 <h4>GENESIS 001</h4>
                 <p style="color: #888;">For Him · 2ml spray</p>
                 <div class="sample-price">$4 <small>+ $5.50 shipping</small></div>
-                <button class="btn btn-outline" onclick="prepareEmbeddedCheckout('price_1T5wEHC9IV5fVEGAiUaty66w', 'Genesis 001 Sample')">ORDER SAMPLE</button>
-                <div id="checkout-container-genesis001-sample" class="checkout-container" style="display: none; margin-top: 20px;"></div>
+                <button class="btn btn-outline" onclick="showNameModal('price_1T5wEHC9IV5fVEGAiUaty66w', 'Genesis 001 Sample', 'checkout-container-genesis001-sample')">ORDER SAMPLE</button>
+                <div id="checkout-container-genesis001-sample" class="checkout-container"></div>
             </div>
             
             <div class="sample-card">
                 <h4>GENESIS 002</h4>
                 <p style="color: #888;">For Her · 2ml spray</p>
                 <div class="sample-price">$4 <small>+ $5.50 shipping</small></div>
-                <button class="btn btn-outline" onclick="prepareEmbeddedCheckout('price_1T5wGZC9IV5fVEGAFPDPlSYb', 'Genesis 002 Sample')">ORDER SAMPLE</button>
-                <div id="checkout-container-genesis002-sample2" class="checkout-container" style="display: none; margin-top: 20px;"></div>
+                <button class="btn btn-outline" onclick="showNameModal('price_1T5wGZC9IV5fVEGAFPDPlSYb', 'Genesis 002 Sample', 'checkout-container-genesis002-sample2')">ORDER SAMPLE</button>
+                <div id="checkout-container-genesis002-sample2" class="checkout-container"></div>
             </div>
             
             <div class="sample-card featured">
                 <h4>DISCOVERY SET</h4>
                 <p style="color: #888;">Both Scents · 2ml each</p>
                 <div class="sample-price">$7 <small>+ $5.50 shipping</small></div>
-                <button class="btn" onclick="prepareEmbeddedCheckout('price_1T5wKCC9IV5fVEGA4mYENox1', 'Discovery Set')">ORDER SET</button>
-                <div id="checkout-container-discovery" class="checkout-container" style="display: none; margin-top: 20px;"></div>
+                <button class="btn" onclick="showNameModal('price_1T5wKCC9IV5fVEGA4mYENox1', 'Discovery Set', 'checkout-container-discovery')">ORDER SET</button>
+                <div id="checkout-container-discovery" class="checkout-container"></div>
             </div>
         </div>
     </div>
 
-    <!-- REVIEWS Section -->
+    <!-- REVIEWS -->
     <div id="reviews" class="section">
         <h2 class="section-title">VERIFIED REVIEWS</h2>
         <p class="section-subtitle">Real feedback from real customers</p>
@@ -547,7 +599,7 @@
         </div>
     </div>
 
-    <!-- TESTER Section -->
+    <!-- TESTER -->
     <div id="tester" class="section">
         <div class="review-section">
             <h3>TESTER FEEDBACK</h3>
@@ -620,56 +672,83 @@
         </div>
     </div>
 
+    <!-- Modal for Name/Email (appears when Buy is clicked) -->
+    <div id="name-email-modal" class="modal">
+        <div class="modal-content">
+            <h3>Complete Your Order</h3>
+            <input type="text" id="modal-name" placeholder="Full Name" required>
+            <input type="email" id="modal-email" placeholder="Email Address" required>
+            <button id="modal-submit">Continue to Payment</button>
+            <button class="btn-outline" onclick="closeNameModal()">Cancel</button>
+        </div>
+    </div>
+
     <script>
         // Stripe publishable key (your live key)
         const stripePublishableKey = 'pk_live_51T3mQtC9IV5fVEGA7gBVuD3w7dCbCifNJW9fclm8G3nHjmtJrZVyRSUxoxGJCEboaMBa5wdNDaDslqxvlZ340zJR00UJ3OfVap';
 
-        // Prepare embedded checkout
-        async function prepareEmbeddedCheckout(priceId, productName) {
-            const customerName = prompt("Enter your full name:");
-            if (!customerName) return;
-            
-            const customerEmail = prompt("Enter your email:");
-            if (!customerEmail) return;
-            
+        // Variables to store current product info
+        let currentPriceId = '';
+        let currentProductName = '';
+        let currentContainerId = '';
+
+        // Show the name/email modal
+        function showNameModal(priceId, productName, containerId) {
+            currentPriceId = priceId;
+            currentProductName = productName;
+            currentContainerId = containerId;
+            document.getElementById('name-email-modal').style.display = 'flex';
+        }
+
+        function closeNameModal() {
+            document.getElementById('name-email-modal').style.display = 'none';
+            // Clear fields
+            document.getElementById('modal-name').value = '';
+            document.getElementById('modal-email').value = '';
+        }
+
+        // Handle modal submit
+        document.getElementById('modal-submit').addEventListener('click', async function() {
+            const customerName = document.getElementById('modal-name').value.trim();
+            const customerEmail = document.getElementById('modal-email').value.trim();
+
+            if (!customerName || !customerEmail) {
+                alert('Please enter both name and email.');
+                return;
+            }
+
+            // Close modal
+            closeNameModal();
+
+            // Call backend to create checkout session
             try {
                 const response = await fetch('/api/create-checkout', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        priceId: priceId,
+                        priceId: currentPriceId,
                         customerEmail: customerEmail,
                         customerName: customerName
                     })
                 });
-                
+
                 if (!response.ok) {
                     const text = await response.text();
                     throw new Error(`Server error (${response.status}): ${text}`);
                 }
-                
+
                 const data = await response.json();
-                
+
                 if (data.clientSecret) {
                     // Hide the button that was clicked
-                    const buttons = document.querySelectorAll(`[onclick*="${priceId}"]`);
+                    const buttons = document.querySelectorAll(`[onclick*="${currentPriceId}"]`);
                     buttons.forEach(btn => btn.style.display = 'none');
-                    
-                    // Find the corresponding checkout container
-                    // We'll use a mapping based on priceId (simplified: just find the next container after the button)
-                    // Since we have multiple containers with specific IDs, we can map them:
-                    let containerId;
-                    if (priceId === 'price_1T5x0OC9IV5fVEGAv2744z5V') containerId = 'checkout-container-genesis001';
-                    else if (priceId === 'price_1T5wGZC9IV5fVEGAFPDPlSYb' && productName === 'Genesis 002 Sample') containerId = 'checkout-container-genesis002-sample';
-                    else if (priceId === 'price_1T5wEHC9IV5fVEGAiUaty66w') containerId = 'checkout-container-genesis001-sample';
-                    else if (priceId === 'price_1T5wGZC9IV5fVEGAFPDPlSYb' && productName === 'Genesis 002 Sample') containerId = 'checkout-container-genesis002-sample2'; // second one
-                    else if (priceId === 'price_1T5wKCC9IV5fVEGA4mYENox1') containerId = 'checkout-container-discovery';
-                    else containerId = 'checkout-container'; // fallback
-                    
-                    const container = document.getElementById(containerId);
+
+                    // Show the checkout container and mount embedded checkout
+                    const container = document.getElementById(currentContainerId);
                     if (container) {
                         container.style.display = 'block';
-                        mountEmbeddedCheckout(data.clientSecret, containerId);
+                        mountEmbeddedCheckout(data.clientSecret, currentContainerId);
                     } else {
                         alert('Checkout container not found');
                     }
@@ -680,15 +759,26 @@
                 alert('Error: ' + error.message);
                 console.error('Full error:', error);
             }
-        }
+        });
 
         // Mount the embedded checkout form
         function mountEmbeddedCheckout(clientSecret, containerId) {
             const stripe = Stripe(stripePublishableKey);
-            const checkout = stripe.initEmbeddedCheckout({
-                clientSecret: clientSecret,
-            });
-            checkout.mount(`#${containerId}`);
+            try {
+                const checkout = stripe.initEmbeddedCheckout({
+                    clientSecret: clientSecret,
+                });
+                console.log('Checkout object:', checkout); // Debug
+                if (checkout && typeof checkout.mount === 'function') {
+                    checkout.mount(`#${containerId}`);
+                } else {
+                    console.error('checkout.mount is not a function', checkout);
+                    alert('Error initializing payment form. Please try again or contact us.');
+                }
+            } catch (err) {
+                console.error('Embedded checkout error:', err);
+                alert('Failed to load payment form. Please try again.');
+            }
         }
 
         // Load reviews (keep as before)
