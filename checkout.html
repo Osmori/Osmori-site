@@ -1,113 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkout - OSMORI</title>
-    <style>
-        body {
-            background-color: #0a0a0a;
-            color: #fff;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            text-align: center;
-            padding: 2rem;
-        }
-        #checkout-container {
-            max-width: 600px;
-            margin: 2rem auto;
-            background: #111;
-            padding: 2rem;
-            border-radius: 12px;
-            border: 1px solid #222;
-        }
-        .loader {
-            border: 4px solid #333;
-            border-top: 4px solid #ffd700;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 20px auto;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        .error {
-            color: #ff6b6b;
-            margin: 1rem 0;
-        }
-        .hidden {
-            display: none;
-        }
-    </style>
-    <script src="https://js.stripe.com/v3/"></script>
-</head>
-<body>
-    <h1>Complete your purchase</h1>
-    <div id="loading" class="loader"></div>
-    <div id="checkout-container" class="hidden"></div>
-    <div id="error-message" class="error hidden"></div>
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const priceId = urlParams.get('priceId');
+    const productName = urlParams.get('product');
+    const customerName = urlParams.get('name');
+    const customerEmail = urlParams.get('email');
 
-    <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        const priceId = urlParams.get('priceId');
-        const productName = urlParams.get('product');
-        const customerName = urlParams.get('name');
-        const customerEmail = urlParams.get('email');
+    console.log('Sending to backend:', { priceId, customerEmail, customerName });
 
-        if (!priceId || !customerName || !customerEmail) {
+    if (!priceId || !customerName || !customerEmail) {
+        document.getElementById('loading').classList.add('hidden');
+        document.getElementById('error-message').classList.remove('hidden');
+        document.getElementById('error-message').textContent = 'Missing checkout information.';
+    } else {
+        fetch('/api/create-checkout', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ priceId, customerEmail, customerName })
+        })
+        .then(response => {
+            console.log('Response status:', response.status);
+            return response.json();
+        })
+        .then(data => {
+            console.log('Backend response data:', data);
+            if (data.clientSecret) {
+                document.getElementById('loading').classList.add('hidden');
+                const container = document.getElementById('checkout-container');
+                container.classList.remove('hidden');
+
+                const stripe = Stripe('pk_live_51T3mQtC9IV5fVEGA7gBVuD3w7dCbCifNJW9fclm8G3nHjmtJrZVyRSUxoxGJCEboaMBa5wdNDaDslqxvlZ340zJR00UJ3OfVap');
+                console.log('Initializing embedded checkout with clientSecret:', data.clientSecret);
+                
+                // initEmbeddedCheckout returns a Promise – wait for it
+                stripe.initEmbeddedCheckout({ clientSecret: data.clientSecret })
+                    .then(checkout => {
+                        console.log('Checkout object:', checkout);
+                        checkout.mount('#checkout-container');
+                    })
+                    .catch(err => {
+                        console.error('Error mounting checkout:', err);
+                        document.getElementById('error-message').classList.remove('hidden');
+                        document.getElementById('error-message').textContent = 'Error loading payment form: ' + err.message;
+                    });
+            } else {
+                throw new Error('No clientSecret in response');
+            }
+        })
+        .catch(error => {
+            console.error('Caught error:', error);
             document.getElementById('loading').classList.add('hidden');
             document.getElementById('error-message').classList.remove('hidden');
-            document.getElementById('error-message').textContent = 'Missing checkout information. Please go back and try again.';
-        } else {
-            console.log('Sending to backend:', { priceId, customerEmail, customerName });
-            fetch('/api/create-checkout', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    priceId: priceId,
-                    customerEmail: customerEmail,
-                    customerName: customerName
-                })
-            })
-            .then(response => {
-                console.log('Response status:', response.status);
-                if (!response.ok) {
-                    return response.text().then(text => { throw new Error(`HTTP ${response.status}: ${text}`); });
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log('Backend response data:', data);
-                if (data.clientSecret) {
-                    // Hide loader, show container
-                    document.getElementById('loading').classList.add('hidden');
-                    const container = document.getElementById('checkout-container');
-                    container.classList.remove('hidden');
-
-                    const stripe = Stripe('pk_live_51T3mQtC9IV5fVEGA7gBVuD3w7dCbCifNJW9fclm8G3nHjmtJrZVyRSUxoxGJCEboaMBa5wdNDaDslqxvlZ340zJR00UJ3OfVap');
-                    console.log('Initializing embedded checkout with clientSecret:', data.clientSecret);
-                    const checkout = stripe.initEmbeddedCheckout({
-                        clientSecret: data.clientSecret
-                    });
-                    console.log('Checkout object:', checkout);
-                    if (checkout && typeof checkout.mount === 'function') {
-                        checkout.mount('#checkout-container');
-                    } else {
-                        throw new Error('checkout.mount is not a function. Checkout object: ' + JSON.stringify(checkout));
-                    }
-                } else {
-                    throw new Error('No client secret in response');
-                }
-            })
-            .catch(error => {
-                console.error('Caught error:', error);
-                document.getElementById('loading').classList.add('hidden');
-                document.getElementById('error-message').classList.remove('hidden');
-                document.getElementById('error-message').textContent = 'Error: ' + error.message;
-            });
-        }
-    </script>
-</body>
-</html>
+            document.getElementById('error-message').textContent = 'Error: ' + error.message;
+        });
+    }
+</script>
