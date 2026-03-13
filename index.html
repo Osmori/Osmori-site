@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OSMORI — Where Scent Begins</title>
     <style>
+        /* ---------- ALL YOUR EXISTING STYLES REMAIN THE SAME ---------- */
         * {
             margin: 0;
             padding: 0;
@@ -422,6 +423,14 @@
                 padding: 4rem 1rem;
             }
         }
+
+        /* Style for the embedded checkout container */
+        #checkout-container {
+            background: #1a1a1a;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+        }
     </style>
     <!-- Stripe.js -->
     <script src="https://js.stripe.com/v3/"></script>
@@ -457,6 +466,7 @@
         </div>
     </div>
 
+    <!-- FOR HIM Section -->
     <div id="mens" class="section">
         <h2 class="section-title">FOR HIM</h2>
         <p class="section-subtitle">Genesis 001 — The First Event</p>
@@ -471,11 +481,15 @@
                     Warm spices, creamy woods, enveloping musk. Sweet without cloying. 
                     Dark without cold. The one they ask about.
                 </p>
-                <button class="btn" onclick="buyNow('price_1T5x0OC9IV5fVEGAv2744z5V', 'Genesis 001')">BUY NOW</button>
+                <!-- Updated button calls prepareEmbeddedCheckout with the price ID -->
+                <button class="btn" onclick="prepareEmbeddedCheckout('price_1T5x0OC9IV5fVEGAv2744z5V', 'Genesis 001')">BUY NOW</button>
+                <!-- Container for the embedded checkout form -->
+                <div id="checkout-container-genesis001" class="checkout-container" style="display: none; margin-top: 20px;"></div>
             </div>
         </div>
     </div>
 
+    <!-- FOR HER Section -->
     <div id="womens" class="section">
         <h2 class="section-title">FOR HER</h2>
         <p class="section-subtitle">Genesis 002 — Midnight Vanille</p>
@@ -486,11 +500,13 @@
                 <h4>GENESIS 002</h4>
                 <div class="sample-price">$4 <small>+ $5.50 shipping</small></div>
                 <p style="color: #aaa; margin: 1rem 0;">2ml spray sample · Includes $5 off full bottle</p>
-                <button class="btn btn-outline" onclick="buyNow('price_1T5wGZC9IV5fVEGAFPDPlSYb', 'Genesis 002 Sample')">ORDER SAMPLE</button>
+                <button class="btn btn-outline" onclick="prepareEmbeddedCheckout('price_1T5wGZC9IV5fVEGAFPDPlSYb', 'Genesis 002 Sample')">ORDER SAMPLE</button>
+                <div id="checkout-container-genesis002-sample" class="checkout-container" style="display: none; margin-top: 20px;"></div>
             </div>
         </div>
     </div>
 
+    <!-- SAMPLES Section -->
     <div id="samples" class="section">
         <h2 class="section-title">TRY BEFORE YOU COMMIT</h2>
         <p class="section-subtitle">Every sample includes a $5 discount code toward your first full bottle.</p>
@@ -500,25 +516,29 @@
                 <h4>GENESIS 001</h4>
                 <p style="color: #888;">For Him · 2ml spray</p>
                 <div class="sample-price">$4 <small>+ $5.50 shipping</small></div>
-                <button class="btn btn-outline" onclick="buyNow('price_1T5wEHC9IV5fVEGAiUaty66w', 'Genesis 001 Sample')">ORDER SAMPLE</button>
+                <button class="btn btn-outline" onclick="prepareEmbeddedCheckout('price_1T5wEHC9IV5fVEGAiUaty66w', 'Genesis 001 Sample')">ORDER SAMPLE</button>
+                <div id="checkout-container-genesis001-sample" class="checkout-container" style="display: none; margin-top: 20px;"></div>
             </div>
             
             <div class="sample-card">
                 <h4>GENESIS 002</h4>
                 <p style="color: #888;">For Her · 2ml spray</p>
                 <div class="sample-price">$4 <small>+ $5.50 shipping</small></div>
-                <button class="btn btn-outline" onclick="buyNow('price_1T5wGZC9IV5fVEGAFPDPlSYb', 'Genesis 002 Sample')">ORDER SAMPLE</button>
+                <button class="btn btn-outline" onclick="prepareEmbeddedCheckout('price_1T5wGZC9IV5fVEGAFPDPlSYb', 'Genesis 002 Sample')">ORDER SAMPLE</button>
+                <div id="checkout-container-genesis002-sample2" class="checkout-container" style="display: none; margin-top: 20px;"></div>
             </div>
             
             <div class="sample-card featured">
                 <h4>DISCOVERY SET</h4>
                 <p style="color: #888;">Both Scents · 2ml each</p>
                 <div class="sample-price">$7 <small>+ $5.50 shipping</small></div>
-                <button class="btn" onclick="buyNow('price_1T5wKCC9IV5fVEGA4mYENox1', 'Discovery Set')">ORDER SET</button>
+                <button class="btn" onclick="prepareEmbeddedCheckout('price_1T5wKCC9IV5fVEGA4mYENox1', 'Discovery Set')">ORDER SET</button>
+                <div id="checkout-container-discovery" class="checkout-container" style="display: none; margin-top: 20px;"></div>
             </div>
         </div>
     </div>
 
+    <!-- REVIEWS Section -->
     <div id="reviews" class="section">
         <h2 class="section-title">VERIFIED REVIEWS</h2>
         <p class="section-subtitle">Real feedback from real customers</p>
@@ -527,6 +547,7 @@
         </div>
     </div>
 
+    <!-- TESTER Section -->
     <div id="tester" class="section">
         <div class="review-section">
             <h3>TESTER FEEDBACK</h3>
@@ -575,6 +596,7 @@
         </div>
     </div>
 
+    <!-- FOOTER -->
     <footer class="footer">
         <div class="footer-links">
             <a href="https://instagram.com/osmori.official" target="_blank">INSTAGRAM</a>
@@ -599,8 +621,11 @@
     </div>
 
     <script>
-        // Stripe checkout function - with improved error handling
-        async function buyNow(priceId, productName) {
+        // Stripe publishable key (your live key)
+        const stripePublishableKey = 'pk_live_51T3mQtC9IV5fVEGA7gBVuD3w7dCbCifNJW9fclm8G3nHjmtJrZVyRSUxoxGJCEboaMBa5wdNDaDslqxvlZ340zJR00UJ3OfVap';
+
+        // Prepare embedded checkout
+        async function prepareEmbeddedCheckout(priceId, productName) {
             const customerName = prompt("Enter your full name:");
             if (!customerName) return;
             
@@ -618,7 +643,6 @@
                     })
                 });
                 
-                // Check if response is ok (status 200-299)
                 if (!response.ok) {
                     const text = await response.text();
                     throw new Error(`Server error (${response.status}): ${text}`);
@@ -626,12 +650,28 @@
                 
                 const data = await response.json();
                 
-                if (data.sessionId) {
-                    const stripe = Stripe('pk_live_51T3mQtC9IV5fVEGA7gBVuD3w7dCbCifNJW9fclm8G3nHjmtJrZVyRSUxoxGJCEboaMBa5wdNDaDslqxvlZ340zJR00UJ3OfVap');
-                    const result = await stripe.redirectToCheckout({ sessionId: data.sessionId });
+                if (data.clientSecret) {
+                    // Hide the button that was clicked
+                    const buttons = document.querySelectorAll(`[onclick*="${priceId}"]`);
+                    buttons.forEach(btn => btn.style.display = 'none');
                     
-                    if (result.error) {
-                        alert(result.error.message);
+                    // Find the corresponding checkout container
+                    // We'll use a mapping based on priceId (simplified: just find the next container after the button)
+                    // Since we have multiple containers with specific IDs, we can map them:
+                    let containerId;
+                    if (priceId === 'price_1T5x0OC9IV5fVEGAv2744z5V') containerId = 'checkout-container-genesis001';
+                    else if (priceId === 'price_1T5wGZC9IV5fVEGAFPDPlSYb' && productName === 'Genesis 002 Sample') containerId = 'checkout-container-genesis002-sample';
+                    else if (priceId === 'price_1T5wEHC9IV5fVEGAiUaty66w') containerId = 'checkout-container-genesis001-sample';
+                    else if (priceId === 'price_1T5wGZC9IV5fVEGAFPDPlSYb' && productName === 'Genesis 002 Sample') containerId = 'checkout-container-genesis002-sample2'; // second one
+                    else if (priceId === 'price_1T5wKCC9IV5fVEGA4mYENox1') containerId = 'checkout-container-discovery';
+                    else containerId = 'checkout-container'; // fallback
+                    
+                    const container = document.getElementById(containerId);
+                    if (container) {
+                        container.style.display = 'block';
+                        mountEmbeddedCheckout(data.clientSecret, containerId);
+                    } else {
+                        alert('Checkout container not found');
                     }
                 } else {
                     alert('Error creating checkout session');
@@ -642,7 +682,16 @@
             }
         }
 
-        // Load reviews
+        // Mount the embedded checkout form
+        function mountEmbeddedCheckout(clientSecret, containerId) {
+            const stripe = Stripe(stripePublishableKey);
+            const checkout = stripe.initEmbeddedCheckout({
+                clientSecret: clientSecret,
+            });
+            checkout.mount(`#${containerId}`);
+        }
+
+        // Load reviews (keep as before)
         async function loadReviews() {
             try {
                 const response = await fetch('/api/get-reviews?product=all');
