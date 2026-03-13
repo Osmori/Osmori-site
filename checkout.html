@@ -1,117 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkout - OSMORI</title>
-    <style>
-        body {
-            background-color: #0a0a0a;
-            color: #fff;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            text-align: center;
-            padding: 2rem;
-        }
-        #checkout-container {
-            max-width: 600px;
-            margin: 2rem auto;
-            background: #111;
-            padding: 2rem;
-            border-radius: 12px;
-            border: 1px solid #222;
-        }
-        .loader {
-            border: 4px solid #333;
-            border-top: 4px solid #ffd700;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 20px auto;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        .error {
-            color: #ff6b6b;
-            margin: 1rem 0;
-        }
-        .hidden {
-            display: none;
-        }
-    </style>
-    <script src="https://js.stripe.com/v3/"></script>
-</head>
-<body>
-    <h1>Complete your purchase</h1>
-    <div id="loading" class="loader"></div>
-    <div id="checkout-container" class="hidden"></div>
-    <div id="error-message" class="error hidden"></div>
-
-    <script>
-        // Get elements
-        const loadingEl = document.getElementById('loading');
-        const containerEl = document.getElementById('checkout-container');
-        const errorEl = document.getElementById('error-message');
-
-        // Verify elements exist
-        if (!loadingEl || !containerEl || !errorEl) {
-            document.body.innerHTML = '<p style="color:red;">Page error: missing elements. Contact support.</p>';
-        } else {
-            const urlParams = new URLSearchParams(window.location.search);
-            const priceId = urlParams.get('priceId');
-            const productName = urlParams.get('product');
-            const customerName = urlParams.get('name');
-            const customerEmail = urlParams.get('email');
-
-            console.log('Sending to backend:', { priceId, customerEmail, customerName });
-
-            if (!priceId || !customerName || !customerEmail) {
-                loadingEl.classList.add('hidden');
-                errorEl.classList.remove('hidden');
-                errorEl.textContent = 'Missing checkout information.';
-            } else {
-                fetch('/api/create-checkout', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ priceId, customerEmail, customerName })
-                })
-                .then(response => {
-                    console.log('Response status:', response.status);
-                    return response.json();
-                })
-                .then(data => {
-                    console.log('Backend response data:', data);
-                    if (data.clientSecret) {
-                        loadingEl.classList.add('hidden');
-                        containerEl.classList.remove('hidden');
-
-                        const stripe = Stripe('pk_live_51T3mQtC9IV5fVEGA7gBVuD3w7dCbCifNJW9fclm8G3nHjmtJrZVyRSUxoxGJCEboaMBa5wdNDaDslqxvlZ340zJR00UJ3OfVap');
-                        console.log('Initializing embedded checkout with clientSecret:', data.clientSecret);
-                        
-                        stripe.initEmbeddedCheckout({ clientSecret: data.clientSecret })
-                            .then(checkout => {
-                                console.log('Checkout object:', checkout);
-                                checkout.mount('#checkout-container');
-                            })
-                            .catch(err => {
-                                console.error('Error mounting checkout:', err);
-                                errorEl.classList.remove('hidden');
-                                errorEl.textContent = 'Error loading payment form: ' + err.message;
-                            });
-                    } else {
-                        throw new Error('No clientSecret in response');
-                    }
-                })
-                .catch(error => {
-                    console.error('Caught error:', error);
-                    loadingEl.classList.add('hidden');
-                    errorEl.classList.remove('hidden');
-                    errorEl.textContent = 'Error: ' + error.message;
-                });
+stripe.initEmbeddedCheckout({
+    clientSecret: data.clientSecret,
+    appearance: {
+        theme: 'night', // This is a dark theme that will work better
+        variables: {
+            colorPrimary: '#ffd700',      // Your gold color for buttons/accents
+            colorBackground: '#0a0a0a',    // Your site's dark background
+            colorText: '#ffffff',           // White text
+            colorDanger: '#ff6b6b',         // Red for errors
+            fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+            borderRadius: '8px',             // Rounded corners like your site
+            colorTextSecondary: '#aaaaaa'    // Grey for secondary text
+        },
+        rules: {
+            '.Label': {
+                color: '#aaaaaa'              // Light grey labels
+            },
+            '.Input': {
+                backgroundColor: '#222222',    // Dark input fields
+                borderColor: '#333333'
+            },
+            '.Input:focus': {
+                borderColor: '#ffd700'         // Gold border when focused
             }
         }
-    </script>
-</body>
-</html>
+    }
+})
+.then(checkout => {
+    console.log('Checkout object:', checkout);
+    checkout.mount('#checkout-container');
+})
