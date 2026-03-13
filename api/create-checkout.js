@@ -1,23 +1,17 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
-module.exports = async (event) => {
-  console.log('Function invoked with method:', event.httpMethod);
-  console.log('Request body:', event.body);
+module.exports = async (req, res) => {
+  console.log('Function invoked with method:', req.method);
+  console.log('Request body:', req.body);
 
-  if (event.httpMethod !== 'POST') {
-    console.log('Method not allowed');
-    return {
-      statusCode: 405,
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ error: 'Method not allowed' })
-    };
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method not allowed' });
   }
 
   try {
-    const { priceId, customerEmail, customerName } = JSON.parse(event.body);
+    const { priceId, customerEmail, customerName } = req.body;
     console.log('Parsed data:', { priceId, customerEmail, customerName });
 
-    console.log('Creating Stripe session...');
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       line_items: [{
@@ -31,18 +25,9 @@ module.exports = async (event) => {
     });
 
     console.log('Stripe session created:', session.id);
-
-    return {
-      statusCode: 200,
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ sessionId: session.id }),
-    };
+    res.status(200).json({ sessionId: session.id });
   } catch (error) {
     console.error('Error in function:', error);
-    return {
-      statusCode: 500,
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ error: error.message }),
-    };
+    res.status(500).json({ error: error.message });
   }
 };
