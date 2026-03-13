@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecting to checkout - OSMORI</title>
+    <style>
+        body {
+            background-color: #0a0a0a;
+            color: #fff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            text-align: center;
+            padding: 4rem 1rem;
+        }
+        .loader {
+            border: 4px solid #333;
+            border-top: 4px solid #ffd700;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <h2>Preparing your secure checkout...</h2>
+    <div class="loader"></div>
+    <p>You will be redirected to our payment partner, Stripe.</p>
+
+    <script>
+        // Get parameters from URL (passed from the product page)
+        const urlParams = new URLSearchParams(window.location.search);
+        const priceId = urlParams.get('priceId');
+        const productName = urlParams.get('product');
+        const customerName = urlParams.get('name');
+        const customerEmail = urlParams.get('email');
+
+        if (!priceId || !customerName || !customerEmail) {
+            document.body.innerHTML = '<h2>Missing information</h2><p>Please go back and try again.</p><a href="/" style="color:#ffd700;">Return to OSMORI</a>';
+        } else {
+            // Call backend to create checkout session
+            fetch('/api/create-checkout', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    priceId: priceId,
+                    customerEmail: customerEmail,
+                    customerName: customerName
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.sessionId) {
+                    // Redirect to Stripe Checkout
+                    const stripe = Stripe('pk_live_51T3mQtC9IV5fVEGA7gBVuD3w7dCbCifNJW9fclm8G3nHjmtJrZVyRSUxoxGJCEboaMBa5wdNDaDslqxvlZ340zJR00UJ3OfVap');
+                    stripe.redirectToCheckout({ sessionId: data.sessionId });
+                } else {
+                    throw new Error('No session ID received');
+                }
+            })
+            .catch(error => {
+                document.body.innerHTML = `<h2>Error</h2><p>${error.message}</p><a href="/" style="color:#ffd700;">Return to OSMORI</a>`;
+            });
+        }
+    </script>
+    <!-- Stripe.js -->
+    <script src="https://js.stripe.com/v3/"></script>
+</body>
+</html>
