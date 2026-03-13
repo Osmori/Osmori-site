@@ -3,14 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Redirecting to checkout - OSMORI</title>
+    <title>Checkout - OSMORI</title>
     <style>
         body {
             background-color: #0a0a0a;
             color: #fff;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             text-align: center;
-            padding: 4rem 1rem;
+            padding: 2rem;
+        }
+        #checkout-container {
+            max-width: 600px;
+            margin: 2rem auto;
+            background: #111;
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid #222;
         }
         .loader {
             border: 4px solid #333;
@@ -25,15 +33,24 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+        .error {
+            color: #ff6b6b;
+            margin: 1rem 0;
+        }
+        .hidden {
+            display: none;
+        }
     </style>
+    <script src="https://js.stripe.com/v3/"></script>
 </head>
 <body>
-    <h2>Preparing your secure checkout...</h2>
-    <div class="loader"></div>
-    <p>You will be redirected to our payment partner, Stripe.</p>
+    <h1>Complete your purchase</h1>
+    <div id="loading" class="loader"></div>
+    <div id="checkout-container" class="hidden"></div>
+    <div id="error-message" class="error hidden"></div>
 
     <script>
-        // Get parameters from URL (passed from the product page)
+        // Get product info from URL (passed from product page)
         const urlParams = new URLSearchParams(window.location.search);
         const priceId = urlParams.get('priceId');
         const productName = urlParams.get('product');
@@ -41,9 +58,11 @@
         const customerEmail = urlParams.get('email');
 
         if (!priceId || !customerName || !customerEmail) {
-            document.body.innerHTML = '<h2>Missing information</h2><p>Please go back and try again.</p><a href="/" style="color:#ffd700;">Return to OSMORI</a>';
+            document.getElementById('loading').classList.add('hidden');
+            document.getElementById('error-message').classList.remove('hidden');
+            document.getElementById('error-message').textContent = 'Missing checkout information. Please go back and try again.';
         } else {
-            // Call backend to create checkout session
+            // Call backend to create embedded checkout session
             fetch('/api/create-checkout', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -53,22 +72,38 @@
                     customerName: customerName
                 })
             })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    return response.text().then(text => { throw new Error(text); });
+                }
+                return response.json();
+            })
             .then(data => {
-                if (data.sessionId) {
-                    // Redirect to Stripe Checkout
+                if (data.clientSecret) {
+                    // Hide loader, show container
+                    document.getElementById('loading').classList.add('hidden');
+                    const container = document.getElementById('checkout-container');
+                    container.classList.remove('hidden');
+
+                    // Initialize Stripe embedded checkout
                     const stripe = Stripe('pk_live_51T3mQtC9IV5fVEGA7gBVuD3w7dCbCifNJW9fclm8G3nHjmtJrZVyRSUxoxGJCEboaMBa5wdNDaDslqxvlZ340zJR00UJ3OfVap');
-                    stripe.redirectToCheckout({ sessionId: data.sessionId });
+                    const checkout = stripe.initEmbeddedCheckout({
+                        clientSecret: data.clientSecret
+                    });
+
+                    // Mount the checkout form
+                    checkout.mount('#checkout-container');
                 } else {
-                    throw new Error('No session ID received');
+                    throw new Error('No client secret received');
                 }
             })
             .catch(error => {
-                document.body.innerHTML = `<h2>Error</h2><p>${error.message}</p><a href="/" style="color:#ffd700;">Return to OSMORI</a>`;
+                document.getElementById('loading').classList.add('hidden');
+                document.getElementById('error-message').classList.remove('hidden');
+                document.getElementById('error-message').textContent = 'Error: ' + error.message;
+                console.error(error);
             });
         }
     </script>
-    <!-- Stripe.js -->
-    <script src="https://js.stripe.com/v3/"></script>
 </body>
 </html>
