@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discovery Set - OSMORI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        /* Same styles as above */
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            background-color: #0a0a0a;
+            color: #e0e0e0;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+        }
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgba(10,10,10,0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid #222;
+        }
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 300;
+            letter-spacing: 0.2em;
+            color: #fff;
+            text-decoration: none;
+            font-family: 'Cormorant Garamond', serif;
+        }
+        .nav-links { display: flex; gap: 3rem; }
+        .nav-links a { color: #888; text-decoration: none; font-size:0.9rem; letter-spacing:0.1em; transition:color 0.3s; }
+        .nav-links a:hover { color:#fff; }
+
+        .product-page {
+            padding-top: 100px;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            padding: 8rem 2rem 4rem;
+        }
+
+        .product-image {
+            background-color: #111;
+            border-radius: 12px;
+            height: 500px;
+            background-size: cover;
+            background-position: center;
+            border: 1px solid #222;
+        }
+
+        .product-details h1 {
+            font-size: 3.5rem;
+            font-weight: 300;
+            color: #fff;
+            font-family: 'Cormorant Garamond', serif;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-subtitle {
+            color: #888;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .product-price {
+            font-size: 2.5rem;
+            color: #ffd700;
+            margin: 1.5rem 0;
+        }
+
+        .product-description {
+            color: #aaa;
+            margin: 1.5rem 0;
+            line-height: 1.8;
+        }
+
+        .product-notes {
+            background: #111;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border: 1px solid #222;
+        }
+
+        .product-notes h3 {
+            color: #fff;
+            margin-bottom: 1rem;
+            font-weight: 400;
+        }
+
+        .product-notes ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .product-notes li {
+            background: #222;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            color: #ffd700;
+            font-size: 0.9rem;
+        }
+
+        .btn-large {
+            display: inline-block;
+            background-color: #ffd700;
+            color: #0a0a0a;
+            padding: 1.2rem 3rem;
+            text-decoration: none;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-radius: 4px;
+            font-size: 1.1rem;
+            width: 100%;
+            text-align: center;
+        }
+
+        .btn-large:hover {
+            background-color: #e6c200;
+            transform: translateY(-2px);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 2rem;
+            color: #888;
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            color: #ffd700;
+        }
+
+        .footer {
+            background-color: #111;
+            padding: 4rem 2rem;
+            border-top: 1px solid #222;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        .footer-links { display: flex; justify-content: center; gap: 2rem; margin: 2rem 0; }
+        .footer-links a { color: #888; text-decoration: none; transition: color 0.3s; }
+        .footer-links a:hover { color: #ffd700; }
+        .footer p { color: #666; font-size: 0.9rem; }
+
+        @media (max-width: 768px) {
+            .product-page {
+                grid-template-columns: 1fr;
+                padding-top: 6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="/" class="logo">OSMORI</a>
+        <div class="nav-links">
+            <a href="/product-genesis-001.html">GENESIS 001</a>
+            <a href="/product-genesis-002.html">GENESIS 002</a>
+            <a href="/product-discovery-set.html">DISCOVERY SET</a>
+            <a href="/#story">STORY</a>
+        </div>
+    </nav>
+
+    <div class="product-page">
+        <div class="product-image" style="background-image: url('https://via.placeholder.com/800x1000/1a1a1a/333?text=Discovery+Set');"></div>
+        <div class="product-details">
+            <h1>DISCOVERY SET</h1>
+            <div class="product-subtitle">Two 2ml Samples · Genesis 001 & 002</div>
+            <div class="product-price">$7 <span style="font-size: 1rem; color: #888;">+ $5.50 shipping</span></div>
+            <p class="product-description">
+                Experience both genesis events. Includes two 2ml spray samples 
+                and a $5 off coupon for your first full bottle.
+            </p>
+            <div class="product-notes">
+                <h3>Includes</h3>
+                <ul>
+                    <li>Genesis 001 (2ml)</li>
+                    <li>Genesis 002 (2ml)</li>
+                </ul>
+            </div>
+            <a href="/checkout.html?priceId=price_1T5wKCC9IV5fVEGA4mYENox1&product=Discovery%20Set" class="btn-large">ORDER SET</a>
+            <a href="/" class="back-link">← Back to OSMORI</a>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="https://instagram.com/osmori.official" target="_blank">INSTAGRAM</a>
+            <a href="#" onclick="window.location.href='mailto:hello@osmori.com'">CONTACT</a>
+        </div>
+        <p>© 2026 OSMORI · Haskell, NJ</p>
+        <p style="margin-top: 0.5rem;">hello@osmori.com</p>
+    </footer>
+</body>
+</html>
