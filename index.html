@@ -1,31 +1,323 @@
-stripe.initEmbeddedCheckout({
-    clientSecret: data.clientSecret,
-    appearance: {
-        theme: 'night', // This is a dark theme that will work better
-        variables: {
-            colorPrimary: '#ffd700',      // Your gold color for buttons/accents
-            colorBackground: '#0a0a0a',    // Your site's dark background
-            colorText: '#ffffff',           // White text
-            colorDanger: '#ff6b6b',         // Red for errors
-            fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-            borderRadius: '8px',             // Rounded corners like your site
-            colorTextSecondary: '#aaaaaa'    // Grey for secondary text
-        },
-        rules: {
-            '.Label': {
-                color: '#aaaaaa'              // Light grey labels
-            },
-            '.Input': {
-                backgroundColor: '#222222',    // Dark input fields
-                borderColor: '#333333'
-            },
-            '.Input:focus': {
-                borderColor: '#ffd700'         // Gold border when focused
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OSMORI — Where Scent Begins</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            color: #e0e0e0;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid #222;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 300;
+            letter-spacing: 0.2em;
+            color: #fff;
+            text-decoration: none;
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+        }
+
+        .nav-links a {
+            color: #888;
+            text-decoration: none;
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #fff;
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/images/hero-bg.jpg') no-repeat center center/cover;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 5rem;
+            font-weight: 300;
+            letter-spacing: 0.2em;
+            margin-bottom: 1.5rem;
+            color: #fff;
+            font-family: 'Cormorant Garamond', serif;
+            animation: fadeIn 2s ease;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #ccc;
+            margin-bottom: 2rem;
+            animation: fadeIn 2s ease 0.5s both;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 300;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+            color: #fff;
+            text-align: center;
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .section-subtitle {
+            color: #888;
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 4rem;
+            font-size: 1.1rem;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        .product-card {
+            background-color: #111;
+            border-radius: 12px;
+            padding: 2rem;
+            border: 1px solid #222;
+            transition: transform 0.3s, border-color 0.3s;
+            text-align: center;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            border-color: #ffd700;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 250px;
+            background-color: #222;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .product-card h3 {
+            font-size: 2rem;
+            color: #fff;
+            margin-bottom: 0.5rem;
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .product-tag {
+            color: #888;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .product-price {
+            font-size: 2rem;
+            color: #ffd700;
+            margin: 1rem 0;
+            font-weight: 300;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #ffd700;
+            color: #0a0a0a;
+            padding: 0.8rem 2rem;
+            text-decoration: none;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+
+        .btn:hover {
+            background-color: #e6c200;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid #ffd700;
+            color: #ffd700;
+        }
+
+        .btn-outline:hover {
+            background-color: #ffd700;
+            color: #0a0a0a;
+        }
+
+        .footer {
+            background-color: #111;
+            padding: 4rem 2rem;
+            border-top: 1px solid #222;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .footer-links a {
+            color: #888;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #ffd700;
+        }
+
+        .footer p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+            .nav-links {
+                display: none;
             }
         }
-    }
-})
-.then(checkout => {
-    console.log('Checkout object:', checkout);
-    checkout.mount('#checkout-container');
-})
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="/" class="logo">OSMORI</a>
+        <div class="nav-links">
+            <a href="/product-genesis-001.html">GENESIS 001</a>
+            <a href="/product-genesis-002.html">GENESIS 002</a>
+            <a href="/product-discovery-set.html">DISCOVERY SET</a>
+            <a href="#story">STORY</a>
+        </div>
+    </nav>
+
+    <div class="hero" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://via.placeholder.com/1920x1080/1a1a1a/333?text=OSMORI');">
+        <div class="hero-content">
+            <h1>OSMORI</h1>
+            <p>/ˈɒz-ˈmɔːr-eɪ/ — Where scent first becomes possible</p>
+            <a href="#featured" class="btn">DISCOVER</a>
+        </div>
+    </div>
+
+    <div id="story" class="section">
+        <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+            <p style="color: #aaa; font-size: 1.2rem; line-height: 1.8; font-style: italic; font-family: 'Cormorant Garamond', serif;">
+                "Before fragrance, there was void. A silent, odorless expanse of air.<br><br>
+                Then came the first convergence. A molecule met the air.<br>
+                At that moment, a new scent emerged.<br><br>
+                This was the Osmori—the genesis event.<br><br>
+                We do not make perfume. We capture genesis events."
+            </p>
+        </div>
+    </div>
+
+    <div id="featured" class="section">
+        <h2 class="section-title">THE FRAGRANCES</h2>
+        <p class="section-subtitle">Each scent is a genesis event.</p>
+        <div class="product-grid">
+            <div class="product-card">
+                <div class="product-image" style="background-image: url('https://via.placeholder.com/400x300/1a1a1a/333?text=Genesis+001');"></div>
+                <h3>GENESIS 001</h3>
+                <div class="product-tag">For Him · Eau de Parfum</div>
+                <div class="product-price">$32</div>
+                <p style="color: #aaa; margin-bottom: 1.5rem;">Warm spices, creamy woods, enveloping musk.</p>
+                <a href="/product-genesis-001.html" class="btn">VIEW</a>
+            </div>
+            <div class="product-card">
+                <div class="product-image" style="background-image: url('https://via.placeholder.com/400x300/1a1a1a/333?text=Genesis+002');"></div>
+                <h3>GENESIS 002</h3>
+                <div class="product-tag">For Her · Eau de Parfum</div>
+                <div class="product-price">$32</div>
+                <p style="color: #aaa; margin-bottom: 1.5rem;">Midnight Vanille, warm florals, skin-like musk.</p>
+                <a href="/product-genesis-002.html" class="btn">VIEW</a>
+            </div>
+            <div class="product-card">
+                <div class="product-image" style="background-image: url('https://via.placeholder.com/400x300/1a1a1a/333?text=Discovery+Set');"></div>
+                <h3>DISCOVERY SET</h3>
+                <div class="product-tag">Two 2ml Samples</div>
+                <div class="product-price">$7</div>
+                <p style="color: #aaa; margin-bottom: 1.5rem;">Experience both genesis events.</p>
+                <a href="/product-discovery-set.html" class="btn">VIEW</a>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="https://instagram.com/osmori.official" target="_blank">INSTAGRAM</a>
+            <a href="#" onclick="openContactForm()">CONTACT</a>
+        </div>
+        <p>© 2026 OSMORI · Haskell, NJ</p>
+        <p style="margin-top: 0.5rem;">hello@osmori.com</p>
+    </footer>
+
+    <script>
+        function openContactForm() {
+            // You can add a contact modal later
+            window.location.href = "mailto:hello@osmori.com";
+        }
+    </script>
+</body>
+</html>
