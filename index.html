@@ -5,13 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OSMORI — Where Scent Begins</title>
     <style>
-        /* All your existing styles remain exactly the same */
+        /* ALL YOUR EXISTING STYLES (keep them exactly as before) */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
             background-color: #0a0a0a;
             color: #e0e0e0;
@@ -19,11 +18,9 @@
             line-height: 1.6;
             overflow-x: hidden;
         }
-
         html {
             scroll-behavior: smooth;
         }
-
         .navbar {
             position: fixed;
             top: 0;
@@ -37,7 +34,6 @@
             z-index: 1000;
             border-bottom: 1px solid #222;
         }
-
         .logo {
             font-size: 1.5rem;
             font-weight: 300;
@@ -45,12 +41,10 @@
             color: #fff;
             text-decoration: none;
         }
-
         .nav-links {
             display: flex;
             gap: 3rem;
         }
-
         .nav-links a {
             color: #888;
             text-decoration: none;
@@ -58,11 +52,9 @@
             letter-spacing: 0.1em;
             transition: color 0.3s;
         }
-
         .nav-links a:hover {
             color: #fff;
         }
-
         .hero {
             height: 100vh;
             display: flex;
@@ -72,12 +64,10 @@
             position: relative;
             overflow: hidden;
         }
-
         .hero-content {
             max-width: 800px;
             padding: 2rem;
         }
-
         .hero h1 {
             font-size: 5rem;
             font-weight: 300;
@@ -86,25 +76,21 @@
             color: #fff;
             animation: fadeIn 2s ease;
         }
-
         .hero p {
             font-size: 1.2rem;
             color: #aaa;
             margin-bottom: 2rem;
             animation: fadeIn 2s ease 0.5s both;
         }
-
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
         .section {
             padding: 6rem 2rem;
             max-width: 1400px;
             margin: 0 auto;
         }
-
         .section-title {
             font-size: 2.5rem;
             font-weight: 300;
@@ -113,7 +99,6 @@
             color: #fff;
             text-align: center;
         }
-
         .section-subtitle {
             color: #888;
             text-align: center;
@@ -121,14 +106,12 @@
             margin: 0 auto 4rem;
             font-size: 1.1rem;
         }
-
         .product-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 2rem;
             margin-top: 2rem;
         }
-
         .product-card {
             background-color: #111;
             border-radius: 12px;
@@ -136,12 +119,10 @@
             border: 1px solid #222;
             transition: transform 0.3s, border-color 0.3s;
         }
-
         .product-card:hover {
             transform: translateY(-5px);
             border-color: #444;
         }
-
         .product-badge {
             display: inline-block;
             background-color: #ffd700;
@@ -152,50 +133,42 @@
             font-weight: 600;
             margin-bottom: 1rem;
         }
-
         .product-badge.silver {
             background-color: #c0c0c0;
         }
-
         .product-card h3 {
             font-size: 2rem;
             color: #fff;
             margin-bottom: 0.5rem;
             font-weight: 300;
         }
-
         .product-tag {
             color: #888;
             font-size: 0.9rem;
             margin-bottom: 1rem;
         }
-
         .product-price {
             font-size: 2.5rem;
             color: #fff;
             margin: 1rem 0;
             font-weight: 300;
         }
-
         .product-price small {
             font-size: 1rem;
             color: #888;
             font-weight: 300;
         }
-
         .product-description {
             color: #aaa;
             margin: 1.5rem 0;
             line-height: 1.8;
         }
-
         .sample-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
             margin-top: 2rem;
         }
-
         .sample-card {
             background-color: #111;
             border-radius: 12px;
@@ -203,29 +176,24 @@
             border: 1px solid #222;
             text-align: center;
         }
-
         .sample-card.featured {
             border: 1px solid #ffd700;
         }
-
         .sample-card h4 {
             font-size: 1.5rem;
             color: #fff;
             margin-bottom: 0.5rem;
             font-weight: 300;
         }
-
         .sample-price {
             font-size: 2rem;
             color: #fff;
             margin: 1rem 0;
         }
-
         .sample-price small {
             font-size: 0.9rem;
             color: #888;
         }
-
         .btn {
             display: inline-block;
             background-color: #fff;
@@ -243,23 +211,19 @@
             font-size: 1rem;
             margin: 0.5rem 0;
         }
-
         .btn:hover {
             background-color: #ccc;
             transform: translateY(-2px);
         }
-
         .btn-outline {
             background-color: transparent;
             border: 1px solid #fff;
             color: #fff;
         }
-
         .btn-outline:hover {
             background-color: #fff;
             color: #0a0a0a;
         }
-
         .review-section {
             background-color: #111;
             border-radius: 12px;
@@ -267,7 +231,6 @@
             margin: 4rem 0;
             border: 1px solid #222;
         }
-
         .review-section h3 {
             font-size: 2rem;
             font-weight: 300;
@@ -275,18 +238,15 @@
             margin-bottom: 1rem;
             text-align: center;
         }
-
         .form-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 1.5rem;
             margin-top: 2rem;
         }
-
         .form-full {
             grid-column: span 2;
         }
-
         .review-section input,
         .review-section select,
         .review-section textarea {
@@ -299,12 +259,10 @@
             font-family: inherit;
             font-size: 1rem;
         }
-
         .review-section textarea {
             resize: vertical;
             min-height: 120px;
         }
-
         .review-section button {
             background-color: #fff;
             color: #0a0a0a;
@@ -317,78 +275,65 @@
             font-size: 1rem;
             margin-top: 1rem;
         }
-
         .reviews-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
             margin-top: 3rem;
         }
-
         .review-card {
             background-color: #111;
             border-radius: 12px;
             padding: 1.5rem;
             border: 1px solid #222;
         }
-
         .review-header {
             display: flex;
             justify-content: space-between;
             margin-bottom: 1rem;
         }
-
         .review-rating {
             color: #ffd700;
             font-size: 1.2rem;
         }
-
         .review-verified {
             color: #4CAF50;
             font-size: 0.8rem;
             font-weight: 600;
         }
-
         .review-text {
             color: #aaa;
             font-style: italic;
             margin: 1rem 0;
         }
-
         .review-date {
             color: #666;
             font-size: 0.8rem;
         }
-
         .footer {
             background-color: #111;
             padding: 4rem 2rem;
             border-top: 1px solid #222;
             text-align: center;
         }
-
         .footer-links {
             display: flex;
             justify-content: center;
             gap: 2rem;
             margin: 2rem 0;
         }
-
         .footer-links a {
             color: #888;
             text-decoration: none;
             transition: color 0.3s;
         }
-
         .footer-links a:hover {
             color: #fff;
         }
-
         .footer p {
             color: #666;
             font-size: 0.9rem;
         }
-
         .password-modal {
             background-color: #111;
             border-radius: 12px;
@@ -397,33 +342,26 @@
             margin: 2rem auto;
             border: 1px solid #ffd700;
         }
-
         .hidden {
             display: none;
         }
-
         @media (max-width: 768px) {
             .hero h1 {
                 font-size: 3rem;
             }
-
             .nav-links {
                 display: none;
             }
-
             .form-grid {
                 grid-template-columns: 1fr;
             }
-
             .form-full {
                 grid-column: span 1;
             }
-
             .section {
                 padding: 4rem 1rem;
             }
         }
-
         /* Modal styles for name/email collection */
         .modal {
             display: none;
@@ -437,7 +375,6 @@
             justify-content: center;
             align-items: center;
         }
-
         .modal-content {
             background-color: #111;
             padding: 2rem;
@@ -446,12 +383,10 @@
             width: 90%;
             border: 1px solid #ffd700;
         }
-
         .modal-content h3 {
             color: #fff;
             margin-bottom: 1rem;
         }
-
         .modal-content input {
             width: 100%;
             padding: 1rem;
@@ -461,7 +396,6 @@
             color: #fff;
             border-radius: 8px;
         }
-
         .modal-content button {
             width: 100%;
             padding: 1rem;
@@ -473,24 +407,12 @@
             cursor: pointer;
             margin-bottom: 0.5rem;
         }
-
         .modal-content .btn-outline {
             background-color: transparent;
             border: 1px solid #fff;
             color: #fff;
         }
-
-        /* Checkout container styling */
-        .checkout-container {
-            background: #1a1a1a;
-            border-radius: 8px;
-            padding: 20px;
-            margin-top: 20px;
-            display: none;
-        }
     </style>
-    <!-- Stripe.js -->
-    <script src="https://js.stripe.com/v3/"></script>
 </head>
 <body>
     <nav class="navbar">
@@ -537,8 +459,7 @@
                     Warm spices, creamy woods, enveloping musk. Sweet without cloying. 
                     Dark without cold. The one they ask about.
                 </p>
-                <button class="btn" onclick="showNameModal('price_1T5x0OC9IV5fVEGAv2744z5V', 'Genesis 001', 'checkout-container-genesis001')">BUY NOW</button>
-                <div id="checkout-container-genesis001" class="checkout-container"></div>
+                <button class="btn" onclick="showNameModal('price_1T5x0OC9IV5fVEGAv2744z5V', 'Genesis 001')">BUY NOW</button>
             </div>
         </div>
     </div>
@@ -553,8 +474,7 @@
                 <h4>GENESIS 002</h4>
                 <div class="sample-price">$4 <small>+ $5.50 shipping</small></div>
                 <p style="color: #aaa; margin: 1rem 0;">2ml spray sample · Includes $5 off full bottle</p>
-                <button class="btn btn-outline" onclick="showNameModal('price_1T5wGZC9IV5fVEGAFPDPlSYb', 'Genesis 002 Sample', 'checkout-container-genesis002-sample')">ORDER SAMPLE</button>
-                <div id="checkout-container-genesis002-sample" class="checkout-container"></div>
+                <button class="btn btn-outline" onclick="showNameModal('price_1T5wGZC9IV5fVEGAFPDPlSYb', 'Genesis 002 Sample')">ORDER SAMPLE</button>
             </div>
         </div>
     </div>
@@ -568,24 +488,19 @@
                 <h4>GENESIS 001</h4>
                 <p style="color: #888;">For Him · 2ml spray</p>
                 <div class="sample-price">$4 <small>+ $5.50 shipping</small></div>
-                <button class="btn btn-outline" onclick="showNameModal('price_1T5wEHC9IV5fVEGAiUaty66w', 'Genesis 001 Sample', 'checkout-container-genesis001-sample')">ORDER SAMPLE</button>
-                <div id="checkout-container-genesis001-sample" class="checkout-container"></div>
+                <button class="btn btn-outline" onclick="showNameModal('price_1T5wEHC9IV5fVEGAiUaty66w', 'Genesis 001 Sample')">ORDER SAMPLE</button>
             </div>
-            
             <div class="sample-card">
                 <h4>GENESIS 002</h4>
                 <p style="color: #888;">For Her · 2ml spray</p>
                 <div class="sample-price">$4 <small>+ $5.50 shipping</small></div>
-                <button class="btn btn-outline" onclick="showNameModal('price_1T5wGZC9IV5fVEGAFPDPlSYb', 'Genesis 002 Sample', 'checkout-container-genesis002-sample2')">ORDER SAMPLE</button>
-                <div id="checkout-container-genesis002-sample2" class="checkout-container"></div>
+                <button class="btn btn-outline" onclick="showNameModal('price_1T5wGZC9IV5fVEGAFPDPlSYb', 'Genesis 002 Sample')">ORDER SAMPLE</button>
             </div>
-            
             <div class="sample-card featured">
                 <h4>DISCOVERY SET</h4>
                 <p style="color: #888;">Both Scents · 2ml each</p>
                 <div class="sample-price">$7 <small>+ $5.50 shipping</small></div>
-                <button class="btn" onclick="showNameModal('price_1T5wKCC9IV5fVEGA4mYENox1', 'Discovery Set', 'checkout-container-discovery')">ORDER SET</button>
-                <div id="checkout-container-discovery" class="checkout-container"></div>
+                <button class="btn" onclick="showNameModal('price_1T5wKCC9IV5fVEGA4mYENox1', 'Discovery Set')">ORDER SET</button>
             </div>
         </div>
     </div>
@@ -604,14 +519,12 @@
         <div class="review-section">
             <h3>TESTER FEEDBACK</h3>
             <p style="color: #aaa; text-align: center; margin-bottom: 2rem;">For authorized testers only. Enter password to access.</p>
-            
             <div id="tester-password-section">
                 <div class="password-modal">
                     <input type="password" id="tester-password" placeholder="Enter password" style="width: 100%; padding: 1rem; background-color: #222; border: 1px solid #333; color: #fff; border-radius: 8px; margin-bottom: 1rem;">
                     <button class="btn" onclick="checkTesterPassword()">SUBMIT</button>
                 </div>
             </div>
-            
             <div id="tester-form-section" class="hidden">
                 <form id="tester-review-form">
                     <div class="form-grid">
@@ -678,41 +591,35 @@
             <h3>Complete Your Order</h3>
             <input type="text" id="modal-name" placeholder="Full Name" required>
             <input type="email" id="modal-email" placeholder="Email Address" required>
-            <button id="modal-submit">Continue to Payment</button>
+            <button id="modal-submit">Continue to Checkout</button>
             <button class="btn-outline" onclick="closeNameModal()">Cancel</button>
         </div>
     </div>
 
     <script>
-        // Stripe publishable key (your live key)
-        const stripePublishableKey = 'pk_live_51T3mQtC9IV5fVEGA7gBVuD3w7dCbCifNJW9fclm8G3nHjmtJrZVyRSUxoxGJCEboaMBa5wdNDaDslqxvlZ340zJR00UJ3OfVap';
-
         // Variables to store current product info
         let currentPriceId = '';
         let currentProductName = '';
-        let currentContainerId = '';
 
         // Show the name/email modal
-        function showNameModal(priceId, productName, containerId) {
+        function showNameModal(priceId, productName) {
             currentPriceId = priceId;
             currentProductName = productName;
-            currentContainerId = containerId;
             document.getElementById('name-email-modal').style.display = 'flex';
         }
 
         function closeNameModal() {
             document.getElementById('name-email-modal').style.display = 'none';
-            // Clear fields
             document.getElementById('modal-name').value = '';
             document.getElementById('modal-email').value = '';
         }
 
-        // Handle modal submit
-        document.getElementById('modal-submit').addEventListener('click', async function() {
-            const customerName = document.getElementById('modal-name').value.trim();
-            const customerEmail = document.getElementById('modal-email').value.trim();
+        // Handle modal submit – redirect to checkout page
+        document.getElementById('modal-submit').addEventListener('click', function() {
+            const name = document.getElementById('modal-name').value.trim();
+            const email = document.getElementById('modal-email').value.trim();
 
-            if (!customerName || !customerEmail) {
+            if (!name || !email) {
                 alert('Please enter both name and email.');
                 return;
             }
@@ -720,75 +627,17 @@
             // Close modal
             closeNameModal();
 
-            // Call backend to create checkout session
-            try {
-                const response = await fetch('/api/create-checkout', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        priceId: currentPriceId,
-                        customerEmail: customerEmail,
-                        customerName: customerName
-                    })
-                });
-
-                if (!response.ok) {
-                    const text = await response.text();
-                    throw new Error(`Server error (${response.status}): ${text}`);
-                }
-
-                const data = await response.json();
-
-                if (data.clientSecret) {
-                    // Hide the button that was clicked
-                    const buttons = document.querySelectorAll(`[onclick*="${currentPriceId}"]`);
-                    buttons.forEach(btn => btn.style.display = 'none');
-
-                    // Show the checkout container and mount embedded checkout
-                    const container = document.getElementById(currentContainerId);
-                    if (container) {
-                        container.style.display = 'block';
-                        mountEmbeddedCheckout(data.clientSecret, currentContainerId);
-                    } else {
-                        alert('Checkout container not found');
-                    }
-                } else {
-                    alert('Error creating checkout session');
-                }
-            } catch (error) {
-                alert('Error: ' + error.message);
-                console.error('Full error:', error);
-            }
+            // Redirect to checkout page with parameters
+            const url = `/checkout.html?priceId=${encodeURIComponent(currentPriceId)}&product=${encodeURIComponent(currentProductName)}&name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}`;
+            window.location.href = url;
         });
 
-        // Mount the embedded checkout form
-        function mountEmbeddedCheckout(clientSecret, containerId) {
-            const stripe = Stripe(stripePublishableKey);
-            try {
-                const checkout = stripe.initEmbeddedCheckout({
-                    clientSecret: clientSecret,
-                });
-                console.log('Checkout object:', checkout); // Debug
-                if (checkout && typeof checkout.mount === 'function') {
-                    checkout.mount(`#${containerId}`);
-                } else {
-                    console.error('checkout.mount is not a function', checkout);
-                    alert('Error initializing payment form. Please try again or contact us.');
-                }
-            } catch (err) {
-                console.error('Embedded checkout error:', err);
-                alert('Failed to load payment form. Please try again.');
-            }
-        }
-
-        // Load reviews (keep as before)
+        // Load reviews (same as before)
         async function loadReviews() {
             try {
                 const response = await fetch('/api/get-reviews?product=all');
                 const data = await response.json();
-                
                 const container = document.getElementById('reviews-container');
-                
                 if (data.reviews && data.reviews.length > 0) {
                     container.innerHTML = data.reviews.map(review => `
                         <div class="review-card">
@@ -823,7 +672,6 @@
         // Tester form submission
         document.getElementById('tester-review-form')?.addEventListener('submit', async function(e) {
             e.preventDefault();
-            
             const formData = {
                 name: document.getElementById('tester-name').value,
                 price_opinion: document.getElementById('tester-price').value,
@@ -834,7 +682,6 @@
                 feedback: document.getElementById('tester-feedback').value,
                 _subject: "New OSMORI Tester Review"
             };
-            
             try {
                 await fetch('https://formsubmit.co/ajax/hello@osmori.com', {
                     method: 'POST',
@@ -859,14 +706,12 @@
 
         document.getElementById('contact-form')?.addEventListener('submit', async function(e) {
             e.preventDefault();
-            
             const formData = {
                 name: document.getElementById('contact-name').value,
                 email: document.getElementById('contact-email').value,
                 message: document.getElementById('contact-message').value,
                 _subject: "New OSMORI Contact Message"
             };
-            
             try {
                 await fetch('https://formsubmit.co/ajax/hello@osmori.com', {
                     method: 'POST',
