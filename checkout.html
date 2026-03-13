@@ -1,31 +1,220 @@
-stripe.initEmbeddedCheckout({
-    clientSecret: data.clientSecret,
-    appearance: {
-        theme: 'night', // This is a dark theme that will work better
-        variables: {
-            colorPrimary: '#ffd700',      // Your gold color for buttons/accents
-            colorBackground: '#0a0a0a',    // Your site's dark background
-            colorText: '#ffffff',           // White text
-            colorDanger: '#ff6b6b',         // Red for errors
-            fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-            borderRadius: '8px',             // Rounded corners like your site
-            colorTextSecondary: '#aaaaaa'    // Grey for secondary text
-        },
-        rules: {
-            '.Label': {
-                color: '#aaaaaa'              // Light grey labels
-            },
-            '.Input': {
-                backgroundColor: '#222222',    // Dark input fields
-                borderColor: '#333333'
-            },
-            '.Input:focus': {
-                borderColor: '#ffd700'         // Gold border when focused
-            }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - OSMORI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            background-color: #0a0a0a;
+            color: #e0e0e0;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
-    }
-})
-.then(checkout => {
-    console.log('Checkout object:', checkout);
-    checkout.mount('#checkout-container');
-})
+        .navbar {
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid #222;
+        }
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 300;
+            letter-spacing: 0.2em;
+            color: #fff;
+            text-decoration: none;
+        }
+        .checkout-container {
+            max-width: 600px;
+            margin: 4rem auto;
+            padding: 2rem;
+            background: #111;
+            border-radius: 12px;
+            border: 1px solid #222;
+            flex: 1;
+        }
+        h1 {
+            font-size: 2rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+            color: #fff;
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #aaa;
+        }
+        input {
+            width: 100%;
+            padding: 0.8rem;
+            background-color: #222;
+            border: 1px solid #333;
+            color: #fff;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        input:focus {
+            outline: none;
+            border-color: #ffd700;
+        }
+        button {
+            width: 100%;
+            padding: 1rem;
+            background-color: #ffd700;
+            color: #0a0a0a;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background-color: #e6c200;
+        }
+        .loader {
+            border: 4px solid #333;
+            border-top: 4px solid #ffd700;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .error {
+            color: #ff6b6b;
+            margin: 1rem 0;
+        }
+        .hidden {
+            display: none;
+        }
+        #stripe-container {
+            margin-top: 2rem;
+        }
+    </style>
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+    <div class="navbar">
+        <a href="/" class="logo">OSMORI</a>
+    </div>
+
+    <div class="checkout-container" id="checkout-container">
+        <div id="info-form">
+            <h1>Complete your order</h1>
+            <div class="form-group">
+                <label>Full name</label>
+                <input type="text" id="name" placeholder="John Doe" required>
+            </div>
+            <div class="form-group">
+                <label>Email address</label>
+                <input type="email" id="email" placeholder="you@example.com" required>
+            </div>
+            <button id="submit-btn">Continue to payment</button>
+            <div id="form-error" class="error hidden"></div>
+        </div>
+        <div id="loading" class="loader hidden"></div>
+        <div id="stripe-container" class="hidden"></div>
+    </div>
+
+    <script>
+        // Get product info from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const priceId = urlParams.get('priceId');
+        const productName = urlParams.get('product');
+
+        if (!priceId) {
+            document.getElementById('info-form').innerHTML = '<p class="error">Missing product information. <a href="/" style="color:#ffd700;">Go back</a></p>';
+        }
+
+        document.getElementById('submit-btn').addEventListener('click', async () => {
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+
+            if (!name || !email) {
+                document.getElementById('form-error').textContent = 'Please fill in all fields.';
+                document.getElementById('form-error').classList.remove('hidden');
+                return;
+            }
+
+            // Hide form, show loader
+            document.getElementById('info-form').style.display = 'none';
+            document.getElementById('loading').classList.remove('hidden');
+            document.getElementById('form-error').classList.add('hidden');
+
+            try {
+                const response = await fetch('/api/create-checkout', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ priceId, customerEmail: email, customerName: name })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Server error: ${response.status}`);
+                }
+
+                const data = await response.json();
+                console.log('Backend response:', data);
+
+                if (data.clientSecret) {
+                    // Hide loader
+                    document.getElementById('loading').classList.add('hidden');
+
+                    // Show Stripe container
+                    const stripeContainer = document.getElementById('stripe-container');
+                    stripeContainer.classList.remove('hidden');
+
+                    // Initialize Stripe embedded checkout
+                    const stripe = Stripe('pk_live_51T3mQtC9IV5fVEGA7gBVuD3w7dCbCifNJW9fclm8G3nHjmtJrZVyRSUxoxGJCEboaMBa5wdNDaDslqxvlZ340zJR00UJ3OfVap');
+                    const checkout = await stripe.initEmbeddedCheckout({
+                        clientSecret: data.clientSecret,
+                        appearance: {
+                            theme: 'night',
+                            variables: {
+                                colorPrimary: '#ffd700',
+                                colorBackground: '#0a0a0a',
+                                colorText: '#ffffff',
+                                colorDanger: '#ff6b6b',
+                                fontFamily: 'Inter, sans-serif',
+                                borderRadius: '4px'
+                            },
+                            rules: {
+                                '.Input': {
+                                    backgroundColor: '#222222',
+                                    borderColor: '#333333'
+                                },
+                                '.Input:focus': {
+                                    borderColor: '#ffd700'
+                                }
+                            }
+                        }
+                    });
+
+                    checkout.mount('#stripe-container');
+                } else {
+                    throw new Error('No client secret received');
+                }
+            } catch (error) {
+                console.error('Checkout error:', error);
+                document.getElementById('loading').classList.add('hidden');
+                document.getElementById('info-form').style.display = 'block';
+                document.getElementById('form-error').textContent = 'Error: ' + error.message;
+                document.getElementById('form-error').classList.remove('hidden');
+            }
+        });
+    </script>
+</body>
+</html>
