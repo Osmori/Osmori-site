@@ -1,12 +1,16 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
-exports.handler = async (event) => {
+module.exports = async (event) => {
   console.log('Function invoked with method:', event.httpMethod);
   console.log('Request body:', event.body);
 
   if (event.httpMethod !== 'POST') {
     console.log('Method not allowed');
-    return { statusCode: 405, body: JSON.stringify({ error: 'Method not allowed' }) };
+    return {
+      statusCode: 405,
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ error: 'Method not allowed' })
+    };
   }
 
   try {
