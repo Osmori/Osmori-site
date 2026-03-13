@@ -26,7 +26,7 @@ exports.handler = async (event) => {
       body: JSON.stringify({ sessionId: session.id }),
     };
   } catch (error) {
-    console.error('Stripe error:', error); // This will show in Vercel logs
+    console.error('Stripe error:', error);
     return {
       statusCode: 500,
       headers: { 'Content-Type': 'application/json' },
