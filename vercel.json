@@ -1,3 +1,10 @@
 {
-  "version": 2
+  "version": 2,
+  "rewrites": [
+    { "source": "/product/genesis-001", "destination": "/product-genesis-001.html" },
+    { "source": "/product/genesis-002", "destination": "/product-genesis-002.html" },
+    { "source": "/product/discovery-set", "destination": "/product-discovery-set.html" },
+    { "source": "/checkout", "destination": "/checkout.html" },
+    { "source": "/return", "destination": "/return.html" }
+  ]
 }
