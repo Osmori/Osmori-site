@@ -5,6 +5,10 @@
     { "source": "/product/genesis-002", "destination": "/product-genesis-002.html" },
     { "source": "/product/discovery-set", "destination": "/product-discovery-set.html" },
     { "source": "/checkout", "destination": "/checkout.html" },
-    { "source": "/return", "destination": "/return.html" }
+    { "source": "/return", "destination": "/return.html" },
+    { "source": "/shipping", "destination": "/shipping.html" },
+    { "source": "/returns", "destination": "/returns.html" },
+    { "source": "/terms", "destination": "/terms.html" },
+    { "source": "/privacy", "destination": "/privacy.html" }
   ]
 }
