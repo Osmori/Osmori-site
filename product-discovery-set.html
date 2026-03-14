@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
-        /* Same styles as above */
+        /* same styles as above – you can copy the entire style block from product-genesis-002.html */
         * { margin:0; padding:0; box-sizing:border-box; }
         body {
             background-color: #0a0a0a;
@@ -76,7 +76,7 @@
 
         .product-price {
             font-size: 2.5rem;
-            color: #ffd700;
+            color: #e0e0e0;
             margin: 1.5rem 0;
         }
 
@@ -111,13 +111,13 @@
             background: #222;
             padding: 0.5rem 1rem;
             border-radius: 20px;
-            color: #ffd700;
+            color: #e0e0e0;
             font-size: 0.9rem;
         }
 
         .btn-large {
             display: inline-block;
-            background-color: #ffd700;
+            background-color: #e0e0e0;
             color: #0a0a0a;
             padding: 1.2rem 3rem;
             text-decoration: none;
@@ -133,7 +133,7 @@
         }
 
         .btn-large:hover {
-            background-color: #e6c200;
+            background-color: #c0c0c0;
             transform: translateY(-2px);
         }
 
@@ -145,7 +145,7 @@
         }
 
         .back-link:hover {
-            color: #ffd700;
+            color: #e0e0e0;
         }
 
         .footer {
@@ -156,9 +156,9 @@
             margin-top: 4rem;
         }
 
-        .footer-links { display: flex; justify-content: center; gap: 2rem; margin: 2rem 0; }
+        .footer-links { display: flex; justify-content: center; gap: 2rem; margin: 2rem 0; flex-wrap: wrap; }
         .footer-links a { color: #888; text-decoration: none; transition: color 0.3s; }
-        .footer-links a:hover { color: #ffd700; }
+        .footer-links a:hover { color: #e0e0e0; }
         .footer p { color: #666; font-size: 0.9rem; }
 
         @media (max-width: 768px) {
@@ -173,9 +173,9 @@
     <nav class="navbar">
         <a href="/" class="logo">OSMORI</a>
         <div class="nav-links">
-            <a href="/product-genesis-001.html">GENESIS 001</a>
-            <a href="/product-genesis-002.html">GENESIS 002</a>
-            <a href="/product-discovery-set.html">DISCOVERY SET</a>
+            <a href="/product/genesis-001">GENESIS 001</a>
+            <a href="/product/genesis-002">GENESIS 002</a>
+            <a href="/product/discovery-set">DISCOVERY SET</a>
             <a href="/#story">STORY</a>
         </div>
     </nav>
@@ -197,7 +197,7 @@
                     <li>Genesis 002 (2ml)</li>
                 </ul>
             </div>
-            <a href="/checkout.html?priceId=price_1T5wKCC9IV5fVEGA4mYENox1&product=Discovery%20Set" class="btn-large">ORDER SET</a>
+            <a href="/checkout?priceId=price_1T5wKCC9IV5fVEGA4mYENox1&product=Discovery%20Set" class="btn-large">ORDER SET</a>
             <a href="/" class="back-link">← Back to OSMORI</a>
         </div>
     </div>
@@ -206,6 +206,10 @@
         <div class="footer-links">
             <a href="https://instagram.com/osmori.official" target="_blank">INSTAGRAM</a>
             <a href="#" onclick="window.location.href='mailto:hello@osmori.com'">CONTACT</a>
+            <a href="/shipping">SHIPPING</a>
+            <a href="/returns">RETURNS</a>
+            <a href="/terms">TERMS</a>
+            <a href="/privacy">PRIVACY</a>
         </div>
         <p>© 2026 OSMORI · Haskell, NJ</p>
         <p style="margin-top: 0.5rem;">hello@osmori.com</p>
