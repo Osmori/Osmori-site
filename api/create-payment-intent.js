@@ -8,10 +8,10 @@ module.exports = async (req, res) => {
   try {
     const { priceId, customerEmail, customerName } = req.body;
 
-    // First, retrieve the price to get the amount and currency
+    // Retrieve the price to get the amount and currency
     const price = await stripe.prices.retrieve(priceId);
 
-    // Create a PaymentIntent (not a Checkout Session)
+    // Create a PaymentIntent
     const paymentIntent = await stripe.paymentIntents.create({
       amount: price.unit_amount,
       currency: price.currency,
