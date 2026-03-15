@@ -7,13 +7,15 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="/favicon.png">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        /* -----------------------------------------------
+           YOUR EXISTING STYLES - Keep everything you have.
+           Make sure it includes all the styles for the
+           navbar, hero, product cards, footer, animations,
+           and the new tester styles below.
+        ----------------------------------------------- */
+        * { margin:0; padding:0; box-sizing:border-box; }
         body {
             background-color: #0a0a0a;
             color: #e0e0e0;
@@ -22,329 +24,189 @@
             opacity: 0;
             transition: opacity 0.3s;
         }
-
-        body.fade-in {
-            opacity: 1;
-        }
-
+        body.fade-in { opacity: 1; }
         .navbar {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 1.5rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: rgba(10, 10, 10, 0.95);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            border-bottom: 1px solid #222;
+            position: fixed; top:0; width:100%; padding:1.5rem 2rem;
+            display: flex; justify-content: space-between; align-items: center;
+            background-color: rgba(10,10,10,0.95); backdrop-filter: blur(10px);
+            z-index:1000; border-bottom: 1px solid #222;
         }
-
         .logo {
-            font-size: 1.8rem;
-            font-weight: 300;
-            letter-spacing: 0.2em;
-            color: #fff;
-            text-decoration: none;
-            font-family: 'Cormorant Garamond', serif;
+            font-size:1.8rem; font-weight:300; letter-spacing:0.2em;
+            color:#fff; text-decoration:none; font-family:'Cormorant Garamond', serif;
         }
-
-        .nav-links {
-            display: flex;
-            gap: 3rem;
-        }
-
-        .nav-links a {
-            color: #888;
-            text-decoration: none;
-            font-size: 0.9rem;
-            letter-spacing: 0.1em;
-            transition: color 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: #fff;
-        }
-
+        .nav-links { display:flex; gap:3rem; }
+        .nav-links a { color:#888; text-decoration:none; font-size:0.9rem; letter-spacing:0.1em; transition:color 0.3s; }
+        .nav-links a:hover { color:#fff; }
         .hero {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
+            height:100vh; display:flex; align-items:center; justify-content:center; text-align:center;
             background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://via.placeholder.com/1920x1080/1a1a1a/333?text=OSMORI') no-repeat center center/cover;
         }
-
-        .hero-content {
-            max-width: 800px;
-            padding: 2rem;
-        }
-
+        .hero-content { max-width:800px; padding:2rem; }
         .hero h1 {
-            font-size: 5rem;
-            font-weight: 300;
-            letter-spacing: 0.2em;
-            margin-bottom: 1.5rem;
-            color: #fff;
-            font-family: 'Cormorant Garamond', serif;
-            animation: fadeIn 2s ease;
+            font-size:5rem; font-weight:300; letter-spacing:0.2em; margin-bottom:1.5rem;
+            color:#fff; font-family:'Cormorant Garamond', serif; animation:fadeIn 2s ease;
         }
-
-        .hero p {
-            font-size: 1.2rem;
-            color: #ccc;
-            margin-bottom: 2rem;
-            animation: fadeIn 2s ease 0.5s both;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
+        .hero p { font-size:1.2rem; color:#ccc; margin-bottom:2rem; animation:fadeIn 2s ease 0.5s both; }
+        @keyframes fadeIn { from{ opacity:0; transform:translateY(20px); } to{ opacity:1; transform:translateY(0); } }
         .btn {
-            display: inline-block;
-            background-color: #e0e0e0;
-            color: #0a0a0a;
-            padding: 0.8rem 2rem;
-            text-decoration: none;
-            font-weight: 500;
-            letter-spacing: 0.1em;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s;
-            border-radius: 4px;
-            font-size: 0.9rem;
+            display:inline-block; background-color:#e0e0e0; color:#0a0a0a; padding:0.8rem 2rem;
+            text-decoration:none; font-weight:500; letter-spacing:0.1em; border:none; cursor:pointer;
+            transition:all 0.3s; border-radius:4px; font-size:0.9rem;
         }
-
-        .btn:hover {
-            background-color: #c0c0c0;
-            transform: translateY(-2px);
-        }
-
+        .btn:hover { background-color:#c0c0c0; transform:translateY(-2px); }
         .section {
-            padding: 6rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
+            padding:6rem 2rem; max-width:1200px; margin:0 auto;
+            opacity:0; transform:translateY(20px); transition:opacity 0.6s ease, transform 0.6s ease;
         }
-
-        .section.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
+        .section.visible { opacity:1; transform:translateY(0); }
         .section-title {
-            font-size: 3rem;
-            font-weight: 300;
-            letter-spacing: 0.1em;
-            margin-bottom: 1rem;
-            color: #fff;
-            text-align: center;
-            font-family: 'Cormorant Garamond', serif;
+            font-size:3rem; font-weight:300; letter-spacing:0.1em; margin-bottom:1rem;
+            color:#fff; text-align:center; font-family:'Cormorant Garamond', serif;
         }
-
-        .section-subtitle {
-            color: #888;
-            text-align: center;
-            max-width: 600px;
-            margin: 0 auto 4rem;
-            font-size: 1.1rem;
-        }
-
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 3rem;
-            margin-top: 2rem;
-        }
-
+        .section-subtitle { color:#888; text-align:center; max-width:600px; margin:0 auto 4rem; font-size:1.1rem; }
+        .product-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(300px,1fr)); gap:3rem; margin-top:2rem; }
         .product-card {
+            background-color:#111; border-radius:12px; padding:2rem; border:1px solid #222;
+            transition:transform 0.3s, border-color 0.3s, box-shadow 0.3s; text-align:center; position:relative;
+            opacity:0; transform:translateY(20px); transition:opacity 0.6s ease, transform 0.6s ease, border-color 0.3s, box-shadow 0.3s;
+        }
+        .product-card.visible { opacity:1; transform:translateY(0); }
+        .product-card:hover { transform:translateY(-5px); border-color:#e0e0e0; box-shadow:0 10px 30px -10px rgba(224,224,224,0.2); }
+        .badge {
+            position:absolute; top:1rem; left:1rem; background:#e0e0e0; color:#0a0a0a;
+            padding:0.3rem 0.8rem; font-size:0.7rem; letter-spacing:0.1em; border-radius:20px; font-weight:500;
+        }
+        .product-image { width:100%; height:250px; background-color:#222; border-radius:8px; margin-bottom:1.5rem; background-size:cover; background-position:center; }
+        .product-card h3 { font-size:2rem; color:#fff; margin-bottom:0.5rem; font-family:'Cormorant Garamond', serif; }
+        .product-tag { color:#888; font-size:0.9rem; margin-bottom:1rem; }
+        .product-price { font-size:2rem; color:#e0e0e0; margin:1rem 0; font-weight:300; }
+        .footer {
+            background-color:#111; padding:4rem 2rem 2rem; border-top:1px solid #222; margin-top:4rem;
+        }
+        .footer-content {
+            max-width:1200px; margin:0 auto; display:grid; grid-template-columns:repeat(4, 1fr); gap:2rem; text-align:left;
+        }
+        .footer-section h3, .footer-section h4 { font-family:'Cormorant Garamond', serif; color:#fff; margin-bottom:1rem; font-weight:400; }
+        .footer-section p { color:#888; font-size:0.9rem; }
+        .footer-section ul { list-style:none; }
+        .footer-section li { margin-bottom:0.5rem; }
+        .footer-section a { color:#888; text-decoration:none; transition:color 0.3s; font-size:0.9rem; }
+        .footer-section a:hover { color:#e0e0e0; }
+        .newsletter form { display:flex; margin-top:1rem; }
+        .newsletter input {
+            flex:1; padding:0.6rem; background:#222; border:1px solid #333;
+            color:#fff; border-radius:4px 0 0 4px; font-size:0.9rem;
+        }
+        .newsletter input:focus { outline:none; border-color:#e0e0e0; }
+        .newsletter button {
+            padding:0.6rem 1rem; background:#e0e0e0; color:#0a0a0a; border:none;
+            border-radius:0 4px 4px 0; cursor:pointer; font-weight:600; transition:background 0.3s;
+        }
+        .newsletter button:hover { background:#c0c0c0; }
+        .footer-bottom { border-top:1px solid #222; margin-top:2rem; padding-top:2rem; text-align:center; }
+        .footer-bottom p { color:#666; font-size:0.8rem; }
+        @media (max-width:1024px) { .footer-content { grid-template-columns:repeat(2, 1fr); } }
+        @media (max-width:768px) {
+            .hero h1 { font-size:3rem; }
+            .nav-links { display:none; }
+            .footer-content { grid-template-columns:1fr; text-align:center; }
+            .newsletter form { max-width:300px; margin:1rem auto; }
+        }
+
+        /* -----------------------------------------------
+           NEW TESTER SECTION STYLES (added to your existing)
+        ----------------------------------------------- */
+        .tester-section {
             background-color: #111;
+            border-radius: 12px;
+            padding: 3rem;
+            margin: 4rem 0;
+            border: 1px solid #222;
+        }
+        .tester-section h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-weight: 300;
+            color: #fff;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        .tester-password-modal {
+            max-width: 400px;
+            margin: 2rem auto;
+            background-color: #0a0a0a;
             border-radius: 12px;
             padding: 2rem;
             border: 1px solid #222;
-            transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
-            text-align: center;
-            position: relative;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease, transform 0.6s ease, border-color 0.3s, box-shadow 0.3s;
         }
-
-        .product-card.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .product-card:hover {
-            transform: translateY(-5px);
-            border-color: #e0e0e0;
-            box-shadow: 0 10px 30px -10px rgba(224,224,224,0.2);
-        }
-
-        .badge {
-            position: absolute;
-            top: 1rem;
-            left: 1rem;
-            background: #e0e0e0;
-            color: #0a0a0a;
-            padding: 0.3rem 0.8rem;
-            font-size: 0.7rem;
-            letter-spacing: 0.1em;
-            border-radius: 20px;
-            font-weight: 500;
-        }
-
-        .product-image {
+        .tester-password-modal input {
             width: 100%;
-            height: 250px;
+            padding: 1rem;
+            margin-bottom: 1rem;
             background-color: #222;
-            border-radius: 8px;
-            margin-bottom: 1.5rem;
-            background-size: cover;
-            background-position: center;
-        }
-
-        .product-card h3 {
-            font-size: 2rem;
-            color: #fff;
-            margin-bottom: 0.5rem;
-            font-family: 'Cormorant Garamond', serif;
-        }
-
-        .product-tag {
-            color: #888;
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-        }
-
-        .product-price {
-            font-size: 2rem;
-            color: #e0e0e0;
-            margin: 1rem 0;
-            font-weight: 300;
-        }
-
-        /* Footer Styles */
-        .footer {
-            background-color: #111;
-            padding: 4rem 2rem 2rem;
-            border-top: 1px solid #222;
-            margin-top: 4rem;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 2rem;
-            text-align: left;
-        }
-
-        .footer-section h3, .footer-section h4 {
-            font-family: 'Cormorant Garamond', serif;
-            color: #fff;
-            margin-bottom: 1rem;
-            font-weight: 400;
-        }
-
-        .footer-section p {
-            color: #888;
-            font-size: 0.9rem;
-        }
-
-        .footer-section ul {
-            list-style: none;
-        }
-
-        .footer-section li {
-            margin-bottom: 0.5rem;
-        }
-
-        .footer-section a {
-            color: #888;
-            text-decoration: none;
-            transition: color 0.3s;
-            font-size: 0.9rem;
-        }
-
-        .footer-section a:hover {
-            color: #e0e0e0;
-        }
-
-        .newsletter form {
-            display: flex;
-            margin-top: 1rem;
-        }
-
-        .newsletter input {
-            flex: 1;
-            padding: 0.6rem;
-            background: #222;
             border: 1px solid #333;
             color: #fff;
-            border-radius: 4px 0 0 4px;
-            font-size: 0.9rem;
+            border-radius: 4px;
         }
-
-        .newsletter input:focus {
+        .tester-password-modal input:focus {
             outline: none;
             border-color: #e0e0e0;
         }
-
-        .newsletter button {
-            padding: 0.6rem 1rem;
-            background: #e0e0e0;
+        .tester-password-modal button {
+            width: 100%;
+            padding: 1rem;
+            background-color: #e0e0e0;
             color: #0a0a0a;
             border: none;
-            border-radius: 0 4px 4px 0;
-            cursor: pointer;
+            border-radius: 4px;
             font-weight: 600;
+            cursor: pointer;
             transition: background 0.3s;
         }
-
-        .newsletter button:hover {
-            background: #c0c0c0;
+        .tester-password-modal button:hover {
+            background-color: #c0c0c0;
         }
-
-        .footer-bottom {
-            border-top: 1px solid #222;
+        .tester-form {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
             margin-top: 2rem;
-            padding-top: 2rem;
-            text-align: center;
         }
-
-        .footer-bottom p {
-            color: #666;
-            font-size: 0.8rem;
+        .tester-form .full-width {
+            grid-column: span 2;
         }
-
-        @media (max-width: 1024px) {
-            .footer-content {
-                grid-template-columns: repeat(2, 1fr);
-            }
+        .tester-form input,
+        .tester-form select,
+        .tester-form textarea {
+            width: 100%;
+            padding: 1rem;
+            background-color: #222;
+            border: 1px solid #333;
+            color: #fff;
+            border-radius: 4px;
+            font-family: inherit;
         }
-
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 3rem;
-            }
-            .nav-links {
-                display: none;
-            }
-            .footer-content {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-            .newsletter form {
-                max-width: 300px;
-                margin: 1rem auto;
-            }
+        .tester-form textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        .tester-form button[type="submit"] {
+            grid-column: span 2;
+            padding: 1rem;
+            background-color: #e0e0e0;
+            color: #0a0a0a;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .tester-form button[type="submit"]:hover {
+            background-color: #c0c0c0;
+        }
+        .hidden {
+            display: none;
         }
     </style>
 </head>
@@ -368,8 +230,8 @@
     </div>
 
     <div id="story" class="section">
-        <div style="max-width: 800px; margin: 0 auto; text-align: center;">
-            <p style="color: #aaa; font-size: 1.2rem; line-height: 1.8; font-style: italic; font-family: 'Cormorant Garamond', serif;">
+        <div style="max-width:800px; margin:0 auto; text-align:center;">
+            <p style="color:#aaa; font-size:1.2rem; line-height:1.8; font-style:italic; font-family:'Cormorant Garamond', serif;">
                 "Before fragrance, there was void. A silent, odorless expanse of air.<br><br>
                 Then came the first convergence. A molecule met the air.<br>
                 At that moment, a new scent emerged.<br><br>
@@ -385,29 +247,72 @@
         <div class="product-grid">
             <div class="product-card">
                 <span class="badge">NEW</span>
-                <div class="product-image" style="background-image: url('https://via.placeholder.com/400x300/1a1a1a/444?text=Genesis+001');"></div>
+                <div class="product-image" style="background-image:url('https://via.placeholder.com/400x300/1a1a1a/444?text=Genesis+001');"></div>
                 <h3>GENESIS 001</h3>
                 <div class="product-tag">For Him · Eau de Parfum</div>
                 <div class="product-price">$32</div>
-                <p style="color: #aaa; margin-bottom: 1.5rem;">Warm spices, creamy woods, enveloping musk.</p>
+                <p style="color:#aaa; margin-bottom:1.5rem;">Warm spices, creamy woods, enveloping musk.</p>
                 <a href="/product/genesis-001" class="btn">VIEW</a>
             </div>
             <div class="product-card">
-                <div class="product-image" style="background-image: url('https://via.placeholder.com/400x300/1a1a1a/444?text=Genesis+002');"></div>
+                <div class="product-image" style="background-image:url('https://via.placeholder.com/400x300/1a1a1a/444?text=Genesis+002');"></div>
                 <h3>GENESIS 002</h3>
                 <div class="product-tag">For Her · Eau de Parfum</div>
                 <div class="product-price">$32</div>
-                <p style="color: #aaa; margin-bottom: 1.5rem;">Midnight Vanille, warm florals, skin-like musk.</p>
+                <p style="color:#aaa; margin-bottom:1.5rem;">Midnight Vanille, warm florals, skin-like musk.</p>
                 <a href="/product/genesis-002" class="btn">VIEW</a>
             </div>
             <div class="product-card">
                 <span class="badge">BESTSELLER</span>
-                <div class="product-image" style="background-image: url('https://via.placeholder.com/400x300/1a1a1a/444?text=Discovery+Set');"></div>
+                <div class="product-image" style="background-image:url('https://via.placeholder.com/400x300/1a1a1a/444?text=Discovery+Set');"></div>
                 <h3>DISCOVERY SET</h3>
                 <div class="product-tag">Two 2ml Samples</div>
                 <div class="product-price">$7</div>
-                <p style="color: #aaa; margin-bottom: 1.5rem;">Experience both genesis events.</p>
+                <p style="color:#aaa; margin-bottom:1.5rem;">Experience both genesis events.</p>
                 <a href="/product/discovery-set" class="btn">VIEW</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ------------------------------------------------
+         TESTER FEEDBACK SECTION - Password: 001
+    ------------------------------------------------- -->
+    <div class="section" id="tester">
+        <div class="tester-section">
+            <h3>TESTER FEEDBACK</h3>
+            <p style="color: #aaa; text-align: center; margin-bottom: 2rem;">For authorized testers only. Enter password to access.</p>
+
+            <div id="tester-password-section">
+                <div class="tester-password-modal">
+                    <input type="password" id="tester-password" placeholder="Enter password">
+                    <button onclick="checkTesterPassword()">SUBMIT</button>
+                </div>
+            </div>
+
+            <div id="tester-form-section" class="hidden">
+                <form class="tester-form" id="tester-review-form">
+                    <input type="text" id="tester-name" placeholder="Your Name" required>
+                    <select id="tester-price" required>
+                        <option value="" disabled selected>Price for 10ml?</option>
+                        <option value="15-20">$15 - $20</option>
+                        <option value="20-25">$20 - $25</option>
+                        <option value="25-30">$25 - $30</option>
+                        <option value="30-35">$30 - $35</option>
+                        <option value="35+">$35+</option>
+                    </select>
+                    <select id="tester-luxury" required>
+                        <option value="" disabled selected>Luxury rating (1-10)</option>
+                        <option value="1">1</option><option value="2">2</option><option value="3">3</option>
+                        <option value="4">4</option><option value="5">5</option><option value="6">6</option>
+                        <option value="7">7</option><option value="8">8</option><option value="9">9</option>
+                        <option value="10">10</option>
+                    </select>
+                    <input type="text" id="tester-sweetness" placeholder="Describe the sweetness">
+                    <input type="text" id="tester-vibe" placeholder="What vibe does this give?">
+                    <input type="text" id="tester-longevity" placeholder="Hours lasted on skin">
+                    <textarea id="tester-feedback" class="full-width" placeholder="Any suggestions? What would you change?"></textarea>
+                    <button type="submit">SUBMIT FEEDBACK</button>
+                </form>
             </div>
         </div>
     </div>
@@ -483,6 +388,47 @@
             e.preventDefault();
             alert('Thank you! We’ll notify you soon.');
             this.reset();
+        });
+
+        // ------------------------------------------------
+        // TESTER PASSWORD PROTECTION & FORM SUBMISSION
+        // ------------------------------------------------
+        function checkTesterPassword() {
+            const password = document.getElementById('tester-password').value;
+            if (password === '001') {
+                document.getElementById('tester-password-section').style.display = 'none';
+                document.getElementById('tester-form-section').classList.remove('hidden');
+            } else {
+                alert('Incorrect password');
+            }
+        }
+
+        // Tester form submission via FormSubmit
+        document.getElementById('tester-review-form')?.addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const formData = {
+                name: document.getElementById('tester-name').value,
+                price_opinion: document.getElementById('tester-price').value,
+                luxury_rating: document.getElementById('tester-luxury').value,
+                sweetness_description: document.getElementById('tester-sweetness').value,
+                vibe: document.getElementById('tester-vibe').value,
+                longevity: document.getElementById('tester-longevity').value,
+                feedback: document.getElementById('tester-feedback').value,
+                _subject: "New OSMORI Tester Review"
+            };
+
+            try {
+                await fetch('https://formsubmit.co/ajax/hello@osmori.com', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+                alert('Thank you for your feedback!');
+                document.getElementById('tester-review-form').reset();
+            } catch (error) {
+                alert('Error submitting. Please email hello@osmori.com');
+            }
         });
     </script>
 </body>
