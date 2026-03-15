@@ -1,39 +1,212 @@
-<!-- same header and navbar -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service - OSMORI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        /* Same CSS as returns.html – copy the entire style block from returns.html */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #0a0a0a;
+            color: #e0e0e0;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+        }
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgba(10,10,10,0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid #222;
+        }
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 300;
+            letter-spacing: 0.2em;
+            color: #fff;
+            text-decoration: none;
+            font-family: 'Cormorant Garamond', serif;
+        }
+        .nav-links { display: flex; gap: 3rem; }
+        .nav-links a { color: #888; text-decoration: none; font-size:0.9rem; letter-spacing:0.1em; transition:color 0.3s; }
+        .nav-links a:hover { color:#fff; }
+        .page-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 120px 2rem 4rem;
+        }
+        .page-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            font-weight: 300;
+            color: #fff;
+            letter-spacing: 0.05em;
+            margin-bottom: 2rem;
+            text-align: center;
+            position: relative;
+        }
+        .page-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 1px;
+            background-color: #e0e0e0;
+            margin: 1rem auto 0;
+        }
+        .policy-section {
+            margin-bottom: 2.5rem;
+        }
+        .policy-section h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 400;
+            color: #fff;
+            margin-bottom: 1rem;
+            letter-spacing: 0.02em;
+        }
+        .policy-section p {
+            color: #aaa;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+        .policy-section ul {
+            list-style: none;
+            margin-left: 1.5rem;
+        }
+        .policy-section li {
+            color: #aaa;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: flex-start;
+        }
+        .policy-section li::before {
+            content: "—";
+            color: #e0e0e0;
+            margin-right: 0.75rem;
+            opacity: 0.5;
+        }
+        .highlight {
+            color: #e0e0e0;
+            font-weight: 500;
+        }
+        .btn-back {
+            display: inline-block;
+            margin-top: 3rem;
+            color: #888;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+        .btn-back:hover {
+            color: #e0e0e0;
+        }
+        .footer {
+            background-color: #111;
+            padding: 4rem 2rem;
+            border-top: 1px solid #222;
+            text-align: center;
+            margin-top: 4rem;
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        .footer-links a {
+            color: #888;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .footer-links a:hover {
+            color: #e0e0e0;
+        }
+        .footer p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        @media (max-width: 768px) {
+            .navbar { padding: 1rem; }
+            .nav-links { display: none; }
+            .page-title { font-size: 2.5rem; }
+            .policy-section h2 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="/" class="logo">OSMORI</a>
+        <div class="nav-links">
+            <a href="/product/genesis-001">GENESIS 001</a>
+            <a href="/product/genesis-002">GENESIS 002</a>
+            <a href="/product/discovery-set">DISCOVERY SET</a>
+            <a href="/#story">STORY</a>
+        </div>
+    </nav>
 
-<div class="page-container">
-    <h1 class="page-title">TERMS OF SERVICE</h1>
+    <div class="page-container">
+        <h1 class="page-title">TERMS OF SERVICE</h1>
 
-    <div class="policy-section">
-        <h2>Acceptance of Terms</h2>
-        <p>By accessing or using the OSMORI website, you agree to be bound by these Terms of Service. If you do not agree, please do not use our site.</p>
+        <div class="policy-section">
+            <h2>Acceptance of Terms</h2>
+            <p>By accessing or using the OSMORI website, you agree to be bound by these Terms of Service. If you do not agree, please do not use our site.</p>
+        </div>
+
+        <div class="policy-section">
+            <h2>Intellectual Property</h2>
+            <p>All content on this site—including text, graphics, logos, images, and software—is the property of OSMORI and protected by copyright laws. You may not reproduce, distribute, or create derivative works without written permission.</p>
+        </div>
+
+        <div class="policy-section">
+            <h2>User Accounts</h2>
+            <p>You are responsible for maintaining the confidentiality of your account and password. You agree to accept responsibility for all activities that occur under your account.</p>
+        </div>
+
+        <div class="policy-section">
+            <h2>Product Information</h2>
+            <p>We strive to display product colors and descriptions accurately, but we cannot guarantee that your monitor's display is exact. We reserve the right to modify or discontinue products at any time.</p>
+        </div>
+
+        <div class="policy-section">
+            <h2>Limitation of Liability</h2>
+            <p>OSMORI shall not be liable for any indirect, incidental, or consequential damages arising from the use of our products or website.</p>
+        </div>
+
+        <div class="policy-section">
+            <h2>Changes to Terms</h2>
+            <p>We may update these terms at any time. Continued use of the site after changes constitutes acceptance.</p>
+        </div>
+
+        <a href="/" class="btn-back">← Return to OSMORI</a>
     </div>
 
-    <div class="policy-section">
-        <h2>Intellectual Property</h2>
-        <p>All content on this site—including text, graphics, logos, images, and software—is the property of OSMORI and protected by copyright laws. You may not reproduce, distribute, or create derivative works without written permission.</p>
-    </div>
-
-    <div class="policy-section">
-        <h2>User Accounts</h2>
-        <p>You are responsible for maintaining the confidentiality of your account and password. You agree to accept responsibility for all activities that occur under your account.</p>
-    </div>
-
-    <div class="policy-section">
-        <h2>Product Information</h2>
-        <p>We strive to display product colors and descriptions accurately, but we cannot guarantee that your monitor's display is exact. We reserve the right to modify or discontinue products at any time.</p>
-    </div>
-
-    <div class="policy-section">
-        <h2>Limitation of Liability</h2>
-        <p>OSMORI shall not be liable for any indirect, incidental, or consequential damages arising from the use of our products or website.</p>
-    </div>
-
-    <div class="policy-section">
-        <h2>Changes to Terms</h2>
-        <p>We may update these terms at any time. Continued use of the site after changes constitutes acceptance.</p>
-    </div>
-
-    <a href="/" class="btn-back">← Return to OSMORI</a>
-</div>
-
-<!-- same footer -->
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="https://instagram.com/osmori.official" target="_blank">INSTAGRAM</a>
+            <a href="#" onclick="window.location.href='mailto:hello@osmori.com'">CONTACT</a>
+            <a href="/shipping">SHIPPING</a>
+            <a href="/returns">RETURNS</a>
+            <a href="/terms">TERMS</a>
+            <a href="/privacy">PRIVACY</a>
+        </div>
+        <p>© 2026 OSMORI · Haskell, NJ</p>
+        <p style="margin-top: 0.5rem;">hello@osmori.com</p>
+    </footer>
+</body>
+</html>
