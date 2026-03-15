@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
+        /* Same CSS as product page footer and animations – copy from product-genesis-001.html style section, but keep the policy-specific styles */
         * {
             margin: 0;
             padding: 0;
@@ -19,6 +20,12 @@
             color: #e0e0e0;
             font-family: 'Inter', sans-serif;
             line-height: 1.6;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        body.fade-in {
+            opacity: 1;
         }
 
         .navbar {
@@ -29,7 +36,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: rgba(10, 10, 10, 0.95);
+            background-color: rgba(10,10,10,0.95);
             backdrop-filter: blur(10px);
             z-index: 1000;
             border-bottom: 1px solid #222;
@@ -89,6 +96,14 @@
 
         .policy-section {
             margin-bottom: 2.5rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .policy-section.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .policy-section h2 {
@@ -144,52 +159,127 @@
             color: #e0e0e0;
         }
 
+        /* Footer */
         .footer {
             background-color: #111;
-            padding: 4rem 2rem;
+            padding: 4rem 2rem 2rem;
             border-top: 1px solid #222;
-            text-align: center;
             margin-top: 4rem;
         }
 
-        .footer-links {
-            display: flex;
-            justify-content: center;
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
             gap: 2rem;
-            margin: 2rem 0;
-            flex-wrap: wrap;
+            text-align: left;
         }
 
-        .footer-links a {
+        .footer-section h3, .footer-section h4 {
+            font-family: 'Cormorant Garamond', serif;
+            color: #fff;
+            margin-bottom: 1rem;
+            font-weight: 400;
+        }
+
+        .footer-section p {
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a {
             color: #888;
             text-decoration: none;
             transition: color 0.3s;
+            font-size: 0.9rem;
         }
 
-        .footer-links a:hover {
+        .footer-section a:hover {
             color: #e0e0e0;
         }
 
-        .footer p {
-            color: #666;
+        .newsletter form {
+            display: flex;
+            margin-top: 1rem;
+        }
+
+        .newsletter input {
+            flex: 1;
+            padding: 0.6rem;
+            background: #222;
+            border: 1px solid #333;
+            color: #fff;
+            border-radius: 4px 0 0 4px;
             font-size: 0.9rem;
+        }
+
+        .newsletter input:focus {
+            outline: none;
+            border-color: #e0e0e0;
+        }
+
+        .newsletter button {
+            padding: 0.6rem 1rem;
+            background: #e0e0e0;
+            color: #0a0a0a;
+            border: none;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .newsletter button:hover {
+            background: #c0c0c0;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #222;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            text-align: center;
+        }
+
+        .footer-bottom p {
+            color: #666;
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 1024px) {
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
 
         @media (max-width: 768px) {
             .navbar {
                 padding: 1rem;
             }
-            
             .nav-links {
                 display: none;
             }
-            
             .page-title {
                 font-size: 2.5rem;
             }
-            
             .policy-section h2 {
                 font-size: 1.5rem;
+            }
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .newsletter form {
+                max-width: 300px;
+                margin: 1rem auto;
             }
         }
     </style>
@@ -237,16 +327,73 @@
     </div>
 
     <footer class="footer">
-        <div class="footer-links">
-            <a href="https://instagram.com/osmori.official" target="_blank">INSTAGRAM</a>
-            <a href="#" onclick="window.location.href='mailto:hello@osmori.com'">CONTACT</a>
-            <a href="/shipping">SHIPPING</a>
-            <a href="/returns">RETURNS</a>
-            <a href="/terms">TERMS</a>
-            <a href="/privacy">PRIVACY</a>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>OSMORI</h3>
+                <p>The genesis of fragrance.<br>Haskell, NJ</p>
+            </div>
+            <div class="footer-section">
+                <h4>FRAGRANCES</h4>
+                <ul>
+                    <li><a href="/product/genesis-001">Genesis 001</a></li>
+                    <li><a href="/product/genesis-002">Genesis 002</a></li>
+                    <li><a href="/product/discovery-set">Discovery Set</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>SUPPORT</h4>
+                <ul>
+                    <li><a href="/shipping">Shipping</a></li>
+                    <li><a href="/returns">Returns</a></li>
+                    <li><a href="/terms">Terms</a></li>
+                    <li><a href="/privacy">Privacy</a></li>
+                </ul>
+            </div>
+            <div class="footer-section newsletter">
+                <h4>JOIN THE GENESIS</h4>
+                <p>Be the first to know about new releases.</p>
+                <form id="newsletter-form" onsubmit="event.preventDefault(); alert('Newsletter signup coming soon!');">
+                    <input type="email" placeholder="Your email" required>
+                    <button type="submit">→</button>
+                </form>
+            </div>
         </div>
-        <p>© 2026 OSMORI · Haskell, NJ</p>
-        <p style="margin-top: 0.5rem;">hello@osmori.com</p>
+        <div class="footer-bottom">
+            <p>© 2026 OSMORI · All rights reserved · hello@osmori.com</p>
+        </div>
     </footer>
+
+    <script>
+        document.body.classList.add('fade-in');
+
+        // Intersection Observer for policy sections
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.policy-section').forEach(el => observer.observe(el));
+
+        // Smooth transitions
+        document.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                const href = link.getAttribute('href');
+                if (href && !href.startsWith('#') && !href.startsWith('http') && !href.startsWith('mailto')) {
+                    e.preventDefault();
+                    document.body.style.opacity = 0;
+                    setTimeout(() => { window.location.href = href; }, 300);
+                }
+            });
+        });
+
+        // Newsletter
+        document.getElementById('newsletter-form')?.addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you! We’ll notify you soon.');
+            this.reset();
+        });
+    </script>
 </body>
 </html>
