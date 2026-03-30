@@ -6,7 +6,7 @@
     <title>Checkout - OSMORI</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
         * { margin:0; padding:0; box-sizing:border-box; }
         body {
@@ -14,9 +14,6 @@
             color: #e0e0e0;
             font-family: 'Inter', sans-serif;
             line-height: 1.6;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
         }
         .navbar {
             padding: 1.5rem 2rem;
@@ -28,22 +25,38 @@
             letter-spacing: 0.2em;
             color: #fff;
             text-decoration: none;
+            font-family: 'Cormorant Garamond', serif;
         }
-        .checkout-container {
-            max-width: 600px;
-            margin: 4rem auto;
+        .checkout-wrapper {
+            max-width: 800px;
+            margin: 2rem auto;
             padding: 2rem;
+        }
+        .order-summary {
             background: #111;
             border-radius: 12px;
-            border: 1px solid #222;
-            flex: 1;
-        }
-        h1 {
-            font-size: 2rem;
-            font-weight: 300;
+            padding: 1.5rem;
             margin-bottom: 2rem;
-            color: #fff;
-            text-align: center;
+            border: 1px solid #222;
+        }
+        .order-summary h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin-bottom: 1rem;
+        }
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #222;
+        }
+        .summary-row.total {
+            font-weight: 600;
+            color: #e0e0e0;
+            border-bottom: none;
+            margin-top: 0.5rem;
+            font-size: 1.2rem;
         }
         .form-group {
             margin-bottom: 1.5rem;
@@ -56,31 +69,25 @@
         input {
             width: 100%;
             padding: 0.8rem;
-            background-color: #222;
+            background: #222;
             border: 1px solid #333;
             color: #fff;
             border-radius: 4px;
             font-size: 1rem;
         }
-        input:focus {
-            outline: none;
-            border-color: #e0e0e0; /* New accent color */
-        }
         .btn {
-            width: 100%;
-            padding: 1rem;
-            background-color: #e0e0e0;
+            background: #e0e0e0;
             color: #0a0a0a;
+            padding: 1rem;
             border: none;
             border-radius: 4px;
-            font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
+            width: 100%;
             transition: background 0.3s;
         }
-        .btn:hover {
-            background-color: #c0c0c0;
-        }
+        .btn:hover { background: #c0c0c0; }
+        .hidden { display: none; }
         .loader {
             border: 4px solid #333;
             border-top: 4px solid #e0e0e0;
@@ -90,27 +97,10 @@
             animation: spin 1s linear infinite;
             margin: 20px auto;
         }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        .error {
-            color: #ff6b6b;
-            margin: 1rem 0;
-        }
-        .hidden {
-            display: none;
-        }
-        #payment-element {
-            margin: 20px 0;
-        }
-        /* Style the Stripe element container */
-        .StripeElement {
-            background-color: #222 !important;
-            padding: 1rem;
-            border: 1px solid #333;
-            border-radius: 4px;
-            color: #fff;
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .error { color: #ff6b6b; margin: 1rem 0; text-align: center; }
+        #stripe-container {
+            margin-top: 2rem;
         }
     </style>
     <script src="https://js.stripe.com/v3/"></script>
@@ -120,137 +110,143 @@
         <a href="/" class="logo">OSMORI</a>
     </div>
 
-    <div class="checkout-container">
-        <form id="payment-form">
-            <div id="info-fields">
-                <h1>Complete your order</h1>
-                <div class="form-group">
-                    <label>Full name</label>
-                    <input type="text" id="name" required>
-                </div>
-                <div class="form-group">
-                    <label>Email address</label>
-                    <input type="email" id="email" required>
-                </div>
-                <button type="submit" class="btn" id="submit-button">Continue to payment</button>
-                <div id="form-error" class="error hidden"></div>
+    <div class="checkout-wrapper">
+        <div id="order-summary" class="order-summary">
+            <h2>Order Summary</h2>
+            <div id="product-details"></div>
+            <div class="summary-row">
+                <span>Subtotal</span>
+                <span id="subtotal"></span>
             </div>
-            <div id="payment-fields" class="hidden">
-                <div id="payment-element">
-                    <!-- Stripe Payment Element will be mounted here -->
-                </div>
-                <button type="submit" class="btn" id="pay-button">Pay now</button>
-                <div id="payment-error" class="error hidden"></div>
+            <div class="summary-row">
+                <span>Shipping</span>
+                <span id="shipping"></span>
             </div>
-        </form>
+            <div class="summary-row total">
+                <span>Total</span>
+                <span id="total"></span>
+            </div>
+        </div>
+
+        <div id="info-section">
+            <div class="form-group">
+                <label>Full name</label>
+                <input type="text" id="name" required>
+            </div>
+            <div class="form-group">
+                <label>Email address</label>
+                <input type="email" id="email" required>
+            </div>
+            <button id="submit-btn" class="btn">Continue to payment</button>
+            <div id="form-error" class="error hidden"></div>
+        </div>
+
         <div id="loading" class="loader hidden"></div>
+        <div id="stripe-container" class="hidden"></div>
     </div>
 
     <script>
-        const stripe = Stripe('pk_live_51T3mQtC9IV5fVEGA7gBVuD3w7dCbCifNJW9fclm8G3nHjmtJrZVyRSUxoxGJCEboaMBa5wdNDaDslqxvlZ340zJR00UJ3OfVap');
         const urlParams = new URLSearchParams(window.location.search);
         const priceId = urlParams.get('priceId');
         const productName = urlParams.get('product');
 
-        if (!priceId) {
-            document.querySelector('.checkout-container').innerHTML = '<p class="error">Missing product information. <a href="/" style="color:#e0e0e0;">Go back</a></p>';
+        // Define product details (you can expand based on priceId)
+        const productMap = {
+            'price_1T5x0OC9IV5fVEGAv2744z5V': { name: 'Genesis 001 (10ml)', price: 32, shipping: 0 },
+            'price_1T5wEHC9IV5fVEGAiUaty66w': { name: 'Genesis 001 Sample (2ml)', price: 4, shipping: 5.50 },
+            'price_1T5wGZC9IV5fVEGAFPDPlSYb': { name: 'Genesis 002 Sample (2ml)', price: 4, shipping: 5.50 },
+            'price_1T5wKCC9IV5fVEGA4mYENox1': { name: 'Discovery Set (2ml each)', price: 7, shipping: 5.50 }
+        };
+
+        const product = productMap[priceId];
+        if (!product) {
+            document.querySelector('.checkout-wrapper').innerHTML = '<p class="error">Invalid product. <a href="/">Go back</a></p>';
+        } else {
+            // Display order summary
+            document.getElementById('product-details').innerHTML = `<div class="summary-row"><span>${product.name}</span><span>$${product.price.toFixed(2)}</span></div>`;
+            document.getElementById('subtotal').innerText = `$${product.price.toFixed(2)}`;
+            document.getElementById('shipping').innerText = product.shipping === 0 ? 'Free' : `$${product.shipping.toFixed(2)}`;
+            const total = product.price + product.shipping;
+            document.getElementById('total').innerText = `$${total.toFixed(2)}`;
         }
 
         let clientSecret = null;
         let elements = null;
 
-        document.getElementById('payment-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
+        document.getElementById('submit-btn').addEventListener('click', async () => {
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
 
-            if (!clientSecret) {
-                // First step: collect name/email and create PaymentIntent
-                const name = document.getElementById('name').value.trim();
-                const email = document.getElementById('email').value.trim();
+            if (!name || !email) {
+                document.getElementById('form-error').textContent = 'Please fill in all fields.';
+                document.getElementById('form-error').classList.remove('hidden');
+                return;
+            }
 
-                if (!name || !email) {
-                    document.getElementById('form-error').textContent = 'Please fill in all fields.';
-                    document.getElementById('form-error').classList.remove('hidden');
-                    return;
-                }
+            document.getElementById('info-section').style.display = 'none';
+            document.getElementById('loading').classList.remove('hidden');
+            document.getElementById('form-error').classList.add('hidden');
 
-                // Show loading
-                document.getElementById('info-fields').style.display = 'none';
-                document.getElementById('loading').classList.remove('hidden');
-                document.getElementById('form-error').classList.add('hidden');
-
-                try {
-                    // Call your backend to create a PaymentIntent
-                    const response = await fetch('/api/create-payment-intent', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ priceId, customerEmail: email, customerName: name })
-                    });
-
-                    if (!response.ok) throw new Error('Server error');
-                    const data = await response.json();
-                    clientSecret = data.clientSecret;
-
-                    // Hide loading, show payment fields
-                    document.getElementById('loading').classList.add('hidden');
-                    document.getElementById('payment-fields').classList.remove('hidden');
-
-                    // Initialize Elements with appearance
-                    elements = stripe.elements({
-                        clientSecret,
-                        appearance: {
-                            theme: 'night',
-                            variables: {
-                                colorPrimary: '#e0e0e0',
-                                colorBackground: '#0a0a0a',
-                                colorText: '#ffffff',
-                                colorDanger: '#ff6b6b',
-                                fontFamily: 'Inter, sans-serif',
-                                borderRadius: '4px',
-                                colorTextSecondary: '#aaaaaa'
-                            },
-                            rules: {
-                                '.Input': {
-                                    backgroundColor: '#222222',
-                                    borderColor: '#333333',
-                                    color: '#ffffff'
-                                },
-                                '.Input:focus': {
-                                    borderColor: '#e0e0e0'
-                                },
-                                '.Label': {
-                                    color: '#aaaaaa'
-                                }
-                            }
-                        }
-                    });
-
-                    // Create and mount the Payment Element
-                    const paymentElement = elements.create('payment');
-                    paymentElement.mount('#payment-element');
-                } catch (error) {
-                    console.error(error);
-                    document.getElementById('loading').classList.add('hidden');
-                    document.getElementById('info-fields').style.display = 'block';
-                    document.getElementById('form-error').textContent = 'Error: ' + error.message;
-                    document.getElementById('form-error').classList.remove('hidden');
-                }
-            } else {
-                // Second step: confirm payment
-                document.getElementById('pay-button').disabled = true;
-                document.getElementById('payment-error').classList.add('hidden');
-
-                const { error } = await stripe.confirmPayment({
-                    elements,
-                    confirmParams: {
-                        return_url: 'https://osmori.com/return',
-                    },
+            try {
+                const response = await fetch('/api/create-payment-intent', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ priceId, customerEmail: email, customerName: name })
                 });
 
-                if (error) {
-                    document.getElementById('payment-error').textContent = error.message;
-                    document.getElementById('payment-error').classList.remove('hidden');
-                    document.getElementById('pay-button').disabled = false;
-                }
+                if (!response.ok) throw new Error('Server error');
+                const data = await response.json();
+                clientSecret = data.clientSecret;
+
+                document.getElementById('loading').classList.add('hidden');
+                const stripeContainer = document.getElementById('stripe-container');
+                stripeContainer.classList.remove('hidden');
+
+                const stripe = Stripe('pk_live_51T3mQtC9IV5fVEGA7gBVuD3w7dCbCifNJW9fclm8G3nHjmtJrZVyRSUxoxGJCEboaMBa5wdNDaDslqxvlZ340zJR00UJ3OfVap');
+                elements = stripe.elements({
+                    clientSecret,
+                    appearance: {
+                        theme: 'night',
+                        variables: {
+                            colorPrimary: '#e0e0e0',
+                            colorBackground: '#0a0a0a',
+                            colorText: '#ffffff',
+                            fontFamily: 'Inter, sans-serif',
+                            borderRadius: '4px'
+                        },
+                        rules: {
+                            '.Input': { backgroundColor: '#222222', borderColor: '#333333' },
+                            '.Input:focus': { borderColor: '#e0e0e0' }
+                        }
+                    }
+                });
+
+                const paymentElement = elements.create('payment');
+                paymentElement.mount('#stripe-container');
+
+                // Now confirm payment when form is submitted (Stripe will handle it)
+                const form = document.createElement('form');
+                form.id = 'payment-form';
+                form.innerHTML = '<button type="submit" class="btn" id="pay-button">Pay now</button>';
+                stripeContainer.appendChild(form);
+                document.getElementById('payment-form').addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    document.getElementById('pay-button').disabled = true;
+                    const { error } = await stripe.confirmPayment({
+                        elements,
+                        confirmParams: { return_url: 'https://osmori.com/return' }
+                    });
+                    if (error) {
+                        alert(error.message);
+                        document.getElementById('pay-button').disabled = false;
+                    }
+                });
+            } catch (error) {
+                console.error(error);
+                document.getElementById('loading').classList.add('hidden');
+                document.getElementById('info-section').style.display = 'block';
+                document.getElementById('form-error').textContent = 'Error: ' + error.message;
+                document.getElementById('form-error').classList.remove('hidden');
             }
         });
     </script>
