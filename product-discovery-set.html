@@ -3,17 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Discovery Set – Coming Soon | OSMORI</title>
+    <title>Discovery Set - OSMORI</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
-        /* Same style block as product-genesis-002.html – reuse exactly */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             background-color: #0a0a0a;
             color: #e0e0e0;
@@ -44,7 +39,7 @@
         .main-image {
             width:100%; height:600px; background-color:#111; border-radius:16px;
             border:1px solid #222; background-size:cover; background-position:center;
-            margin-bottom:1rem; transition:border-color 0.3s;
+            margin-bottom:1rem;
         }
         .thumbnail-grid {
             display: grid; grid-template-columns: repeat(3,1fr); gap:0.75rem;
@@ -57,15 +52,15 @@
         .thumbnail:hover, .thumbnail.active { border-color:#e0e0e0; }
         .product-info h1 {
             font-family:'Cormorant Garamond', serif; font-size:3.5rem; font-weight:300;
-            color:#fff; letter-spacing:0.02em; margin-bottom:0.5rem; line-height:1.2;
+            color:#fff; margin-bottom:0.5rem;
         }
         .product-subtitle {
-            font-size:1.1rem; color:#888; margin-bottom:1.5rem; font-weight:300; letter-spacing:0.05em;
+            font-size:1.1rem; color:#888; margin-bottom:1.5rem;
         }
         .product-price {
-            font-size:2.5rem; color:#e0e0e0; margin-bottom:2rem; font-weight:300;
+            font-size:2.5rem; color:#e0e0e0; margin-bottom:2rem;
         }
-        .product-price small { font-size:1rem; color:#888; font-weight:300; }
+        .product-price small { font-size:1rem; color:#888; }
         .product-description {
             color:#aaa; margin-bottom:2rem; font-size:1.1rem; line-height:1.8;
             border-bottom:1px solid #222; padding-bottom:2rem;
@@ -73,13 +68,13 @@
         .notes-section { margin-bottom:2rem; }
         .notes-section h3 {
             font-family:'Cormorant Garamond', serif; font-size:1.5rem; font-weight:400;
-            color:#fff; margin-bottom:1rem; letter-spacing:0.05em;
+            color:#fff; margin-bottom:1rem;
         }
         .notes-grid {
             display: grid; grid-template-columns: repeat(2,1fr); gap:1.5rem; margin-bottom:2rem;
         }
         .note-category h4 {
-            color:#888; font-size:0.9rem; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:0.75rem;
+            color:#888; font-size:0.9rem; text-transform:uppercase; margin-bottom:0.75rem;
         }
         .note-items { list-style:none; }
         .note-items li {
@@ -88,78 +83,48 @@
         .note-items li:before {
             content:"—"; color:#e0e0e0; margin-right:0.5rem; opacity:0.5;
         }
+        .feature-list { list-style:none; margin-bottom:2rem; }
+        .feature-list li {
+            color:#aaa; margin-bottom:0.75rem; display:flex; align-items:center;
+        }
+        .feature-list li:before {
+            content:"✓"; color:#e0e0e0; margin-right:0.75rem;
+        }
         .btn-large {
             display:inline-block; background-color:#e0e0e0; color:#0a0a0a; padding:1.2rem 2rem;
-            text-decoration:none; font-weight:500; letter-spacing:0.1em; border:none; cursor:pointer;
+            text-decoration:none; font-weight:500; letter-spacing:0.1em;
             transition:all 0.3s; border-radius:4px; font-size:1rem; width:100%; text-align:center;
             margin:1rem 0;
         }
         .btn-large:hover { background-color:#c0c0c0; transform:translateY(-2px); }
         .back-link {
-            display:inline-block; margin-top:2rem; color:#888; text-decoration:none; transition:color 0.3s;
+            display:inline-block; margin-top:2rem; color:#888; text-decoration:none;
         }
         .back-link:hover { color:#e0e0e0; }
-
-        .coming-soon-block {
-            background:#111; border:1px solid #333; border-radius:12px; padding:2rem;
-            text-align:center; margin:2rem 0;
-        }
-        .coming-soon-badge {
-            font-family:'Cormorant Garamond', serif; font-size:1.5rem; letter-spacing:0.2em;
-            color:#e0e0e0; margin-bottom:1rem;
-        }
-        .waitlist-form {
-            display:flex; flex-direction:column; gap:0.5rem; max-width:300px; margin:1rem auto 0;
-        }
-        .waitlist-form input {
-            background:#222; border:1px solid #333; padding:0.8rem; color:#fff;
-            border-radius:4px; font-size:0.9rem;
-        }
-        .waitlist-form input:focus { outline:none; border-color:#e0e0e0; }
-        .waitlist-form button {
-            background:#e0e0e0; color:#0a0a0a; border:none; padding:0.8rem; border-radius:4px;
-            font-weight:600; cursor:pointer; transition:background 0.3s;
-        }
-        .waitlist-form button:hover { background:#c0c0c0; }
-
         .footer {
             background-color:#111; padding:4rem 2rem 2rem; border-top:1px solid #222; margin-top:4rem;
         }
         .footer-content {
-            max-width:1200px; margin:0 auto; display:grid; grid-template-columns:repeat(4,1fr); gap:2rem; text-align:left;
+            max-width:1200px; margin:0 auto; display:grid; grid-template-columns:repeat(4,1fr); gap:2rem;
         }
-        .footer-section h3, .footer-section h4 { font-family:'Cormorant Garamond', serif; color:#fff; margin-bottom:1rem; font-weight:400; }
-        .footer-section p { color:#888; font-size:0.9rem; }
+        .footer-section h3, .footer-section h4 { font-family:'Cormorant Garamond', serif; color:#fff; margin-bottom:1rem; }
+        .footer-section p, .footer-section a { color:#888; font-size:0.9rem; text-decoration:none; }
+        .footer-section a:hover { color:#e0e0e0; }
         .footer-section ul { list-style:none; }
         .footer-section li { margin-bottom:0.5rem; }
-        .footer-section a { color:#888; text-decoration:none; transition:color 0.3s; font-size:0.9rem; }
-        .footer-section a:hover { color:#e0e0e0; }
         .newsletter form { display:flex; margin-top:1rem; }
         .newsletter input {
-            flex:1; padding:0.6rem; background:#222; border:1px solid #333; color:#fff; border-radius:4px 0 0 4px; font-size:0.9rem;
+            flex:1; padding:0.6rem; background:#222; border:1px solid #333; color:#fff; border-radius:4px 0 0 4px;
         }
-        .newsletter input:focus { outline:none; border-color:#e0e0e0; }
         .newsletter button {
-            padding:0.6rem 1rem; background:#e0e0e0; color:#0a0a0a; border:none; border-radius:0 4px 4px 0;
-            cursor:pointer; font-weight:600; transition:background 0.3s;
+            padding:0.6rem 1rem; background:#e0e0e0; color:#0a0a0a; border:none; border-radius:0 4px 4px 0; cursor:pointer;
         }
-        .newsletter button:hover { background:#c0c0c0; }
         .footer-bottom { border-top:1px solid #222; margin-top:2rem; padding-top:2rem; text-align:center; }
         .footer-bottom p { color:#666; font-size:0.8rem; }
-
-        @media (max-width:1024px) {
-            .product-container { grid-template-columns:1fr; gap:2rem; }
-            .product-gallery { position:relative; top:0; }
-            .main-image { height:400px; }
-            .footer-content { grid-template-columns:repeat(2,1fr); }
-        }
         @media (max-width:768px) {
-            .navbar { padding:1rem; }
+            .product-container { grid-template-columns:1fr; }
             .nav-links { display:none; }
-            .product-info h1 { font-size:2.5rem; }
-            .notes-grid { grid-template-columns:1fr; }
             .footer-content { grid-template-columns:1fr; text-align:center; }
-            .newsletter form { max-width:300px; margin:1rem auto; }
         }
     </style>
 </head>
@@ -176,7 +141,7 @@
 
     <div class="product-container">
         <div class="product-gallery">
-            <div class="main-image" style="background-image: url('https://via.placeholder.com/800x1000/1a1a1a/444?text=Discovery+Set');"></div>
+            <div class="main-image" id="main-image" style="background-image: url('https://via.placeholder.com/800x1000/1a1a1a/444?text=Discovery+Set');"></div>
             <div class="thumbnail-grid">
                 <div class="thumbnail active" onclick="changeImage(this)" style="background-image: url('https://via.placeholder.com/200x200/1a1a1a/444?text=Set');"></div>
                 <div class="thumbnail" onclick="changeImage(this)" style="background-image: url('https://via.placeholder.com/200x200/1a1a1a/444?text=Samples');"></div>
@@ -187,44 +152,42 @@
         <div class="product-info">
             <h1>DISCOVERY SET</h1>
             <div class="product-subtitle">Two 2ml Samples · Genesis 001 & 002</div>
-            <div class="product-price">Coming Soon</div>
+            <div class="product-price">$7 <small>+ $5.50 shipping</small></div>
             
             <div class="product-description">
-                Experience both genesis events. Genesis 001 is available now; Genesis 002 is being perfected.
-                Reserve your set to be the first to explore the complete OSMORI collection.
+                Experience both genesis events. Includes two 2ml spray samples and a $5 off coupon for your first full bottle of either scent.
             </div>
 
             <div class="notes-section">
                 <h3>Includes</h3>
                 <div class="notes-grid">
                     <div class="note-category">
-                        <h4>Genesis 001 (Available)</h4>
+                        <h4>Genesis 001</h4>
                         <ul class="note-items">
-                            <li>Bergamot, Cardamom</li>
-                            <li>Vanilla, Sandalwood</li>
-                            <li>Amber, Musk</li>
+                            <li>Bergamot, Lavender</li>
+                            <li>ISO E Super, Coumarin</li>
+                            <li>Sandalwood, Amber, Musk</li>
                         </ul>
                     </div>
                     <div class="note-category">
-                        <h4>Genesis 002 (Coming Soon)</h4>
+                        <h4>Genesis 002</h4>
                         <ul class="note-items">
                             <li>Raspberry, Bergamot</li>
-                            <li>Jasmine, Ylang Ylang</li>
-                            <li>Vanilla, Cashmere Musk</li>
+                            <li>Rose, Jasmine, Heliotropin</li>
+                            <li>Vanilla, Sandalwood, Cashmere Musk</li>
                         </ul>
                     </div>
                 </div>
             </div>
 
-            <div class="coming-soon-block">
-                <div class="coming-soon-badge">✨ COMING SOON ✨</div>
-                <p style="color:#aaa;">The full Discovery Set will be available when Genesis 002 launches. Join the waitlist to be notified.</p>
-                <div class="waitlist-form">
-                    <input type="email" id="waitlist-email" placeholder="Your email address">
-                    <button onclick="alert('Thank you! We\'ll notify you when the Discovery Set launches.'); document.getElementById('waitlist-email').value='';">Notify Me</button>
-                </div>
-            </div>
+            <ul class="feature-list">
+                <li>Two 2ml spray samples – discover your signature</li>
+                <li>Includes $5 off coupon for full-size bottle</li>
+                <li>Handcrafted in small batches</li>
+                <li>Premium glass vials with black card holder</li>
+            </ul>
 
+            <a href="/checkout?priceId=price_1T5wKCC9IV5fVEGA4mYENox1&product=Discovery%20Set" class="btn-large">ORDER SET</a>
             <a href="/" class="back-link">← Return to OSMORI</a>
         </div>
     </div>
@@ -239,8 +202,8 @@
                 <h4>FRAGRANCES</h4>
                 <ul>
                     <li><a href="/product/genesis-001">Genesis 001</a></li>
-                    <li><a href="/product/genesis-002">Genesis 002 (Coming Soon)</a></li>
-                    <li><a href="/product/discovery-set">Discovery Set (Coming Soon)</a></li>
+                    <li><a href="/product/genesis-002">Genesis 002</a></li>
+                    <li><a href="/product/discovery-set">Discovery Set</a></li>
                 </ul>
             </div>
             <div class="footer-section">
@@ -255,7 +218,7 @@
             <div class="footer-section newsletter">
                 <h4>JOIN THE GENESIS</h4>
                 <p>Be the first to know about new releases.</p>
-                <form id="footer-newsletter" onsubmit="event.preventDefault(); alert('Thank you!'); this.reset();">
+                <form onsubmit="event.preventDefault(); alert('Thank you!'); this.reset();">
                     <input type="email" placeholder="Your email" required>
                     <button type="submit">→</button>
                 </form>
@@ -268,10 +231,9 @@
 
     <script>
         function changeImage(thumbnail) {
-            document.querySelectorAll('.thumbnail').forEach(thumb => thumb.classList.remove('active'));
+            document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
             thumbnail.classList.add('active');
-            const bgImage = thumbnail.style.backgroundImage;
-            document.getElementById('main-image').style.backgroundImage = bgImage;
+            document.getElementById('main-image').style.backgroundImage = thumbnail.style.backgroundImage;
         }
         document.body.classList.add('fade-in');
     </script>
